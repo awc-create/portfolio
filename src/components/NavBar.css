@@ -1,0 +1,26 @@
+.vertical-menu {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.vertical-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-menu li {
+  margin: 10px 0;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+}
+
+.menu-item.active {
+  color: blue; /* Highlight the active link in blue */
+}
