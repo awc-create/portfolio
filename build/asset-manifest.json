@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.bb9db956.css",
+    "main.js": "/static/js/main.43d6b519.js",
+    "static/media/awc Logo.png": "/static/media/awc Logo.0f7c17673113d2b5ab87.png",
+    "static/media/ea5880_~mv2.avif": "/static/media/ea5880_8fdd65c70d8d40fb95ab6dd691690fc6~mv2.c09dcbdeedf4bdb7f670.avif",
+    "index.html": "/index.html",
+    "main.bb9db956.css.map": "/static/css/main.bb9db956.css.map",
+    "main.43d6b519.js.map": "/static/js/main.43d6b519.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb9db956.css",
+    "static/js/main.43d6b519.js"
+  ]
+}
