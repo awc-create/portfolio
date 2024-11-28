@@ -1,0 +1,59 @@
+.vertical-menu {
+  width: 200px;
+  position: fixed; /* Ensures it stays on the left side */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #BCC8C8; /* Matches the app's background */
+  padding: 20px;
+}
+
+.vertical-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-menu li {
+  margin: 25px 0;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: black; /* Default color for non-active links */
+  font-size: 1.2rem;
+  font-weight: 300; /* Light font for non-active items */
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.menu-item:hover {
+  color: white; /* Text turns white on hover */
+}
+
+.menu-item.active {
+  color: blue; /* Blue for the active state */
+  font-weight: 400; /* Slightly bolder font for active links */
+}
+
+.navbar-container {
+  width: 220px; /* Fixed width for alignment */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center navbar items horizontally */
+  padding-top: 20px; /* Add padding from the top */
+  position: fixed; /* Sticks the navbar to the left */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full height of the viewport */
+  background-color: #d8d7f8; /* Optional: Navbar background color */
+  border-right: 1px solid #ccc; /* Optional: Add a border for separation */
+}
+
+.navbar-container .nav-item {
+  margin: 10px 0; /* Spacing between navbar items */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
