@@ -25,3 +25,16 @@
     overflow: hidden;
     color: #FFF;
 }
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing between logo and animation */
+  }
+  
+.logo img.awc-logo {
+    width: 150px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    animation: fadeIn 2s ease-in-out; /* Optional fade-in animation */
+}

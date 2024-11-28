@@ -1,50 +1,34 @@
-import React from 'react';
-import { Link } from 'react-scroll';
-import './NavBar.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = () => {
   return (
     <nav aria-label="Site" className="vertical-menu">
       <ul>
         <li>
-          <Link 
-            to="home" 
-            smooth={true} 
-            duration={500} 
-            className="menu-item"
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")}
           >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link 
-            to="about" 
-            smooth={true} 
-            duration={500} 
-            className="menu-item"
-          >
-            About
-          </Link>
-        </li>
-        <li>
-          <Link 
-            to="projects" 
-            smooth={true} 
-            duration={500} 
-            className="menu-item"
+          <NavLink
+            to="/projects"
+            className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")}
           >
             Projects
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link 
-            to="book-online" 
-            smooth={true} 
-            duration={500} 
-            className="menu-item"
+          <NavLink
+            to="/book-online"
+            className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")}
           >
             Book Online
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>
