@@ -2,7 +2,7 @@
 .home {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Keep container centered */
   justify-content: flex-start;
   height: 100%; /* Full height of the page */
   padding: 20px;
@@ -14,7 +14,7 @@
   margin-top: 80px; /* Adjust this value to align the tabs with the navbar */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the tabs container */
+  align-items: center; /* Center the container */
   justify-content: flex-start;
   height: 100%;
   width: 100%;
@@ -87,19 +87,21 @@
 .tab-content {
   display: flex;
   flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
+  align-items: flex-start; /* Align text to the left */
+  justify-content: center; /* Keep content vertically centered */
   font-size: 1rem;
   line-height: 1.6;
   color: #555;
-  width: 100%;
-  padding: 10px;
+  width: 75%;
+  padding: 5px;
   box-sizing: border-box;
   word-wrap: break-word; /* Prevent long words from expanding horizontally */
-  text-align: center; /* Center text horizontally */
+  text-align: left; /* Align text to the left */
 }
 
 .awc-logo {
+  display: block; /* Makes it a block-level element */
+  margin: 0 auto 20px; /* Center the image horizontally */
   max-width: 200px; /* Adjust the width */
   height: auto; /* Maintain aspect ratio */
   margin-bottom: 20px; /* Add spacing below the logo */
@@ -107,10 +109,11 @@
 
 /* Styling for the profile image in the "Me" tab */
 .profile-image {
-  width: 100px; /* Adjust width as needed */
-  height: 150px; /* Adjust height to create a portrait ratio */
-  border-radius: 50%; /* Makes the image oval */
+  display: block; /* Makes it a block-level element */
+  margin: 0 auto 20px; /* Center the image horizontally */
+  width: 100px; /* Maintain size */
+  height: 150px; /* Maintain size */
+  border-radius: 50%; /* Keeps the oval shape */
   object-fit: cover; /* Ensures the image fits within the oval */
-  margin-bottom: 20px; /* Add spacing below the image */
-  border: 3px solid #ccc; /* Optional: Add a border around the image */
+  border: 3px solid #ccc; /* Optional border */
 }
