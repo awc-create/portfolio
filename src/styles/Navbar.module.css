@@ -1,0 +1,73 @@
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  left: 0; /* Keeps navbar in the same X-axis position */
+  top: 50%; /* Moves navbar to the vertical center */
+  transform: translateY(-50%); /* Centers it properly */
+  height: auto; /* Allows it to adjust based on content */
+  width: 240px;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure Navbar Matches Global Theme */
+.light-mode .navbar {
+  background-color: var(--background-light);
+  color: var(--foreground-light);
+}
+
+.dark-mode .navbar {
+  background-color: var(--background-dark);
+  color: var(--foreground-dark);
+}
+
+/* Navbar List */
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* Navbar Items */
+.navbar li {
+  margin: 15px 0;
+}
+
+/* Navbar Links */
+.navbar a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+}
+
+/* ✅ FIXED: Theme Toggle Button (Now Absolutely Positioned) */
+.toggle-button {
+  position: absolute; /* Forces it outside navbar positioning */
+  top: 10px; /* Positions button at the top */
+  right: 20px; /* Moves button to the right */
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #666;
+}
