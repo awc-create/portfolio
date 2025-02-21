@@ -1,0 +1,17 @@
+name: Trigger CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify-cicd-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Deployment Trigger
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          --data '{"event_type": "deploy"}' \
+          https://api.github.com/repos/your-username/multi-site-cicd/dispatches
