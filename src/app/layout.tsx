@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import Preloader from "@/components/Preloader"; // ✅ Import Preloader
+import Preloader from "@/components/Preloader";
+import Banner from "@/components/Banner";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -24,7 +25,7 @@ export default function RootLayout({
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 6000); // Adjust delay as needed
+    const timer = setTimeout(() => setIsLoaded(true), 6060);
     return () => clearTimeout(timer);
   }, []);
 
@@ -34,6 +35,7 @@ export default function RootLayout({
       {!isLoaded && <Preloader onLoaded={() => setIsLoaded(true)} />}
         {isLoaded && (
           <>
+            <Banner />
             <Navbar />
             {children}
           </>
