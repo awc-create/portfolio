@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import "@/styles/Preloader.css";
-import awcLogo from "@/assets/logo.png"; // ✅ Adjust path if needed
+import awcLogo from "@/assets/logo.png";
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -11,12 +11,12 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-      if (onLoaded) onLoaded(); // ✅ Only call if `onLoaded` exists
+      if (onLoaded) onLoaded();
     }, 7000);
     return () => clearTimeout(timer);
   }, [onLoaded]);
   
-
+  
   if (!isVisible) return null;
 
   return (

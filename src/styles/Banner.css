@@ -1,0 +1,62 @@
+/* Banner Styles */
+.banner {
+    position: fixed;
+    top: 0;
+    left: -50px; /* ✅ Moves banner further left */
+    width: calc(100% + 50px); /* ✅ Extends width to prevent clipping */
+    height: 150px;
+    background-color: var(--background);
+    color: var(--foreground);
+    display: flex;
+    align-items: center;
+    padding-left: 40px; /* ✅ Adjusted spacing */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Light Mode */
+  .light-mode .banner {
+    background-color: var(--background-light);
+    color: var(--foreground-light);
+  }
+  
+  /* Dark Mode */
+  .dark-mode .banner {
+    background-color: var(--background-dark);
+    color: var(--foreground-dark);
+  }
+  
+  /* Animated Text */
+  .banner-content {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-align: left;
+    padding-left: 40px;
+  }
+  
+  /* Static Text ("AWC" after animation) */
+  .static-text {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Shake Animation */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* Apply shake effect when needed */
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  /* Shake on Hover */
+  .banner-content:hover {
+    animation: shake 0.5s ease-in-out;
+  }
+  
