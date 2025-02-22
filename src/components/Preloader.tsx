@@ -18,13 +18,9 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   
   
   if (!isVisible) return null;
-
   return (
-    <div className="preloader">
-      {/* <div className="logo">
-        <img src={awcLogo} alt="AWC Logo" className="awc-logo" />
-      </div> */}
-      <div className="banner-animation">
+    <div className="preloader" data-testid="preloader">
+      <div className="banner-animation" data-testid="banner-animation">
         <TypeAnimation
           sequence={["Welcome to", 1000, "Adaptive Workflow Consultancy", 1000]}
           speed={50}
@@ -33,7 +29,7 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
         />
       </div>
     </div>
-  );
+  );  
 };
 
 export default Preloader;

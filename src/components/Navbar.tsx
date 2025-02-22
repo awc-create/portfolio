@@ -7,12 +7,13 @@ const Navbar: React.FC = () => {
     <nav className={styles.navbar}>
       <div className={styles["navbar-container"]}>
 
-        {/* Navigation Links */}
-        <ul className={styles["nav-links"]}>
-          <li><Link href="/services">Services</Link></li>
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
-        </ul>
+         {/* Navigation Links */}
+         <ul className={styles["nav-links"]}>
+          <li><Link href="/services" data-testid="nav-services">Services</Link></li>
+          <li><Link href="/about" data-testid="nav-about">About</Link></li>
+          <li><Link href="/contact" data-testid="nav-contact">Contact</Link></li>
+         </ul>
+
 
         {/* Book Now Button */}
         {/* <Button text="Book Now" href="/book" variant="primary" className={styles["book-now-button"]} /> */}
