@@ -19,5 +19,4 @@ const customJestConfig = {
   testPathIgnorePatterns: ["/node_modules/", "/dist/"]
 };
 
-// ✅ Correct way to export Jest configuration
 module.exports = createJestConfig(customJestConfig);
