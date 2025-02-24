@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - 'feat/**'
+      - 'fix/**'
 
 jobs:
   notify-cicd-repo:
@@ -11,7 +13,13 @@ jobs:
     steps:
       - name: Send Deployment Trigger
         run: |
-          curl -X POST -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+          curl -X POST \
+          -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
           -H "Accept: application/vnd.github.everest-preview+json" \
-          --data '{"event_type": "deploy", "client_payload": {"repository": "${{ github.repository }}"}}' \
+          --data '{"event_type": "deploy", "client_payload": {
+            "repository": "${{ github.repository }}",
+            "repository_name": "${{ github.event.repository.name }}",
+            "branch": "${{ github.ref_name }}"
+          }}' \
           https://api.github.com/repos/awc-create/awc-multi-site-cicd/dispatches
+
