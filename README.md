@@ -34,3 +34,61 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Multiple Project Repos
+(portfolio, blog, static-site, etc.)
+      │
+      │ Commit & push explicitly (branches: feat/**, fix/**, or main)
+      ▼
+┌───────────────────────────┐
+│ Trigger Deploy Workflow   │ (trigger-deploy.yml in each project)
+└─────────────┬─────────────┘
+              │ Explicit API trigger (repository_dispatch)
+              ▼
+┌─────────────────────────────────────────────────┐
+│ Central CI/CD Repo explicitly                  │
+│ (`awc-multi-site-cicd`)                         │
+│ ┌─────────────────────────────────────────────┐ │
+│ │              Build and Test                 │ │ (build.yml)
+│ └───────────────┬───────────────┬─────────────┘ │
+└─────────────────┼───────────────┼───────────────┘
+                  │               │
+                  │               │
+                  │               └── Branch explicitly "main"───►
+                  │                      ┌───────────────────────────────┐
+                  │                      │ Production Deployment         │ (production.yml)
+                  │                      │ (Portfolio, Blog, Static-site)│
+                  │                      └───────────┬───────────┬───────┘
+                  │                                  │           │
+                  │                                  │           │
+                  │                                  ▼           ▼
+                  │                         ┌─────────────┐  ┌─────────────┐
+                  │                         │ Vercel Prod │  │ Vercel Prod │
+                  │                         │ (Portfolio) │  │   (Blog)    │
+                  │                         └─────────────┘  └─────────────┘
+                  │                             │
+                  │                             ▼
+                  │                        ┌─────────────┐
+                  │                        │ Vercel Prod │
+                  │                        │(Static-site)│
+                  │                        └─────────────┘
+                  │
+                  │
+                  └── Branch explicitly "feat/**" or "fix/**"───►
+                              ┌─────────────────────────────┐
+                              │ Preview Deployment          │ (preview.yml)
+                              │ (Portfolio, Blog, Static-site)│
+                              └───────────┬───────────┬─────┘
+                                          │           │
+                                          ▼           ▼
+                                 ┌───────────────┐ ┌───────────────┐
+                                 │ Vercel Preview│ │ Vercel Preview│
+                                 │ (Portfolio)   │ │   (Blog)      │
+                                 └───────────────┘ └───────────────┘
+                                            │
+                                            ▼
+                                  ┌───────────────┐
+                                  │Vercel Preview │
+                                  │ (Static-site) │
+                                  └───────────────┘
+
