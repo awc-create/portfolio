@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import "@/styles/Preloader.css";
-import awcLogo from "@/assets/logo.png";
+import Image from 'next/image';
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -15,11 +15,21 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
     }, 7000);
     return () => clearTimeout(timer);
   }, [onLoaded]);
-  
-  
+
   if (!isVisible) return null;
+
   return (
     <div className="preloader" data-testid="preloader">
+      <div className="logo">
+        <Image
+          src="/images/awc logo.png"
+          alt="AWC Logo"
+          width={200}
+          height={200}
+          priority={true}
+        />
+      </div>
+
       <div className="banner-animation" data-testid="banner-animation">
         <TypeAnimation
           sequence={["Welcome to", 1000, "Adaptive Workflow Consultancy", 1000]}
