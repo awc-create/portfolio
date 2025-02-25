@@ -3,17 +3,24 @@
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import "@/styles/Preloader.css";
-import Image from 'next/image';
+import Image from "next/image";
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
+    const hasSeenPreloader = localStorage.getItem("hasSeenPreloader");
+
+    if (!hasSeenPreloader) {
+      setIsVisible(true);
+      setTimeout(() => {
+        setIsVisible(false);
+        localStorage.setItem("hasSeenPreloader", "true"); // ✅ Store flag in cache
+        if (onLoaded) onLoaded();
+      }, 7000); // ✅ Adjust duration if needed
+    } else {
       if (onLoaded) onLoaded();
-    }, 7000);
-    return () => clearTimeout(timer);
+    }
   }, [onLoaded]);
 
   if (!isVisible) return null;
@@ -39,7 +46,7 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
         />
       </div>
     </div>
-  );  
+  );
 };
 
 export default Preloader;
