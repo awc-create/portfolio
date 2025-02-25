@@ -15,9 +15,9 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
       setIsVisible(true);
       setTimeout(() => {
         setIsVisible(false);
-        localStorage.setItem("hasSeenPreloader", "true"); // ✅ Store flag in cache
+        localStorage.setItem("hasSeenPreloader", "true");
         if (onLoaded) onLoaded();
-      }, 7000); // ✅ Adjust duration if needed
+      }, 7000);
     } else {
       if (onLoaded) onLoaded();
     }
