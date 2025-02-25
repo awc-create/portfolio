@@ -5,6 +5,7 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
+  preset: "ts-jest",  // ✅ Explicitly specify ts-jest preset
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jest-environment-jsdom",
   testTimeout: 15000,
@@ -14,8 +15,9 @@ const customJestConfig = {
   ],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest"  // ✅ Explicitly define transform for TypeScript
   },
+  transformIgnorePatterns: ["/node_modules/"],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"]
 };
 
