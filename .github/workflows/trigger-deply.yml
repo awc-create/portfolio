@@ -11,6 +11,16 @@ jobs:
   notify-cicd-repo:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug GitHub Repository Info
+        run: |
+          echo "Repository Name: ${{ github.repository }}"
+          echo "Repository Full Name: ${{ github.event.repository.full_name }}"
+          echo "Repository Owner: ${{ github.event.repository.owner.login }}"
+          echo "Branch Name: ${{ github.ref_name }}"
+          echo "Current Working Directory: $(pwd)"
+          echo "Listing Contents:"
+          ls -la
+
       - name: Send Deployment Trigger
         run: |
           curl -X POST \
