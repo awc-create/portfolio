@@ -29,7 +29,7 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
     <div className="preloader" data-testid="preloader">
       <div className="logo">
         <Image
-          src="/images/awc logo.png"
+          src="/images/awclogo.png"
           alt="AWC Logo"
           width={200}
           height={200}
