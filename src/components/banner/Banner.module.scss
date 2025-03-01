@@ -32,11 +32,11 @@
 }
 
 .staticText {
-  font-size: 8rem; /* ✅ Keeps AWC large */
+  font-size: 2rem; /* ✅ Keeps AWC large */
   font-weight: bold;
-  padding-left: 50px;
+  padding-left: 5px;
   line-height: 1.2;
-  white-space: nowrap; /* ✅ Prevents text from breaking on small screens */
+  white-space: nowrap;
 }
 
 /* ✅ Subtitle correctly positioned below AWC */
@@ -50,40 +50,20 @@
   color: var(--foreground);
 }
 
-/* Shake Animation */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-3px); }
-  40% { transform: translateX(3px); }
-  60% { transform: translateX(-3px); }
-  80% { transform: translateX(3px); }
-  100% { transform: translateX(0); }
-}
-
-/* Apply shake effect when needed */
-.shake {
-  animation: shake 0.4s ease-in-out;
-}
-
-/* Shake on Hover */
-.bannerContent:hover {
-  animation: shake 0.4s ease-in-out;
-}
-
-/* 📱 RESPONSIVE DESIGN - Ensures everything adapts on smaller screens */
-@media (max-width: 1024px) {
+/* 📱 RESPONSIVE DESIGN - Ensures Banner Adapts on Smaller Screens */
+@media (max-width: 1200px) {
   .staticText {
-    font-size: 6rem; /* 📏 Adjust AWC size for tablets */
+    font-size: 6rem; /* ✅ Adjust AWC size for tablets */
     padding-left: 20px;
   }
   .bannerSubtitle {
-    font-size: 18px; /* 📏 Slightly smaller subtitle */
+    font-size: 18px; /* ✅ Slightly smaller subtitle */
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .staticText {
-    font-size: 4rem; /* 📏 Adjust AWC size for smaller devices */
+    font-size: 5rem; /* ✅ Adjust AWC size for smaller devices */
     padding-left: 15px;
   }
   .bannerSubtitle {
@@ -91,13 +71,34 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .staticText {
-    font-size: 3rem; /* 📏 Adjust AWC size for mobile */
+    font-size: 4rem; /* ✅ Adjust AWC size for smaller screens */
     padding-left: 10px;
   }
   .bannerSubtitle {
+    font-size: 15px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  .staticText {
+    font-size: 3.5rem; /* ✅ Adjust AWC size for smaller devices */
+    padding-left: 8px;
+  }
+  .bannerSubtitle {
     font-size: 14px;
-    text-align: left; /* 📏 Ensures proper alignment on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .staticText {
+    font-size: 3rem; /* ✅ Adjust AWC size for mobile */
+    padding-left: 5px;
+  }
+  .bannerSubtitle {
+    font-size: 13px;
+    text-align: left;
   }
 }
