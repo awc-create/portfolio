@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import Preloader from "@/components/Preloader";
+import Preloader from "@/components/preloader/Preloader";
 
 describe("Preloader Component", () => {
   it(

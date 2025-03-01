@@ -1,0 +1,45 @@
+/* Outer container for the tabs */
+.tabsContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0;
+  }
+  
+  /* Tabs wrapper */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    background-color: var(--background);
+  }
+  
+  /* Individual tab styling */
+  .tab {
+    margin: 0 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--foreground);
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .tab:hover {
+    color: blue;
+  }
+  
+  .tab.active {
+    font-weight: bold;
+    color: blue;
+  }
+  
+  .tab.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: blue;
+    width: 100%;
+    position: relative;
+    margin-top: 5px;
+  }
+  

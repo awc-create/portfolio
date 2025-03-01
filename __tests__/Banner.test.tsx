@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import Banner from "@/components/Banner";
+import Banner from "@/components/banner/Banner";
 
 describe("Banner Component", () => {
   it(
