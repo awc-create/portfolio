@@ -1,11 +1,11 @@
-/* Page Layout */
+/* ✅ Page Layout */
 .layout {
   display: flex;
   width: 100%;
   height: 100vh;
 }
 
-/* Left Section - Navbar */
+/* ✅ Left Section - Navbar */
 .leftSection {
   flex: 1;
   display: flex;
@@ -14,33 +14,21 @@
   background-color: var(--background);
 }
 
-/* Middle Section - Page Title */
-.middleSection {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  position: relative;
-}
-
-
-/* Center the About Title */
+/* ✅ Keeps About Title Centered on Desktop but Hides on Mobile */
 .pageTitle {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* ✅ Centers both vertically and horizontally */
+  transform: translate(-50%, -50%);
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
   width: 100%;
   z-index: 10;
-  margin: 0; /* Ensures no extra spacing */
+  margin: 0;
 }
 
-
-/* Right Section - Tabs & Content */
+/* ✅ Right Section - Tabs & Content */
 .rightSection {
   flex: 2;
   display: flex;
@@ -51,10 +39,11 @@
   align-self: flex-end;
 }
 
+/* ✅ Keeps Tabs & Content in One Fixed Position */
 .borderContainer {
   border-radius: 8px;
   width: 100%;
-  height: 550px;
+  height: 550px; /* ✅ Fixed height to prevent movement */
   max-width: 800px;
   box-sizing: border-box;
   display: flex;
@@ -68,112 +57,147 @@
   transform: translate(-50%, -50%);
 }
 
-/* Tabs Container - Ensures Tabs Stay Fixed */
+/* ✅ Tabs Stay Fixed */
 .tabsContainer {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  background-color: var(--background);
+  z-index: 10;
+  padding: 3px 0;
 }
 
-/* Content Section */
+/* ✅ Make Tabs Smaller & Stay in One Line */
+.tabsContainer a {
+  font-size: 1rem;
+  margin: 0 6px;
+  white-space: nowrap; /* ✅ Prevents wrapping */
+}
+
+/* ✅ Content Stays Inside Fixed Container */
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: 1rem;
   line-height: 1.6;
   color: #555;
-  width: 59%; /* ✅ Reduced width further */
-  max-width: 550px; /* ✅ Tightens the text area */
+  width: 100%;
+  max-width: 550px;
   text-align: center;
-  margin: 0 auto; /* ✅ Ensures perfect centering */
-  padding: 0 20px; /* ✅ Adds breathing room */
-  word-wrap: break-word; /* ✅ Prevents text from stretching */
+  margin: 0 auto;
+  padding: 0 15px;
+  word-wrap: break-word;
+  overflow-y: auto; /* ✅ Scroll inside the container if needed */
+  height: 100%; /* ✅ Ensures it does not push the container size */
 }
 
-/* Profile Image */
+/* ✅ Profile Image */
 .profileImage {
   display: block;
-  margin: 0 auto 20px;
+  margin: 0 auto 15px;
   width: 100px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid #ccc;
+  border: 4px solid #ccc;
 }
 
-/* Coming Soon List */
+/* ✅ Coming Soon List */
 .comingSoonList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .comingSoonList p {
-  margin: 5px 0;
+  margin: 4px 0;
 }
 
-/* 📱 Responsive Layout - Ensures Tabs & Content Adjust Correctly */
-@media (max-width: 1200px) {
-  .borderContainer {
-    max-width: 700px;
-    top: 480px;
-  }
-}
-
-@media (max-width: 992px) {
-  .borderContainer {
-    max-width: 600px;
-    top: 450px;
-    height: auto; /* ✅ Allows content to expand dynamically */
-  }
-  .content {
-    max-width: 500px;
-  }
-}
-
+/* 📱 **Fix for Mobile** */
 @media (max-width: 768px) {
-  .borderContainer {
-    max-width: 500px;
-    top: 420px;
-    height: auto;
+  .pageTitle {
+    display: none;
   }
+
+  .borderContainer {
+    max-width: 90%;
+    width: 90%;
+    height: 500px; /* ✅ Fixed height */
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .content {
     max-width: 400px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    height: calc(100% - 50px); /* ✅ Adjusts height while keeping space for tabs */
+  }
+
+  .tabsContainer a {
+    font-size: 0.85rem;
+    margin: 0 5px;
   }
 }
 
 @media (max-width: 600px) {
   .borderContainer {
-    width: 90%;
-    max-width: 90%;
-    top: 380px;
-    height: auto;
+    max-width: 95%;
+    width: 95%;
+    height: 500px; /* ✅ Keeps it fixed */
+    padding: 18px;
   }
+
   .content {
     width: 90%;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .tabsContainer a {
+    font-size: 0.8rem;
+    margin: 0 4px;
   }
 }
 
 @media (max-width: 480px) {
-  .borderContainer {
-    width: 95%;
-    max-width: 95%;
-    height: auto;
-    position: relative; /* ✅ Prevents it from being pushed out of view */
-    top: unset;
-    left: unset;
-    transform: none;
-    margin-top: 20px;
+  .mobileView {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
   }
-  .content {
-    font-size: 0.8rem;
+
+  .borderContainer {
+    max-width: 95%;
     width: 95%;
+    position: absolute;
+    overflow: hidden;
+    height: 500px; /* ✅ Fixed height to prevent shifting */
+    padding: 15px;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  .content {
+    font-size: 0.85rem;
+    width: 100%;
+  }
+
+  .tabsContainer {
+    margin-bottom: 5px;
+  }
+
+  .tabsContainer a {
+    font-size: 0.75rem;
+    margin: 0 3px;
   }
 }
