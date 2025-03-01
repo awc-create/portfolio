@@ -9,9 +9,9 @@ const Navbar: React.FC = () => {
 
          {/* Navigation Links */}
          <ul className={styles["nav-links"]}>
-          <li><Link href="/services" data-testid="nav-services">Services</Link></li>
+          <li><Link href="/projects" data-testid="nav-projects">Projects</Link></li>
           <li><Link href="/about" data-testid="nav-about">About</Link></li>
-          <li><Link href="/contact" data-testid="nav-contact">Contact</Link></li>
+          <li><Link href="/book-now" data-testid="nav-booking">Book Now</Link></li>
          </ul>
 
 

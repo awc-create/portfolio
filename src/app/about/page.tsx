@@ -1,13 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tabs from "@/components/tabs/Tabs";
 import styles from "./About.module.scss";
 import Image from "next/image";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("Me");
+  const [isMobile, setIsMobile] = useState(false);
+
   const tabs = ["Me", "AWC", "Builds", "Coming Soon"];
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -16,10 +26,11 @@ const About = () => {
           <>
             <div className={styles.profileImage}>
               <Image
-              src="/images/me-wb.avif"
-              alt="Profile Image"
-              width={200}
-              height={200} />
+                src="/images/me-wb.avif"
+                alt="Profile Image"
+                width={200}
+                height={200}
+              />
             </div>
             <p>
               As a former mechanical engineer, I have found myself increasingly drawn to the world
@@ -56,16 +67,11 @@ const About = () => {
 
   return (
     <div className={styles.layout}>
-      {/* Centered About Title */}
-      <h1 className={styles.pageTitle}>About</h1>
+      {!isMobile && <h1 className={styles.pageTitle}>About</h1>}
 
-      {/* Left Section - Navigation */}
-      <div className={styles.leftSection}></div>
-
-      {/* Right Section - Tabs & Content */}
-      <div className={styles.rightSection}>
+      <div className={`${styles.rightSection} ${isMobile ? styles.mobileView : ""}`}>
         <div className={styles.borderContainer}>
-          <div className={styles.tabsContainer}>
+          <div className={`${styles.tabsContainer} ${isMobile ? styles.mobileTabs : ""}`}>
             <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
           </div>
           <div className={styles.content}>{renderContent()}</div>
