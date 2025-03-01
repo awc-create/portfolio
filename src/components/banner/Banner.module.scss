@@ -1,0 +1,103 @@
+/* Banner Styles */
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0; /* ✅ Aligns exactly with the Navbar */
+  width: 100%;
+  height: 150px;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  padding-left: 20px; /* ✅ Adjusted for proper alignment */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ✅ Wraps AWC & Subtitle together */
+.bannerContainer {
+  display: flex;
+  flex-direction: column; /* ✅ Ensures subtitle is below AWC */
+  align-items: flex-start; /* ✅ Aligns with Navbar */
+  padding-left: 15px; /* ✅ Matches Navbar alignment */
+}
+
+/* Align banner text to the same X position as Navbar */
+.bannerContent {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding-left: 10px; /* ✅ Matches Navbar text alignment */
+  transition: transform 0.3s ease-in-out;
+}
+
+.staticText {
+  font-size: 8rem; /* ✅ Keeps AWC large */
+  font-weight: bold;
+  padding-left: 50px;
+  line-height: 1.2;
+  white-space: nowrap; /* ✅ Prevents text from breaking on small screens */
+}
+
+/* ✅ Subtitle correctly positioned below AWC */
+.bannerSubtitle {
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+  margin-top: 5px; /* ✅ Controls spacing below AWC */
+  font-family: "Red Hat Text", sans-serif;
+  color: var(--foreground);
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+/* Apply shake effect when needed */
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Shake on Hover */
+.bannerContent:hover {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* 📱 RESPONSIVE DESIGN - Ensures everything adapts on smaller screens */
+@media (max-width: 1024px) {
+  .staticText {
+    font-size: 6rem; /* 📏 Adjust AWC size for tablets */
+    padding-left: 20px;
+  }
+  .bannerSubtitle {
+    font-size: 18px; /* 📏 Slightly smaller subtitle */
+  }
+}
+
+@media (max-width: 768px) {
+  .staticText {
+    font-size: 4rem; /* 📏 Adjust AWC size for smaller devices */
+    padding-left: 15px;
+  }
+  .bannerSubtitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .staticText {
+    font-size: 3rem; /* 📏 Adjust AWC size for mobile */
+    padding-left: 10px;
+  }
+  .bannerSubtitle {
+    font-size: 14px;
+    text-align: left; /* 📏 Ensures proper alignment on mobile */
+  }
+}

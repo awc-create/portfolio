@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
-import "@/styles/Preloader.css";
+import Styles from "./Preloader.module.scss"; // ✅ Import using relative path
 import Image from "next/image";
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
@@ -26,10 +26,10 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="preloader" data-testid="preloader">
-      <div className="logo">
+    <div className={`${Styles.preloader} ${!isVisible ? Styles.hidden : ""}`} data-testid="preloader">
+      <div className={Styles.logo}>
         <Image
-          src="/images/awclogo.png"
+          src="/awclogo.png"
           alt="AWC Logo"
           width={200}
           height={200}
@@ -37,7 +37,7 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
         />
       </div>
 
-      <div className="banner-animation" data-testid="banner-animation">
+      <div className={Styles.bannerAnimation} data-testid="banner-animation">
         <TypeAnimation
           sequence={["Welcome to", 1000, "Adaptive Workflow Consultancy", 1000]}
           speed={50}

@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Preloader from "@/components/Preloader";
-import Banner from "@/components/Banner";
-import "@/styles/globals.css";
+import Navbar from "@/components/navbar/Navbar";
+import Preloader from "@/components/preloader/Preloader";
+import Banner from "@/components/banner/Banner";
+import "@/styles/globals.scss";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
