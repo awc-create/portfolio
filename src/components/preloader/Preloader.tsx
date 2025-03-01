@@ -7,6 +7,7 @@ import Image from "next/image";
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [logoSrc, setLogoSrc] = useState("/awcLogo.png");
 
   useEffect(() => {
     const hasSeenPreloader = localStorage.getItem("hasSeenPreloader");
@@ -29,11 +30,12 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
     <div className={`${Styles.preloader} ${!isVisible ? Styles.hidden : ""}`} data-testid="preloader">
       <div className={Styles.logo}>
         <Image
-          src="/awclogo.png"
+          src={logoSrc}
           alt="AWC Logo"
           width={200}
           height={200}
           priority={true}
+          onError={() => setLogoSrc("/awcLogo.svg")}
         />
       </div>
 
