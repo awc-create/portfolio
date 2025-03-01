@@ -17,15 +17,15 @@ const BottomNav: React.FC = () => {
         </Link>
 
         <Link href="/projects" className={styles.navItem}>
-          <Icon icon={isProjectsActive ? "mdi:code" : "mdi:briefcase-outline"} width="32" height="32" />
+          <Icon icon={isProjectsActive ? "mdi:code" : "mdi:code"} width="32" height="32" />
         </Link>
 
         <Link href="/about" className={styles.navItem}>
-          <Icon icon={isAboutActive ? "cib:about-me" : "mdi:account-circle-outline"} width="32" height="32" />
+          <Icon icon={isAboutActive ? "cib:about-me" : "cib:about-me"} width="32" height="32" />
         </Link>
 
         <Link href="/book-now" className={styles.navItem}>
-          <Icon icon={isBookingActive ? "lucide:book-open-check" : "ic:outline-email"} width="32" height="32" />
+          <Icon icon={isBookingActive ? "lucide:book-open-check" : "lucide:book-open-check"} width="32" height="32" />
         </Link>
       </div>
     </div>
