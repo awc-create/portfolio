@@ -21,31 +21,44 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // ✅ Handle Preloader Timeout
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 6060);
     return () => clearTimeout(timer);
   }, []);
 
+  // ✅ Detect Screen Width for Navbar Selection
   useEffect(() => {
-    // Detect screen width for navbar selection
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
     handleResize(); // Run on mount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ✅ Handle Dark Mode Preferences
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
+      document.documentElement.classList.add("dark-mode");
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark-mode");
+      setIsDarkMode(false);
+    }
+  }, []);
+
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
+    <html lang="en" className="overflow-x-hidden">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         {!isLoaded && <Preloader onLoaded={() => setIsLoaded(true)} />}
         {isLoaded && (
           <>

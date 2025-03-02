@@ -1,82 +1,60 @@
 /* ✅ Page Layout */
 .layout {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100vh;
+  overflow-x: hidden; /* ✅ Prevents horizontal scrolling */
 }
 
-/* ✅ Left Section - Navbar */
-.leftSection {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--background);
-}
-
-/* ✅ Keeps About Title Centered on Desktop but Hides on Mobile */
-.pageTitle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  width: 100%;
-  z-index: 10;
-  margin: 0;
-}
-
-/* ✅ Right Section - Tabs & Content */
+/* ✅ Right Section - Center Tabs & Content */
 .rightSection {
-  flex: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center; /* ✅ Centers everything */
   padding: 40px;
-  align-self: flex-end;
+  width: 100%;
 }
 
-/* ✅ Keeps Tabs & Content in One Fixed Position */
+/* ✅ Keep Tabs in One Spot */
 .borderContainer {
   border-radius: 8px;
   width: 100%;
-  height: 550px; /* ✅ Fixed height to prevent movement */
+  height: 700; /* ✅ Fixed height to prevent movement */
   max-width: 800px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: relative; /* ✅ Removes absolute positioning to center properly */
   overflow: hidden;
   padding: 20px;
+  padding-top: 197px;
   background-color: var(--background);
-  top: 500px;
-  left: 1150px;
-  transform: translate(-50%, -50%);
 }
 
-/* ✅ Tabs Stay Fixed */
+/* ✅ Tabs Stay Centered & Fixed */
 .tabsContainer {
-  width: 100%;
   display: flex;
   justify-content: center;
-  position: sticky;
-  top: 0;
-  background-color: var(--background);
-  z-index: 10;
-  padding: 3px 0;
+  width: 100%;
+  margin-bottom: 10px;
+  position: sticky; /* ✅ Sticks tabs in place */
+  top: 0; /* ✅ Prevents shifting */
+  background-color: var(--background); /* ✅ Ensures visibility */
+  z-index: 1000; /* ✅ Keeps it above the content */
+  padding: 5px 0;
 }
 
-/* ✅ Make Tabs Smaller & Stay in One Line */
+/* ✅ Make Tabs Stay in One Line */
 .tabsContainer a {
   font-size: 1rem;
   margin: 0 6px;
-  white-space: nowrap; /* ✅ Prevents wrapping */
+  white-space: nowrap;
 }
 
-/* ✅ Content Stays Inside Fixed Container */
+/* ✅ Content Section - Scrolling Enabled */
 .content {
   display: flex;
   flex-direction: column;
@@ -85,59 +63,44 @@
   font-size: 1rem;
   line-height: 1.6;
   color: #555;
-  width: 100%;
+  width: 60%;
   max-width: 550px;
   text-align: center;
   margin: 0 auto;
   padding: 0 15px;
   word-wrap: break-word;
-  overflow-y: auto; /* ✅ Scroll inside the container if needed */
-  height: 100%; /* ✅ Ensures it does not push the container size */
+  overflow-y: visible; /* ✅ Scroll inside the container if needed */
+  height: calc(100% - 50px); /* ✅ Ensures it does not push the container size */
 }
 
 /* ✅ Profile Image */
 .profileImage {
   display: block;
-  margin: 0 auto 15px;
-  width: 100px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #ccc;
+  margin: 0 auto 20px; /* ✅ Centers the image horizontally */
+  width: 100px; /* ✅ Keeps fixed size */
+  height: 150px; /* ✅ Keeps fixed size */
+  border-radius: 50%; /* ✅ Ensures it remains oval */
+  object-fit: cover; /* ✅ Ensures the image fits perfectly */
+  border: 3px solid #ccc; /* ✅ Optional border for styling */
 }
 
-/* ✅ Coming Soon List */
-.comingSoonList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.comingSoonList p {
-  margin: 4px 0;
-}
-
-/* 📱 **Fix for Mobile** */
+/* ✅ GENERAL MOBILE STYLES */
 @media (max-width: 768px) {
-  .pageTitle {
-    display: none;
-  }
-
   .borderContainer {
-    max-width: 90%;
     width: 90%;
-    height: 500px; /* ✅ Fixed height */
-    padding: 20px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 90%;
+    padding: 15px;
+    margin: 0 auto;
   }
 
   .content {
     max-width: 400px;
     font-size: 0.85rem;
-    height: calc(100% - 50px); /* ✅ Adjusts height while keeping space for tabs */
+  }
+
+  .tabsContainer {
+    position: sticky;
+    top: 0;
   }
 
   .tabsContainer a {
@@ -146,11 +109,11 @@
   }
 }
 
+/* ✅ SMALLER TABLETS */
 @media (max-width: 600px) {
   .borderContainer {
-    max-width: 95%;
     width: 95%;
-    height: 500px; /* ✅ Keeps it fixed */
+    max-width: 95%;
     padding: 18px;
   }
 
@@ -165,6 +128,7 @@
   }
 }
 
+/* ✅ FULLY RESPONSIVE MOBILE FIXES */
 @media (max-width: 480px) {
   .mobileView {
     height: 100vh;
@@ -201,3 +165,4 @@
     margin: 0 3px;
   }
 }
+
