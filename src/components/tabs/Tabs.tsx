@@ -23,7 +23,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
 
   const iconMap: Record<string, React.ReactNode> = {
     "Me": <FaUser />,
-    "AWC": <Image src="/awcLogo.svg" alt="AWC Logo" width={30} height={30} />,
+    "AWC": <Image src="/awcLogo.svg" alt="AWC Logo" width={50} height={50} />,
     "Builds": <FaLaptopCode />,
     "Coming Soon": <FaTools />,
     "Work Experience": <FaCode />,
