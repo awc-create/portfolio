@@ -13,12 +13,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* ✅ Centers everything */
+  justify-content: center;
   padding: 40px;
   width: 100%;
 }
 
-/* ✅ Keep Tabs in One Spot */
+/* ✅ Keep Tabs & Content in One Fixed Spot */
 .borderContainer {
   border-radius: 8px;
   width: 100%;
@@ -27,11 +27,36 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  position: relative; /* ✅ Removes absolute positioning to center properly */
+  position: relative;
   overflow: hidden;
   padding: 20px;
-  padding-top: 197px;
+  padding-top: 140px; /* ✅ Adjusted padding for correct spacing */
   background-color: var(--background);
+}
+
+/* ✅ Mode Switcher - Positioned Above Tabs */
+.modeSwitcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px; /* ✅ Adds spacing between buttons */
+}
+
+/* ✅ Mode Switcher Buttons */
+.toggleButton {
+  padding: 8px 12px;
+  border: 1px solid var(--highlight-color);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.toggleButton.active {
+  background: var(--highlight-color);
+  color: white;
 }
 
 /* ✅ Tabs Stay Centered & Fixed */
@@ -40,10 +65,10 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 10px;
-  position: sticky; /* ✅ Sticks tabs in place */
-  top: 0; /* ✅ Prevents shifting */
-  background-color: var(--background); /* ✅ Ensures visibility */
-  z-index: 1000; /* ✅ Keeps it above the content */
+  position: sticky;
+  top: 0;
+  background-color: var(--background);
+  z-index: 1000;
   padding: 5px 0;
 }
 
@@ -52,6 +77,18 @@
   font-size: 1rem;
   margin: 0 6px;
   white-space: nowrap;
+}
+
+/* ✅ MOBILE VIEW (Icons for Tabs) */
+@media (max-width: 600px) {
+  .tabsContainer {
+    justify-content: space-around; /* ✅ Evenly distributes tabs */
+  }
+
+  .tabsContainer a {
+    font-size: 1.2rem; /* ✅ Larger clickable icons */
+    padding: 5px 8px;
+  }
 }
 
 /* ✅ Content Section - Scrolling Enabled */
@@ -69,44 +106,64 @@
   margin: 0 auto;
   padding: 0 15px;
   word-wrap: break-word;
-  overflow-y: visible; /* ✅ Scroll inside the container if needed */
-  height: calc(100% - 50px); /* ✅ Ensures it does not push the container size */
+  overflow-y: visible;
+  height: calc(100% - 50px); /* ✅ Ensures content does not overflow */
 }
 
 /* ✅ Profile Image */
 .profileImage {
   display: block;
-  margin: 0 auto 20px; /* ✅ Centers the image horizontally */
-  width: 100px; /* ✅ Keeps fixed size */
-  height: 150px; /* ✅ Keeps fixed size */
-  border-radius: 50%; /* ✅ Ensures it remains oval */
-  object-fit: cover; /* ✅ Ensures the image fits perfectly */
-  border: 3px solid #ccc; /* ✅ Optional border for styling */
+  margin: 0 auto 10px; /* ✅ Reduced spacing */
+  width: 100px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-/* ✅ GENERAL MOBILE STYLES */
-@media (max-width: 768px) {
-  .borderContainer {
-    width: 90%;
-    max-width: 90%;
-    padding: 15px;
-    margin: 0 auto;
-  }
+/* ✅ Work Experience Styling - Minimal View */
+.experienceGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto 0;
+}
 
-  .content {
-    max-width: 400px;
-    font-size: 0.85rem;
-  }
+.experienceItem {
+  padding: 15px;
+  border-left: 4px solid var(--highlight-color);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+}
 
-  .tabsContainer {
-    position: sticky;
-    top: 0;
-  }
+.experienceItem h5 {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--foreground);
+}
 
-  .tabsContainer a {
-    font-size: 0.85rem;
-    margin: 0 5px;
-  }
+/* ✅ CV Download Button */
+.cvDownload {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cvButton {
+  padding: 10px 15px;
+  background: var(--highlight-color);
+  color: white;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cvButton:hover {
+  background: var(--highlight-color-dark);
 }
 
 /* ✅ SMALLER TABLETS */
@@ -114,17 +171,19 @@
   .borderContainer {
     width: 95%;
     max-width: 95%;
-    padding: 18px;
+    padding: 10px;
+    height: 850px; /* ✅ Slightly reduced height */
   }
 
   .content {
-    width: 90%;
-    font-size: 0.8rem;
+    width: 92%;
+    font-size: 0.85rem;
   }
 
+  /* ✅ Tab Text Size Reduced */
   .tabsContainer a {
-    font-size: 0.8rem;
-    margin: 0 4px;
+    font-size: 0.85rem;
+    margin: 0 5px;
   }
 }
 
@@ -143,27 +202,38 @@
     width: 95%;
     position: absolute;
     overflow: hidden;
-    height: 500px; /* ✅ Fixed height to prevent shifting */
-    padding: 15px;
-    padding-top: 10%;
+    height: 880px; /* ✅ Reduced height slightly */
+    padding: 18px;
+    padding-top: 60%; /* ✅ Reduced gap between tabs and profile image */
     margin: 0;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
   }
 
-  .content {
-    font-size: 0.85rem;
-    width: 100%;
+  .modeSwitcher {
+    margin-bottom: 2px; /* ✅ Further reduced spacing */
   }
 
   .tabsContainer {
-    margin-bottom: 5px;
+    margin-bottom: 2px; /* ✅ Tabs moved up */
+    justify-content: space-between;
   }
 
+  /* ✅ Replace Tab Text with Icons */
   .tabsContainer a {
-    font-size: 0.75rem;
+    font-size: 1.5rem; /* ✅ Make icons larger for better usability */
     margin: 0 3px;
   }
-}
 
+  /* ✅ Reduce gap between Profile Image & Tabs */
+  .profileImage {
+    margin-bottom: 10px; /* ✅ Reduced spacing */
+  }
+
+  /* ✅ Prevents Content Overflowing on Mobile */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
