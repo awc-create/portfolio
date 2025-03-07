@@ -1,4 +1,4 @@
-/* Preloader Styles */
+/* ✅ Preloader Styles */
 .preloader {
   position: fixed;
   width: 100%;
@@ -13,42 +13,48 @@
   transition: opacity 0.5s ease;
 }
 
-/* Fade-out Effect */
+/* ✅ Fade-out Effect */
 .preloader.fade-out {
   opacity: 0;
   pointer-events: none;
 }
 
-/* Logo */
+/* ✅ Logo */
 .logo img.awc-logo {
   width: 150px;
   height: auto;
   animation: fadeIn 2s ease-in-out;
 }
 
-/* Banner Animation */
+/* ✅ Banner Animation (Responsive Font Size) */
 .banner-animation {
-  font-size: 20px;
+  font-size: 5vw; /* ✅ Dynamically scales with viewport width */
   font-weight: bold;
   text-align: center;
   margin-top: 20px;
 }
 
-/* Keyframes for Smooth Entry */
+/* ✅ Keyframes for Smooth Entry */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* ✅ Ensures Smaller Text on Mobile */
+/* ✅ Mobile Optimization */
 @media (max-width: 768px) {
-  .bannerAnimation {
-    font-size: 16px !important;
+  .banner-animation {
+    font-size: 6vw !important; /* ✅ Adjusts size for tablets & larger phones */
   }
 }
 
 @media (max-width: 480px) {
-  .bannerAnimation {
-    font-size: 14px !important;
+  .banner-animation {
+    font-size: 8vw !important; /* ✅ Increases size for small phones */
+  }
+}
+
+@media (max-width: 360px) {
+  .banner-animation {
+    font-size: 10vw !important; /* ✅ Ultra-small screens (iPhone SE, etc.) */
   }
 }

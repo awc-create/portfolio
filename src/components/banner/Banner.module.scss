@@ -1,10 +1,10 @@
-/* Banner Styles */
+/* ✅ Dynamic Banner Height */
 .banner {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 150px;
+  min-height: 10vh; /* ✅ Adjusts dynamically based on content */
   background-color: var(--background);
   color: var(--foreground);
   display: flex;
@@ -14,7 +14,7 @@
   z-index: 1001;
 }
 
-/* ✅ Wraps AWC & Subtitle together */
+/* ✅ Flexbox for Auto-Alignment */
 .bannerContainer {
   display: flex;
   flex-direction: column;
@@ -32,65 +32,52 @@
   transition: transform 0.3s ease-in-out;
 }
 
-/* ✅ AWC Styling */
+/* ✅ AWC Text (Auto-Scales) */
 .staticText {
-  font-size: 2rem;
+  font-size: 6vw; /* ✅ Auto-adjust based on viewport */
   font-weight: bold;
   padding-left: 5px;
   line-height: 1.2;
   white-space: nowrap;
 }
 
-/* ✅ Subtitle properly positioned below AWC */
+/* ✅ Subtitle Auto-Scales */
 .bannerSubtitle {
-  font-size: 20px;
+  font-size: 2vw; /* ✅ Scales with viewport */
   font-weight: 400;
   text-transform: capitalize;
   letter-spacing: 0.05em;
-  margin-top: 5px;
   font-family: "Red Hat Text", sans-serif;
   color: var(--foreground);
+  margin-top: 5px;
 }
 
-/* ✅ Hides "Streamlining Success" on mobile */
+/* ✅ Ensures 'Streamlining Success' hides on mobile */
 @media (max-width: 768px) {
   .banner {
     justify-content: center;
-    padding-left: 0;
     text-align: center;
-  }
-
-  .bannerContainer {
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
-
-  .bannerContent {
-    padding-left: 0;
   }
 
   .staticText {
-    font-size: 4rem;
-    padding-left: 0;
+    font-size: 8vw; /* ✅ Bigger on smaller screens */
   }
 
   .bannerSubtitle {
-    font-size: 15px;
-    text-align: center;
+    font-size: 3vw;
   }
 
   .streamliningText {
-    display: none; /* ✅ Hides 'Streamlining Success' */
+    display: none; /* ✅ Hide on mobile */
   }
 }
 
 @media (max-width: 480px) {
   .staticText {
-    font-size: 3rem;
+    font-size: 10vw;
   }
 
   .bannerSubtitle {
-    font-size: 13px;
+    font-size: 4vw;
   }
 }
