@@ -267,10 +267,4 @@
   .profileImage {
     margin-bottom: 10px; /* ✅ Reduced spacing */
   }
-
-  /* ✅ Prevents Content Overflowing on Mobile */
-  html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
 }
