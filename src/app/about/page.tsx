@@ -8,7 +8,6 @@ import Image from "next/image";
 const About = () => {
   const [activeTab, setActiveTab] = useState("Me");
   const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [mode, setMode] = useState("Client Mode"); // ✅ Starts with Client Mode
 
   const clientTabs = ["Me", "AWC", "Builds", "Coming Soon"];
@@ -16,10 +15,6 @@ const About = () => {
 
   useEffect(() => {
     setIsMounted(true); // ✅ Ensures hydration safety
-    const checkMobile = () => setIsMobile(window.innerWidth <= 600);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const toggleMode = (selectedMode: string) => {
@@ -99,17 +94,17 @@ const About = () => {
               </div>
             </div>
           );
-          case "Skills":
-            return (
-              <div className={styles.skillsGrid}>
-                <div>AWS (EC2, Lambda, S3, IAM)</div>
-                <div>Terraform & Pulumi</div>
-                <div>Docker & Kubernetes</div>
-                <div>GitLab CI/CD</div>
-                <div>Python (Boto3)</div>
-                <div>React & JavaScript</div>
-              </div>
-            );          
+        case "Skills":
+          return (
+            <div className={styles.skillsGrid}>
+              <div>AWS (EC2, Lambda, S3, IAM)</div>
+              <div>Terraform & Pulumi</div>
+              <div>Docker & Kubernetes</div>
+              <div>GitLab CI/CD</div>
+              <div>Python (Boto3)</div>
+              <div>React & JavaScript</div>
+            </div>
+          );
         case "Education":
           return (
             <p>
