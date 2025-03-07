@@ -35,16 +35,8 @@
 .tab.active {
   font-weight: bold;
   color: blue;
-}
-
-.tab.active::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: blue;
-  width: 100%;
-  position: relative;
-  margin-top: 5px;
+  border-bottom: 2px solid blue; /* Consistent underline */
+  padding-bottom: 2px; /* Adjust spacing to prevent shifting */
 }
 
 /* ✅ Mobile Adjustments */

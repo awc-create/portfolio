@@ -87,7 +87,7 @@ const About = () => {
           return (
             <div className={styles.experienceGrid}>
               <div className={styles.cvDownload}>
-                <a href="/files/adnan-said-cv.pdf" download className={styles.cvButton}>
+                <a href="/files/DevOps Engineer - With name Adnan Said CV.pdf" download className={styles.cvButton}>
                   📄 Download CV
                 </a>
               </div>
@@ -99,17 +99,17 @@ const About = () => {
               </div>
             </div>
           );
-        case "Skills":
-          return (
-            <div className={styles.skillsGrid}>
-              <div>AWS (EC2, Lambda, S3, IAM)</div>
-              <div>Terraform & Pulumi</div>
-              <div>Docker & Kubernetes</div>
-              <div>GitLab CI/CD</div>
-              <div>Python (Boto3)</div>
-              <div>React & JavaScript</div>
-            </div>
-          );
+          case "Skills":
+            return (
+              <div className={styles.skillsGrid}>
+                <div>AWS (EC2, Lambda, S3, IAM)</div>
+                <div>Terraform & Pulumi</div>
+                <div>Docker & Kubernetes</div>
+                <div>GitLab CI/CD</div>
+                <div>Python (Boto3)</div>
+                <div>React & JavaScript</div>
+              </div>
+            );          
         case "Education":
           return (
             <p>

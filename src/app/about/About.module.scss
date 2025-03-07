@@ -56,7 +56,7 @@
 
 .toggleButton.active {
   background: var(--highlight-color);
-  color: white;
+  color: blue;
 }
 
 /* ✅ Tabs Stay Centered & Fixed */
@@ -166,6 +166,34 @@
   background: var(--highlight-color-dark);
 }
 
+/* ✅ Skills Grid - Centered & Evenly Spaced */
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr)); /* ✅ Ensures two columns */
+  gap: 15px; /* ✅ Adds spacing between skills */
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto; /* ✅ Centers within the content */
+  text-align: center;
+}
+
+/* ✅ Individual Skill Box */
+.skillsGrid div {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  color: var(--foreground);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Hover Effect */
+.skillsGrid div:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 /* ✅ SMALLER TABLETS */
 @media (max-width: 600px) {
   .borderContainer {
@@ -184,6 +212,14 @@
   .tabsContainer a {
     font-size: 0.85rem;
     margin: 0 5px;
+  }
+
+  .skillsGrid {
+    grid-template-columns: repeat(1, minmax(200px, 1fr)); /* ✅ Switches to 1 column */
+  }
+
+  .skillsGrid div {
+    font-size: 1rem;
   }
 }
 
@@ -224,6 +260,7 @@
   .tabsContainer a {
     font-size: 1.5rem; /* ✅ Make icons larger for better usability */
     margin: 0 3px;
+    color: white;
   }
 
   /* ✅ Reduce gap between Profile Image & Tabs */

@@ -21,10 +21,9 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // ✅ Icon Mapping for Mobile View
   const iconMap: Record<string, React.ReactNode> = {
     "Me": <FaUser />,
-    "AWC": <Image src="/awcLogo.svg" alt="AWC Logo" width={30} height={30} />, // ✅ AWC Uses the Logo
+    "AWC": <Image src="/awcLogo.svg" alt="AWC Logo" width={30} height={30} />,
     "Builds": <FaLaptopCode />,
     "Coming Soon": <FaTools />,
     "Work Experience": <FaCode />,
@@ -41,7 +40,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
             className={`${styles.tab} ${activeTab === tab ? styles.active : ""}`}
             onClick={() => setActiveTab(tab)}
           >
-            {isMobile ? iconMap[tab] : tab} {/* ✅ Icons on Mobile, Text on Desktop */}
+            {isMobile ? iconMap[tab] : tab}
           </div>
         ))}
       </div>
