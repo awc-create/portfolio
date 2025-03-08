@@ -8,68 +8,65 @@ import Image from "next/image";
 const About = () => {
   const [activeTab, setActiveTab] = useState("Me");
   const [isMounted, setIsMounted] = useState(false);
-  const [mode, setMode] = useState("Client Mode"); // ✅ Starts with Client Mode
+  const [mode, setMode] = useState("Client Mode"); // ✅ Default mode
 
   const clientTabs = ["Me", "AWC", "Builds", "Coming Soon"];
   const portfolioTabs = ["Me", "Work Experience", "Skills", "Education"];
 
   useEffect(() => {
-    setIsMounted(true); // ✅ Ensures hydration safety
+    setIsMounted(true); // ✅ Prevents hydration issues
   }, []);
 
   const toggleMode = (selectedMode: string) => {
     if (mode !== selectedMode) {
       setMode(selectedMode);
-      setActiveTab("Me"); // ✅ Always resets to "Me" when switching
+      setActiveTab("Me"); // ✅ Resets to "Me" when switching
     }
   };
 
   if (!isMounted) {
-    return <div className={styles.loadingPlaceholder}>Loading...</div>; // ✅ Prevents hydration issues
+    return <div className={styles.loadingPlaceholder}>Loading...</div>; // ✅ Avoids hydration mismatch
   }
 
   const renderContent = () => {
     if (activeTab === "Me") {
       return (
-        <>
-          <div className={styles.profileImage}>
-            <Image
-              src="/images/me-wb.avif"
-              alt="Profile Image"
-              width={100}
-              height={150}
-              className={styles.profileImage}
-            />
-          </div>
-          <p>
+        <div className={styles.meContainer}>
+          <Image
+            src="/images/me-wb.avif"
+            alt="Profile Image"
+            width={100}
+            height={150}
+            className={styles.profileImage}
+          />
+          <p className={styles.aboutText}>
             As a former mechanical engineer, I have found myself increasingly drawn to the world of web development and DevOps engineering.
             Creating websites and bringing ideas to life quickly became my new focus. The excitement of building something from scratch,
-            working to solve problems and watching it come to life inspired me to make the switch and never look back. Now, I help businesses
-            enhance and develop their websites, so they can reach their digital goals with innovative and dependable solutions.
+            working to solve problems, and watching it come to life inspired me to make the switch and never look back.
           </p>
-        </>
+        </div>
       );
     }
 
     if (mode === "Client Mode") {
       switch (activeTab) {
         case "AWC":
-          return <p>AWC is all about continuous improvement. Making iterative changes until your ideas come to life on screen.</p>;
+          return <p className={styles.aboutText}>AWC is all about continuous improvement. Making iterative changes until your ideas come to life on screen.</p>;
         case "Builds":
-          return <p>We build sites using WordPress, Wix, Shopify, GoDaddy, and write in HTML, CSS, JavaScript, Laravel & React.</p>;
+          return <p className={styles.aboutText}>We build sites using WordPress, Wix, Shopify, GoDaddy, and write in HTML, CSS, JavaScript, Laravel & React.</p>;
         case "Coming Soon":
           return (
-            <>
+            <div className={styles.comingSoon}>
               <p>Stay tuned for exciting new updates!</p>
               <div className={styles.comingSoonList}>
-                <p>AWS</p>
-                <p>Pulumi</p>
-                <p>GitLab</p>
-                <p>Python</p>
-                <p>Terraform</p>
-                <p>TypeScript</p>
+                <span>AWS</span>
+                <span>Pulumi</span>
+                <span>GitLab</span>
+                <span>Python</span>
+                <span>Terraform</span>
+                <span>TypeScript</span>
               </div>
-            </>
+            </div>
           );
         default:
           return null;
@@ -82,7 +79,7 @@ const About = () => {
           return (
             <div className={styles.experienceGrid}>
               <div className={styles.cvDownload}>
-                <a href="/files/DevOps Engineer - With name Adnan Said CV.pdf" download className={styles.cvButton}>
+                <a href="/files/DevOps_Engineer_CV.pdf" download className={styles.cvButton}>
                   📄 Download CV
                 </a>
               </div>
@@ -97,17 +94,17 @@ const About = () => {
         case "Skills":
           return (
             <div className={styles.skillsGrid}>
-              <div>AWS (EC2, Lambda, S3, IAM)</div>
-              <div>Terraform & Pulumi</div>
-              <div>Docker & Kubernetes</div>
-              <div>GitLab CI/CD</div>
-              <div>Python (Boto3)</div>
-              <div>React & JavaScript</div>
+              <span>AWS (EC2, Lambda, S3, IAM)</span>
+              <span>Terraform & Pulumi</span>
+              <span>Docker & Kubernetes</span>
+              <span>GitLab CI/CD</span>
+              <span>Python (Boto3)</span>
+              <span>React & JavaScript</span>
             </div>
           );
         case "Education":
           return (
-            <p>
+            <p className={styles.aboutText}>
               MSc Computer Science - Aston University (2019 - 2020) <br />
               BEng Mechanical Engineering - Aston University (2015 - 2019)
             </p>
@@ -120,31 +117,30 @@ const About = () => {
 
   return (
     <div className={styles.layout}>
-      <div className={styles.rightSection}>
-        <div className={styles.borderContainer}>
-          {/* ✅ Mode Toggle Button Above Tabs */}
-          <div className={styles.modeSwitcher}>
-            <button
-              className={`${styles.toggleButton} ${mode === "Client Mode" ? styles.active : ""}`}
-              onClick={() => toggleMode("Client Mode")}
-            >
-              Client Mode
-            </button>
-            <button
-              className={`${styles.toggleButton} ${mode === "Portfolio" ? styles.active : ""}`}
-              onClick={() => toggleMode("Portfolio")}
-            >
-              Portfolio
-            </button>
-          </div>
-
-          {/* ✅ Dynamic Tabs for Portfolio or Client Mode */}
-          <div className={styles.tabsContainer}>
-            <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={mode === "Client Mode" ? clientTabs : portfolioTabs} />
-          </div>
-
-          <div className={styles.content}>{renderContent()}</div>
+      <div className={styles.container}>
+        {/* ✅ Mode Toggle */}
+        <div className={styles.modeSwitcher}>
+          <button
+            className={`${styles.toggleButton} ${mode === "Client Mode" ? styles.active : ""}`}
+            onClick={() => toggleMode("Client Mode")}
+          >
+            Client Mode
+          </button>
+          <button
+            className={`${styles.toggleButton} ${mode === "Portfolio" ? styles.active : ""}`}
+            onClick={() => toggleMode("Portfolio")}
+          >
+            Portfolio
+          </button>
         </div>
+
+        {/* ✅ Tabs */}
+        <div className={styles.tabsContainer}>
+          <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={mode === "Client Mode" ? clientTabs : portfolioTabs} />
+        </div>
+
+        {/* ✅ Content */}
+        <div className={styles.content}>{renderContent()}</div>
       </div>
     </div>
   );

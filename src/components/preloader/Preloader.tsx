@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
@@ -29,12 +29,12 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   return (
     <div className={`${Styles.preloader} ${!isVisible ? Styles.hidden : ""}`} data-testid="preloader">
       <div className={Styles.logo}>
-        <Image
+        <Image 
           src={logoSrc}
-          alt="AWC Logo"
-          width={200}
-          height={200}
-          priority={true}
+          alt="AWC Logo" 
+          width={200} 
+          height={200} 
+          priority={true} 
           onError={() => setLogoSrc("/awcLogo.svg")}
         />
       </div>
@@ -42,8 +42,8 @@ const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
       <div className={Styles.bannerAnimation} data-testid="banner-animation">
         <TypeAnimation
           sequence={["Welcome to", 1000, "Adaptive Workflow Consultancy", 1000]}
-          speed={50}
-          style={{ fontSize: "2em" }}
+          speed={48}
+          style={{ fontSize: "max(2.5vw, 1.2rem)" }}
           repeat={1}
         />
       </div>

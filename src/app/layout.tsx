@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
 import BottomNav from "@/components/navbar/BottomNav";
 import Preloader from "@/components/preloader/Preloader";
 import Banner from "@/components/banner/Banner";
-import MaxWidthWrapper from "@/components/layout/MaxWidthWrapper";
 import "@/styles/globals.scss";
 
 const geistSans = Geist({
@@ -19,12 +18,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   // ✅ Handle Preloader Timeout
   useEffect(() => {
@@ -34,9 +32,7 @@ export default function RootLayout({
 
   // ✅ Detect Screen Width for Navbar Selection
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize(); // Run on mount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -56,21 +52,34 @@ export default function RootLayout({
     }
   }, []);
 
+  // ✅ Ensures Hydration Completes Before Rendering
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${isDarkMode ? "dark-mode" : "light-mode"}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${isDarkMode ? "dark-mode" : "light-mode"} ${hydrated ? "pageWrapper" : ""}`}>
         {!isLoaded && <Preloader onLoaded={() => setIsLoaded(true)} />}
-        {isLoaded && (
-          <>
+        {isLoaded && hydrated && (
+          <div className="layout">
+            {/* ✅ Banner (Top Section) */}
             <Banner />
-            <MaxWidthWrapper>
-              <div className="flex">
-                {!isMobile && <Navbar />}
-                <main className="flex-1">{children}</main>
-              </div>
-            </MaxWidthWrapper>
+
+            {/* ✅ Sidebar + Main Content Layout */}
+            <div className="mainContainer">
+              {/* ✅ Sidebar Navbar (Desktop) */}
+              {!isMobile && <Navbar />}
+
+              {/* ✅ Main Content */}
+              <main className="mainContent">
+                <div className="contentWrapper">{children}</div>
+              </main>
+            </div>
+
+            {/* ✅ Bottom Navigation for Mobile */}
             {isMobile && <BottomNav />}
-          </>
+          </div>
         )}
       </body>
     </html>

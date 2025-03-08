@@ -7,7 +7,7 @@
   --background-light: #BCC8C8;
   --foreground-light: #333333;
   --background-dark: #1E1E1E;
-  --foreground-dark: #BCC8C8; /* ✅ Text color changes to BCC8C8 in dark mode */
+  --foreground-dark: #BCC8C8;
   --hover-color: blue;
 
   --background: var(--background-light);
@@ -22,18 +22,7 @@
   }
 }
 
-/* ✅ Ensure Dark Mode Colors Apply */
-.dark-mode {
-  --background: var(--background-dark);
-  --foreground: var(--foreground-dark);
-}
-
-.light-mode {
-  --background: var(--background-light);
-  --foreground: var(--foreground-light);
-}
-
-/* ✅ Apply Theme to Body */
+/* ✅ Ensure Body Theme */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -41,21 +30,103 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ✅ Force Dark Mode Styling */
-.dark-mode body {
-  background: var(--background-dark) !important;
-  color: var(--foreground-dark) !important;
+/* ✅ Page Layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.light-mode body {
-  background: var(--background-light) !important;
-  color: var(--foreground-light) !important;
+/* ✅ 🟥 Banner Section (Top) */
+/* ✅ Banner Section */
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px; /* ✅ Increase height */
+  padding: 20px 0; /* ✅ Ensure spacing inside */
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  background: var(--background); /* ✅ Matches theme */
 }
 
-/* ✅ Fully Prevent Horizontal Scrolling */
-html, body {
-  overflow-x: hidden !important;
+/* ✅ 🟦 Sidebar + 🟩 Main Content Container */
+.mainContainer {
+  display: flex;
+  flex: 1;
+}
+
+/* ✅ 🟦 Navbar Section (Left Sidebar) */
+.navbar {
+  flex: 0 0 250px; /* ✅ Fixed Sidebar Width */
+  background: blue; /* 🟦 Color for Visual Debugging */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* ✅ Main Content Section (🟩) */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* ✅ Centers Horizontally */
+  align-items: center; /* ✅ Centers Vertically */
+  min-height: calc(100vh - 80px); /* ✅ Subtracts the banner height */
+}
+
+/* ✅ Inner Content Wrapper */
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ✅ Centers Vertically */
+  align-items: center; /* ✅ Centers Horizontally */
+  text-align: center;
+  max-width: 500px; /* ✅ Adjust width for readability */
+  padding: 20px;
+  border-radius: 10px; /* ✅ Optional: Rounded corners */
+}
+
+.homeContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* ✅ Shifts exactly to the center */
+  text-align: center;
+  z-index: 10; /* ✅ Ensures it's above other elements */
+}
+
+.homeTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--foreground);
+}
+
+/* ✅ Guide Lines for X and Y Axis */
+.debugOverlay::before,
+.debugOverlay::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 0, 0, 0.5); /* 🔴 Semi-transparent Red */
+  z-index: 9999; /* ✅ Ensures it's always on top */
+}
+
+/* ✅ Horizontal Line (X-Axis) */
+.debugOverlay::before {
   width: 100%;
-  min-width: 100vw;
-  max-width: 100vw;
+  height: 2px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* ✅ Vertical Line (Y-Axis) */
+.debugOverlay::after {
+  width: 2px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
 }

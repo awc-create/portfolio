@@ -1,196 +1,94 @@
-/* ✅ Page Layout - Always Centered */
+/* ✅ Page Layout */
 .layout {
   display: flex;
-  flex-direction: column; /* ✅ Stack items vertically */
-  justify-content: flex-start; /* ✅ Prevents overlap */
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
-  height: 100vh; /* ✅ Locks full height */
+  min-height: 100vh;
+  padding-top: var(--banner-height);
   overflow-x: hidden;
 }
 
-/* ✅ Right Section - Locks Everything in Place */
-.rightSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
+/* ✅ Main Container */
+.container {
   width: 100%;
-  max-width: 100%;
-  flex-grow: 1;
-}
-
-/* ✅ Keeps Tabs & Content Centered & Locked */
-.borderContainer {
-  border-radius: 8px;
-  width: 100%;
-  height: 750px; /* ✅ Locks the height to prevent movement */
-  max-width: 800px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* ✅ Ensures vertical centering */
-  align-items: center; /* ✅ Ensures horizontal centering */
-  position: relative;
-  overflow: hidden;
-  padding: 20px;
-  padding-top: 140px; /* ✅ Adjusted padding for correct spacing */
-  background-color: var(--background);
-  margin-top: var(--banner-height); /* ✅ Pushes below the banner */
-  flex-basis: 750px;
-  min-height: 750px;
-}
-
-/* ✅ Ensure Banner Height is Set */
-:root {
-  --banner-height: 100px; /* ✅ Default banner height */
-}
-
-/* ✅ Adjust Banner Height for Mobile */
-@media (max-width: 768px) {
-  :root {
-    --banner-height: 120px;
-  }
-}
-
-@media (max-width: 480px) {
-  :root {
-    --banner-height: 140px;
-  }
-}
-
-/* ✅ Banner - Fixed Height */
-.banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: var(--banner-height); /* ✅ Fixed height */
-  background-color: var(--background);
-  color: var(--foreground);
-  padding: 10px 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  position: fixed; /* ✅ Ensures it's always at the top */
-  top: 0;
-  left: 0;
-  z-index: 1001;
-}
-
-/* ✅ Ensures Content Starts After the Banner */
-.pageContent {
-  margin-top: var(--banner-height); /* ✅ Keeps content below banner */
-}
-
-/* ✅ Ensures Centered Content */
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  max-width: 900px;
   text-align: center;
-  width: 80%;
-  max-width: 550px;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #555;
-  margin: auto; /* ✅ Perfect Centering */
-  padding: 0 15px;
-  word-wrap: break-word;
-  overflow-y: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ✅ Mode Switcher (Client Mode | Portfolio) */
+/* ✅ Mode Switcher */
 .modeSwitcher {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  text-align: center;
+  gap: 10px;
   margin-bottom: 15px;
-  gap: 10px; /* ✅ Adds spacing between buttons */
 }
 
-/* ✅ Mode Switcher Buttons */
 .toggleButton {
-  padding: 8px 12px;
+  padding: 10px 15px;
   border: 1px solid var(--highlight-color);
   background: transparent;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   border-radius: 5px;
   transition: all 0.3s ease;
 }
 
 .toggleButton.active {
   background: var(--highlight-color);
-  color: blue;
+  color: white;
 }
 
-/* ✅ Tabs Stay Centered */
+/* ✅ Tabs */
 .tabsContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
-  max-width: 800px;
-  margin-bottom: 10px;
-  position: sticky;
-  top: 0;
-  background-color: var(--background);
-  z-index: 1000;
-  padding: 5px 0;
-}
-
-/* ✅ Make Tabs Stay in One Line */
-.tabsContainer a {
-  font-size: 1rem;
-  margin: 0 6px;
-  white-space: nowrap;
-}
-
-/* ✅ MOBILE VIEW (Icons for Tabs) */
-@media (max-width: 600px) {
-  .tabsContainer {
-    justify-content: space-around; /* ✅ Evenly distributes tabs */
-  }
-
-  .tabsContainer a {
-    font-size: 1.2rem; /* ✅ Larger clickable icons */
-    padding: 5px 8px;
-  }
-}
-
-/* ✅ Content Section - Scrolling Enabled */
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #555;
-  width: 60%;
-  max-width: 550px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0 15px;
-  word-wrap: break-word;
-  overflow-y: visible;
-  height: calc(100% - 50px); /* ✅ Ensures content does not overflow */
+  margin-bottom: 15px;
 }
 
 /* ✅ Profile Image */
 .profileImage {
   display: block;
-  margin: 0 auto 10px; /* ✅ Reduced spacing */
   width: 100px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
+  margin: 0 auto;
 }
 
-/* ✅ Work Experience Styling - Minimal View */
+/* ✅ Content */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* ✅ About Text */
+.aboutText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+/* ✅ Coming Soon List */
+.comingSoonList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* ✅ Experience Grid */
 .experienceGrid {
   display: flex;
   flex-direction: column;
@@ -208,47 +106,21 @@
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
 }
 
-.experienceItem h5 {
-  font-size: 1.05rem;
-  font-weight: bold;
-  color: var(--foreground);
-}
-
-/* ✅ CV Download Button */
-.cvDownload {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.cvButton {
-  padding: 10px 15px;
-  background: var(--highlight-color);
-  color: white;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.cvButton:hover {
-  background: var(--highlight-color-dark);
-}
-
-/* ✅ Skills Grid - Centered & Evenly Spaced */
+/* ✅ Skills Grid */
+/* ✅ Skills Grid - Ensures Proper Layout */
 .skillsGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(150px, 1fr)); /* ✅ Ensures two columns */
+  grid-template-columns: repeat(2, minmax(150px, 1fr)); /* ✅ Stays Two Columns on Desktop */
   gap: 15px;
-  width: 100%;
   max-width: 500px;
-  margin: 20px auto;
+  width: 100%;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ✅ Individual Skill Box */
-.skillsGrid div {
+.skillsGrid span {
   padding: 12px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -256,65 +128,24 @@
   color: var(--foreground);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ✅ Hover Effect */
-.skillsGrid div:hover {
+.skillsGrid span:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
-/* ✅ SMALLER TABLETS */
+/* ✅ MOBILE VIEW - Switch to Single Column */
 @media (max-width: 600px) {
-  .borderContainer {
-    width: 95%;
-    max-width: 95%;
-    padding: 10px;
-    height: 750px; /* ✅ Ensures consistent centering */
-  }
-
-  .content {
-    width: 92%;
-    font-size: 0.85rem;
-  }
-
-  /* ✅ Tab Text Size Reduced */
-  .tabsContainer a {
-    font-size: 0.85rem;
-    margin: 0 5px;
-  }
-
   .skillsGrid {
-    grid-template-columns: repeat(1, minmax(200px, 1fr)); /* ✅ Switches to 1 column */
+    grid-template-columns: repeat(1, minmax(200px, 1fr)); /* ✅ Switches to One Column */
   }
 
-  .skillsGrid div {
-    font-size: 1rem;
-  }
-}
-
-/* ✅ Fully Responsive Mobile Fixes */
-@media (max-width: 480px) {
-  .borderContainer {
-    max-width: 95%;
-    width: 95%;
-    position: absolute;
-    overflow: hidden;
-    height: 880px; /* ✅ Reduced height slightly */
-    padding: 18px;
-    padding-top: 60%; /* ✅ Reduced gap between tabs and profile image */
-    margin: 0;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-  }
-
-  .modeSwitcher {
-    margin-bottom: 2px; /* ✅ Further reduced spacing */
-  }
-
-  .tabsContainer a {
-    font-size: 1.5rem;
-    margin: 0 3px;
+  .skillsGrid span {
+    font-size: 1rem; /* ✅ Adjusts font size for smaller screens */
   }
 }

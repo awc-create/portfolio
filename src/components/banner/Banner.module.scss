@@ -1,10 +1,9 @@
 /* ✅ Dynamic Banner Height */
 .banner {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 10vh; /* ✅ Adjusts dynamically based on content */
+  min-height: 12vh; /* ✅ Slightly Increased Height for Visibility */
   background-color: var(--background);
   color: var(--foreground);
   display: flex;
@@ -27,48 +26,53 @@
   font-size: 24px;
   font-weight: bold;
   letter-spacing: 0.05em;
-  text-align: left;
-  padding-left: 10px;
+  text-align: center;
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ✅ AWC Text (Auto-Scales) */
 .staticText {
-  font-size: 6vw; /* ✅ Auto-adjust based on viewport */
+  font-size: clamp(3rem, 6vw, 5rem); /* ✅ Scales with viewport but remains readable */
   font-weight: bold;
-  padding-left: 5px;
   line-height: 1.2;
   white-space: nowrap;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 /* ✅ Subtitle Auto-Scales */
 .bannerSubtitle {
-  font-size: 2vw; /* ✅ Scales with viewport */
+  font-size: clamp(1.2rem, 2vw, 2rem); /* ✅ Scales Responsively */
   font-weight: 400;
   text-transform: capitalize;
   letter-spacing: 0.05em;
   font-family: "Red Hat Text", sans-serif;
   color: var(--foreground);
-  margin-top: 5px;
+  text-align: center;
 }
 
-/* ✅ Ensures 'Streamlining Success' hides on mobile */
 @media (max-width: 768px) {
   .banner {
-    justify-content: center;
+    align-items: center;
     text-align: center;
   }
 
+  .bannerContainer {
+    align-items: center; /* ✅ Center text on mobile */
+    justify-content: center;
+  }
+
   .staticText {
-    font-size: 8vw; /* ✅ Bigger on smaller screens */
+    font-size: 8vw; /* ✅ Bigger for mobile */
+    text-align: center;
   }
 
   .bannerSubtitle {
     font-size: 3vw;
-  }
-
-  .streamliningText {
-    display: none; /* ✅ Hide on mobile */
+    text-align: center;
   }
 }
 
