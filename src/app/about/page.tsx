@@ -79,7 +79,7 @@ const About = () => {
           return (
             <div className={styles.experienceGrid}>
               <div className={styles.cvDownload}>
-                <a href="/files/DevOps_Engineer_CV.pdf" download className={styles.cvButton}>
+                <a href="/files/DevOps Engineer - With name Adnan Said CV.pdf" download className={styles.cvButton}>
                   📄 Download CV
                 </a>
               </div>
@@ -102,13 +102,25 @@ const About = () => {
               <span>React & JavaScript</span>
             </div>
           );
-        case "Education":
-          return (
-            <p className={styles.aboutText}>
-              MSc Computer Science - Aston University (2019 - 2020) <br />
-              BEng Mechanical Engineering - Aston University (2015 - 2019)
-            </p>
-          );
+          case "Education":
+            return (
+              <div className={styles.educationSection}>
+                <div className={styles.educationItem}>
+                  <span className={styles.educationIcon}>🎓</span>
+                  <div className={styles.educationText}>
+                    <h4>MSc Computer Science</h4>
+                    <p>Aston University (2019 - 2020)</p>
+                  </div>
+                </div>
+                <div className={styles.educationItem}>
+                  <span className={styles.educationIcon}>🎓</span>
+                  <div className={styles.educationText}>
+                    <h4>BEng Mechanical Engineering</h4>
+                    <p>Aston University (2015 - 2019)</p>
+                  </div>
+                </div>
+              </div>
+            );
         default:
           return null;
       }
