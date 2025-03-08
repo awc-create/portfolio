@@ -1,32 +1,40 @@
+/* ✅ Bottom Navigation */
 .bottomNav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw; /* ✅ Full width */
-    max-width: 100%;
-    background: var(--background);
-    border-top: 1px solid var(--border);
-    padding: 12px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 100;
-    transition: opacity 0.3s ease-in-out;
-    overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  max-width: 100%;
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+/* ✅ Hide BottomNav on larger screens */
+@media (min-width: 769px) {
+  .bottomNav {
+    display: none;
   }
-  
-  /* ✅ Hide BottomNav on larger screens */
-  @media (min-width: 769px) {
-    .bottomNav {
-      display: none;
-    }
-  }
-  
-  /* ✅ Fix icon spacing */
-  .navItem {
-    flex: 1; /* ✅ Ensures equal spacing */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+}
+
+/* ✅ Fix icon spacing */
+.navItem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+  color: var(--foreground); /* Default color */
+}
+
+/* ✅ Active Page Indicator */
+.navItem.active {
+  transform: scale(1.2); /* ✅ Slightly enlarges the active icon */
+  color: var(--highlight-color); /* ✅ Change color when active */
+}
