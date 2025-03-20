@@ -1,0 +1,127 @@
+/* ✅ Full containment: Title → Slides → Arrows */
+.sliderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px; /* Matches other sections */
+  text-align: center;
+  margin: auto;
+  padding: 20px 0;
+}
+
+/* ✅ Slider Section (Only Slides) */
+.sliderContainer {
+  overflow: hidden;
+  width: 100%;
+  padding: 20px;
+}
+
+/* ✅ Slide Wrapper */
+.emblaContainer {
+  display: flex;
+  gap: 20px;
+}
+
+/* ✅ Individual Slide */
+.emblaSlide {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* ✅ Logo Container */
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* ✅ Logo */
+.logo {
+  max-width: 175px;
+  height: auto;
+  display: block;
+}
+
+/* ✅ Description */
+.descriptionContainer {
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  font-family: "Futura", sans-serif;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* ✅ Navigation Buttons Below the Slider */
+.navButtons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* ✅ Adds spacing between buttons */
+  margin-top: 15px;
+}
+
+/* ✅ Individual Circular Buttons */
+.navButton {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* ✅ Hover & Active State */
+.navButton:hover {
+  background: var(--foreground);
+  color: white;
+}
+
+.navButton:active {
+  transform: scale(0.95);
+}
+
+/* ✅ Disabled State */
+.navButton.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ✅ Mobile Optimization */
+@media (max-width: 768px) {
+  .descriptionContainer {
+    font-size: 1rem;
+    max-width: 320px;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    max-width: 150px;
+  }
+
+  .descriptionContainer {
+    font-size: 0.9rem;
+    max-width: 280px;
+  }
+}

@@ -1,0 +1,112 @@
+/* ✅ Projects Page Layout */
+.projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* ✅ Outer Projects Container */
+.projectsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px; /* Matches Home page max-width */
+  text-align: center;
+  margin-top: 10vh; /* Moves content closer to the banner */
+}
+
+/* ✅ Page Title */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--foreground);
+  margin-bottom: 5px;
+}
+
+/* ✅ Slider Box */
+.sliderBox {
+  border-radius: 8px;
+  width: 100%;
+  padding: 5px;
+  background-color: transparent;
+}
+
+/* ✅ Logo Container */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* ✅ Description Container */
+.description-container {
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  font-family: "Futura", sans-serif;
+  letter-spacing: 0.05em;
+  max-width: 450px; /* Slightly wider for readability */
+  margin: auto;
+}
+
+/* ✅ Logo Styling */
+.logo {
+  max-width: 200px;
+  height: auto;
+  display: block;
+}
+
+/* ✅ Mobile Adjustments */
+@media (max-width: 768px) {
+  .projects {
+    min-height: calc(100vh - 150px); /* ✅ Ensures enough space */
+  }
+
+  .projectsContainer {
+    max-width: 600px;
+    margin-top: 8vh; /* ✅ Moves content up for better centering */
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .description-container {
+    font-size: 1rem;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects {
+    min-height: calc(100vh - 180px); /* ✅ Adjust for smaller screens */
+  }
+
+  .title {
+    margin-top: 1vh;
+  }
+
+  .projectsContainer {
+    max-width: 100%;
+    margin-top: 5vh; /* ✅ Moves it up so it's directly below the banner */
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .description-container {
+    font-size: 0.9rem;
+    max-width: 300px;
+  }
+}
