@@ -10,7 +10,6 @@
   align-items: center;
   padding-left: 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  z-index: 1001;
 }
 
 /* ✅ Flexbox for Auto-Alignment */
@@ -45,7 +44,7 @@
 
 /* ✅ Subtitle Auto-Scales */
 .bannerSubtitle {
-  font-size: clamp(1.2rem, 2vw, 2rem); /* ✅ Scales Responsively */
+  font-size: clamp(1.2rem, 2vw, 1.5rem); /* ✅ Scales Responsively */
   font-weight: 400;
   text-transform: capitalize;
   letter-spacing: 0.05em;

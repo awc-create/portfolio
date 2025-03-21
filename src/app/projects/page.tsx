@@ -23,7 +23,6 @@ const slides = [
 const Projects = () => {
   return (
     <div className={styles.sliderWrapper}>
-      <h1 className={styles.title}>Our Work</h1>
       <div className={styles.sliderContainer}>
         <Slider slides={slides} />
       </div>
