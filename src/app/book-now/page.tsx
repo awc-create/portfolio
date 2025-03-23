@@ -42,7 +42,7 @@ const BookNow = () => {
             {/* ✅ Close Button */}
             <button className={styles.closeButton} onClick={() => setIsModalOpen(false)}>✖</button>
 
-            <h2>Let's Build Your Website</h2>
+            <h2>Let&apos;s Build Your Website</h2>
             <p>Fill out this form to discuss your project.</p>
 
             {/* ✅ Form */}
