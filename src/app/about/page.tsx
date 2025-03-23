@@ -31,6 +31,7 @@ const About = () => {
     if (activeTab === "Me") {
       return (
         <div className={styles.meContainer}>
+          <h3 className={styles.sectionTitle}>ADNAN SAID</h3>
           <p className={styles.aboutText}>
             As a former mechanical engineer, I have found myself increasingly drawn to the world of web development and DevOps engineering.
             Creating websites and bringing ideas to life quickly became my new focus. The excitement of building something from scratch,
@@ -96,6 +97,7 @@ const About = () => {
         case "Work Experience":
           return (
             <div className={styles.experienceGrid}>
+              <h3 className={styles.sectionTitle}>Experience</h3>
               <div className={styles.cvDownload}>
                 <a href="/files/DevOps Engineer - With name Adnan Said CV.pdf" download className={styles.cvButton}>
                   📄 Download CV
@@ -110,21 +112,25 @@ const About = () => {
             </div>
           );
 
-        case "Skills":
-          return (
-            <div className={styles.skillsGrid}>
-              <span>AWS (EC2, Lambda, S3, IAM)</span>
-              <span>Terraform & Pulumi</span>
-              <span>Docker & Kubernetes</span>
-              <span>GitLab CI/CD</span>
-              <span>Python (Boto3)</span>
-              <span>React & JavaScript</span>
-            </div>
-          );
+          case "Skills":
+            return (
+              <>
+                <h3 className={styles.sectionTitle}>Skills</h3>
+                <div className={styles.skillsGrid}>
+                  <span>AWS (EC2, Lambda, S3, IAM)</span>
+                  <span>Terraform & Pulumi</span>
+                  <span>Docker & Kubernetes</span>
+                  <span>GitLab CI/CD</span>
+                  <span>Python (Boto3)</span>
+                  <span>React & JavaScript</span>
+                </div>
+              </>
+            );
 
         case "Education":
           return (
             <div className={styles.educationSection}>
+              <h3 className={styles.sectionTitle}>Education</h3>
               <div className={styles.educationItem}>
                 <span className={styles.educationIcon}>🎓</span>
                 <div className={styles.educationText}>

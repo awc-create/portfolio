@@ -1,0 +1,19 @@
+.clockWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .clockIcon,
+  .globeIcon {
+    color: black;
+  
+    @media (prefers-color-scheme: dark) {
+      :root:not(.manual-mode) & {
+        color: #BCC8C8;
+      }
+    }
+  }
+  

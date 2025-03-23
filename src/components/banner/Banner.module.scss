@@ -1,18 +1,48 @@
-/* ✅ Dynamic Banner Height */
 .banner {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 12vh; /* ✅ Slightly Increased Height for Visibility */
+  min-height: 12vh;
   background-color: var(--background);
   color: var(--foreground);
   display: flex;
   align-items: center;
   padding-left: 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
 }
 
-/* ✅ Flexbox for Auto-Alignment */
+/* ✅ Top Right Icon Box (clocks) */
+.iconBox {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon {
+  color: var(--foreground);
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.timeText {
+  font-size: 0.9rem;
+  color: var(--foreground);
+}
+
+/* ✅ AWC Animation & Layout */
 .bannerContainer {
   display: flex;
   flex-direction: column;
@@ -20,7 +50,6 @@
   padding-left: 15px;
 }
 
-/* ✅ Ensures the banner text remains aligned */
 .bannerContent {
   font-size: 24px;
   font-weight: bold;
@@ -32,9 +61,8 @@
   align-items: center;
 }
 
-/* ✅ AWC Text (Auto-Scales) */
 .staticText {
-  font-size: clamp(3rem, 6vw, 5rem); /* ✅ Scales with viewport but remains readable */
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: bold;
   line-height: 1.2;
   white-space: nowrap;
@@ -42,9 +70,8 @@
   margin-bottom: 5px;
 }
 
-/* ✅ Subtitle Auto-Scales */
 .bannerSubtitle {
-  font-size: clamp(1.2rem, 2vw, 1.5rem); /* ✅ Scales Responsively */
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   font-weight: 400;
   text-transform: capitalize;
   letter-spacing: 0.05em;
@@ -53,6 +80,7 @@
   text-align: center;
 }
 
+/* ✅ Hide Icon Box on Mobile */
 @media (max-width: 768px) {
   .banner {
     align-items: center;
@@ -60,18 +88,22 @@
   }
 
   .bannerContainer {
-    align-items: center; /* ✅ Center text on mobile */
+    align-items: center;
     justify-content: center;
   }
 
   .staticText {
-    font-size: 8vw; /* ✅ Bigger for mobile */
+    font-size: 8vw;
     text-align: center;
   }
 
   .bannerSubtitle {
     font-size: 3vw;
     text-align: center;
+  }
+
+  .iconBox {
+    display: none;
   }
 }
 

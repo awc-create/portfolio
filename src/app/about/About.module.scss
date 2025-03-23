@@ -54,7 +54,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 700px;
+  max-width: 400px;
   text-align: center;
   padding: 0 20px;
 }
@@ -79,19 +79,23 @@
 
 .skillsGrid span {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  text-align: center; /* Ensures text stays centered */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
   background: rgba(255, 255, 255, 0.1);
-  padding: 20px 15px; /* Increased padding for better balance */
+  padding: 20px 10px; /* Reduce side padding */
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem; /* Slightly smaller font */
   font-weight: bold;
   color: var(--foreground);
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  min-height: 80px; /* ✅ Ensures all boxes are of equal height */
-  width: 100%; /* ✅ Makes sure text does not wrap awkwardly */
+  
+  min-height: 90px;
+  word-wrap: break-word;
+  white-space: normal; /* ✅ Allow multi-line */
+  line-height: 1.4;
 }
 
 .skillsGrid span:hover {
@@ -103,12 +107,10 @@
 /* ✅ Adjust the grid layout */
 .skillsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* ✅ Ensures responsive alignment */
-  gap: 15px;
-  max-width: 600px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* slightly smaller min */
+  gap: 12px;
+  max-width: 700px;
   width: 100%;
-  text-align: center;
 }
 
 /* ✅ Work Experience */
