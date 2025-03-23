@@ -3,7 +3,7 @@
 import React from "react";
 import Slider from "@/components/slider/Slider";
 import styles from "./Projects.module.scss";
-import Image from "next/image";
+// import Image from "next/image";
 
 const slides = [
   {
