@@ -3,42 +3,34 @@
 import React, { useState, useEffect } from "react";
 import Tabs from "@/components/tabs/Tabs";
 import styles from "./About.module.scss";
-import Image from "next/image";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("Me");
   const [isMounted, setIsMounted] = useState(false);
-  const [mode, setMode] = useState("Client Mode"); // ✅ Default mode
+  const [mode, setMode] = useState("Client Mode");
 
-  const clientTabs = ["Me", "AWC", "Builds", "Coming Soon"];
+  const clientTabs = ["Me", "AWC", "Builder", "Development"];
   const portfolioTabs = ["Me", "Work Experience", "Skills", "Education"];
 
   useEffect(() => {
-    setIsMounted(true); // ✅ Prevents hydration issues
+    setIsMounted(true);
   }, []);
 
   const toggleMode = (selectedMode: string) => {
     if (mode !== selectedMode) {
       setMode(selectedMode);
-      setActiveTab("Me"); // ✅ Resets to "Me" when switching
+      setActiveTab("Me");
     }
   };
 
   if (!isMounted) {
-    return <div className={styles.loadingPlaceholder}>Loading...</div>; // ✅ Avoids hydration mismatch
+    return <div className={styles.loadingPlaceholder}>Loading...</div>;
   }
 
   const renderContent = () => {
     if (activeTab === "Me") {
       return (
         <div className={styles.meContainer}>
-          <Image
-            src="/images/me-wb.avif"
-            alt="Profile Image"
-            width={100}
-            height={150}
-            className={styles.profileImage}
-          />
           <p className={styles.aboutText}>
             As a former mechanical engineer, I have found myself increasingly drawn to the world of web development and DevOps engineering.
             Creating websites and bringing ideas to life quickly became my new focus. The excitement of building something from scratch,
@@ -51,14 +43,39 @@ const About = () => {
     if (mode === "Client Mode") {
       switch (activeTab) {
         case "AWC":
-          return <p className={styles.aboutText}>AWC is all about continuous improvement. Making iterative changes until your ideas come to life on screen.</p>;
-        case "Builds":
-          return <p className={styles.aboutText}>We build sites using WordPress, Wix, Shopify, GoDaddy, and write in HTML, CSS, JavaScript, Laravel & React.</p>;
-        case "Coming Soon":
           return (
-            <div className={styles.comingSoon}>
-              <p>Stay tuned for exciting new updates!</p>
-              <div className={styles.comingSoonList}>
+            <div className={styles.builderContainer}>
+              <h3 className={styles.sectionTitle}>Adaptive Workflow Consultancy</h3>
+              <p className={styles.aboutText}>
+                AWC is all about continuous improvement—iterating until your vision becomes reality. Whether it’s automation, design, or strategy,
+                AWC fine-tunes workflows so businesses scale smarter.
+              </p>
+            </div>
+          );
+        case "Builder":
+          return (
+            <div className={styles.builderContainer}>
+              <h3 className={styles.sectionTitle}>Platforms We Build With</h3>
+              <div className={styles.skillGrid}>
+                <span>WordPress</span>
+                <span>Wix</span>
+                <span>Shopify</span>
+                <span>GoDaddy</span>
+                <span>Squarespace</span>
+              </div>
+            </div>
+          );
+
+        case "Development":
+          return (
+            <div className={styles.devContainer}>
+              <h3 className={styles.sectionTitle}>Development Stack</h3>
+              <div className={styles.skillGrid}>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Laravel</span>
+                <span>React</span>
                 <span>AWS</span>
                 <span>Pulumi</span>
                 <span>GitLab</span>
@@ -68,6 +85,7 @@ const About = () => {
               </div>
             </div>
           );
+
         default:
           return null;
       }
@@ -91,6 +109,7 @@ const About = () => {
               </div>
             </div>
           );
+
         case "Skills":
           return (
             <div className={styles.skillsGrid}>
@@ -102,25 +121,27 @@ const About = () => {
               <span>React & JavaScript</span>
             </div>
           );
-          case "Education":
-            return (
-              <div className={styles.educationSection}>
-                <div className={styles.educationItem}>
-                  <span className={styles.educationIcon}>🎓</span>
-                  <div className={styles.educationText}>
-                    <h4>MSc Computer Science</h4>
-                    <p>Aston University (2019 - 2020)</p>
-                  </div>
-                </div>
-                <div className={styles.educationItem}>
-                  <span className={styles.educationIcon}>🎓</span>
-                  <div className={styles.educationText}>
-                    <h4>BEng Mechanical Engineering</h4>
-                    <p>Aston University (2015 - 2019)</p>
-                  </div>
+
+        case "Education":
+          return (
+            <div className={styles.educationSection}>
+              <div className={styles.educationItem}>
+                <span className={styles.educationIcon}>🎓</span>
+                <div className={styles.educationText}>
+                  <h4>MSc Computer Science</h4>
+                  <p>Aston University (2019 - 2020)</p>
                 </div>
               </div>
-            );
+              <div className={styles.educationItem}>
+                <span className={styles.educationIcon}>🎓</span>
+                <div className={styles.educationText}>
+                  <h4>BEng Mechanical Engineering</h4>
+                  <p>Aston University (2015 - 2019)</p>
+                </div>
+              </div>
+            </div>
+          );
+
         default:
           return null;
       }
@@ -130,7 +151,6 @@ const About = () => {
   return (
     <div className={styles.layout}>
       <div className={styles.container}>
-        {/* ✅ Mode Toggle */}
         <div className={styles.modeSwitcher}>
           <button
             className={`${styles.toggleButton} ${mode === "Client Mode" ? styles.active : ""}`}
@@ -146,12 +166,10 @@ const About = () => {
           </button>
         </div>
 
-        {/* ✅ Tabs */}
         <div className={styles.tabsContainer}>
           <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={mode === "Client Mode" ? clientTabs : portfolioTabs} />
         </div>
 
-        {/* ✅ Content */}
         <div className={styles.content}>{renderContent()}</div>
       </div>
     </div>
