@@ -62,23 +62,29 @@ const Banner = () => {
 
   return (
     <header className={styles.banner}>
-      <div className={styles.iconBox}>
-        <div className={styles.iconRow}>
+    <div className={styles.iconBox}>
+      <div className={styles.iconRow}>
+        {ukTime !== userTime && (
           <div className={styles.iconGroup}>
             <ClockSpinner color="var(--foreground)" size={24} />
             <span className={styles.timeText}>{ukTime} — UK Time (My Time)</span>
           </div>
-          <div className={styles.iconGroup}>
+        )}
+        <div className={styles.iconGroup}>
           <Icon
             icon="nrk:globe"
             width={24}
             height={24}
             className={styles.globeIcon}
           />
-            <span className={styles.timeText}>{userTime} — Your Time</span>
-          </div>
+          <span className={styles.timeText}>
+            {userTime}
+            {ukTime !== userTime && " — Your Time"}
+          </span>
         </div>
       </div>
+    </div>
+
 
       <div className={styles.bannerContainer}>
         <div

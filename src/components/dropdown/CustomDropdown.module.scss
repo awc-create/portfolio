@@ -1,0 +1,49 @@
+.customDropdown {
+    position: relative;
+    background: var(--background);
+    border: 1px solid var(--foreground);
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--foreground);
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .dropdownLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dropdownArrow {
+    font-size: 0.8rem;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--background);
+    border: 1px solid var(--foreground);
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  
+  .dropdownItem {
+    padding: 10px;
+    cursor: pointer;
+    color: var(--foreground);
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .dropdownItem:hover,
+  .selected {
+    background: var(--highlight-color);
+    color: white;
+  }
+  
