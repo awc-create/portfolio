@@ -16,17 +16,15 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // ✅ Detect screen size for mobile view
     const checkMobile = () => setIsMobile(window.innerWidth <= 600);
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // ✅ Detect dark mode
     const detectDarkMode = () => {
       setIsDarkMode(document.documentElement.classList.contains("dark-mode"));
     };
     detectDarkMode();
-    window.addEventListener("storage", detectDarkMode); // Handle theme changes
+    window.addEventListener("storage", detectDarkMode);
 
     return () => {
       window.removeEventListener("resize", checkMobile);
@@ -34,20 +32,18 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
     };
   }, []);
 
-  // ✅ Dynamic Logo Mapping
   const getLogoSrc = () => {
     if (isDarkMode) {
-      return activeTab === "AWC" ? "/logo-green.png" : "/logo-white.png";
+      return activeTab === "AWC" ? "/images/logo-green.png" : "/images/logo-white.png";
     }
-    return activeTab === "AWC" ? "/logo-white.png" : "/logo-black.png";
+    return activeTab === "AWC" ? "/images/logo-white.png" : "/images/logo-black.png";
   };
 
-  // ✅ Icon Mapping for Mobile View
   const iconMap: Record<string, React.ReactNode> = {
     "Me": <FaUser />,
     "AWC": <Image src={getLogoSrc()} alt="AWC Logo" width={50} height={50} />,
-    "Builds": <FaLaptopCode />,
-    "Coming Soon": <FaTools />,
+    "Builder": <FaTools />,
+    "Development": <FaLaptopCode />,
     "Work Experience": <FaCode />,
     "Skills": <FaBook />,
     "Education": <FaGraduationCap />,

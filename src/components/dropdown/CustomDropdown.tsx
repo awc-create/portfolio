@@ -3,31 +3,50 @@
 import React, { useState } from "react";
 import styles from "./CustomDropdown.module.scss";
 
-type Props = {
+type BaseProps = {
   label: string;
   options: string[];
-  isMulti?: boolean;
-  selected: string[] | string;
-  setSelected: (val: string[] | string) => void;
 };
 
-const CustomDropdown = ({ label, options, isMulti = false, selected, setSelected }: Props) => {
+type MultiSelectProps = BaseProps & {
+  isMulti: true;
+  selected: string[];
+  setSelected: (val: string[]) => void;
+};
+
+type SingleSelectProps = BaseProps & {
+  isMulti?: false;
+  selected: string;
+  setSelected: (val: string) => void;
+};
+
+type Props = MultiSelectProps | SingleSelectProps;
+
+const CustomDropdown = (props: Props) => {
   const [open, setOpen] = useState(false);
+
+  const { label, options, isMulti = false } = props;
 
   const handleSelect = (option: string) => {
     if (isMulti) {
-      const current = Array.isArray(selected) ? selected : [];
+      const current = props.selected as string[];
+      const set = props.setSelected as (val: string[]) => void;
+
       const newValue = current.includes(option)
         ? current.filter((v) => v !== option)
         : [...current, option];
-      setSelected(newValue);
+
+      set(newValue);
     } else {
-      setSelected(option);
+      const set = props.setSelected as (val: string) => void;
+      set(option);
       setOpen(false);
     }
   };
 
-  const displayValue = Array.isArray(selected) ? selected.join(", ") : selected;
+  const displayValue = Array.isArray(props.selected)
+    ? props.selected.join(", ")
+    : props.selected;
 
   return (
     <div
@@ -41,20 +60,26 @@ const CustomDropdown = ({ label, options, isMulti = false, selected, setSelected
       </div>
       {open && (
         <div className={styles.dropdownMenu}>
-          {options.map((option) => (
-            <div
-              key={option}
-              className={`${styles.dropdownItem} ${
-                Array.isArray(selected) && selected.includes(option) ? styles.selected : ""
-              }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelect(option);
-              }}
-            >
-              {option}
-            </div>
-          ))}
+          {options.map((option) => {
+            const isSelected = Array.isArray(props.selected)
+              ? props.selected.includes(option)
+              : props.selected === option;
+
+            return (
+              <div
+                key={option}
+                className={`${styles.dropdownItem} ${
+                  isSelected ? styles.selected : ""
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelect(option);
+                }}
+              >
+                {option}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

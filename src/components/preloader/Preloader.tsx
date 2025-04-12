@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Preloader = ({ onLoaded }: { onLoaded: () => void }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [logoSrc, setLogoSrc] = useState("/awcLogo.png");
+  const [logoSrc, setLogoSrc] = useState("/images/awcLogo.png");
 
   useEffect(() => {
     const hasSeenPreloader = localStorage.getItem("hasSeenPreloader");
