@@ -147,3 +147,71 @@
   background: var(--highlight-color);
   color: white;
 }
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ✅ Button animation while loading */
+.walkingWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.walkingAnimation {
+  width: 32px;
+  height: 32px;
+}
+
+/* ✅ Full-screen walking animation (desktop only) */
+.walkingAcrossScreen {
+  position: fixed;
+  top: 50%;
+  left: -150px;
+  z-index: 9999;
+  animation: walkAcross 2.5s linear forwards;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  gap: 8px;
+}
+
+.walkingAnimationLarge {
+  width: 300px;
+  height: 300px;
+}
+
+/* ✅ Dust trail effect */
+.dust {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  animation: dustTrail 0.2s infinite alternate;
+  transform: translateY(10px);
+  opacity: 0.2;
+}
+
+/* ✅ Animations */
+@keyframes walkAcross {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100vw;
+  }
+}
+
+@keyframes dustTrail {
+  from {
+    transform: translateY(10px) scale(1);
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(12px) scale(1.3);
+    opacity: 0.05;
+  }
+}
