@@ -61,9 +61,9 @@ const BookNow = () => {
       setIsWalking(true);
       setTimeout(() => setIsWalking(false), 2000);
     }
-
+  
     setIsLoading(true);
-
+  
     const payload = {
       name,
       email,
@@ -74,25 +74,19 @@ const BookNow = () => {
       budget,
       message,
     };
-
+  
     try {
       const response = await fetch("https://wxa8o33hac.execute-api.eu-west-2.amazonaws.com/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      const data = await response.json();
-
+  
       if (response.ok) {
-        alert("Inquiry sent successfully!");
         setIsModalOpen(false);
-      } else {
-        alert(`Failed to send: ${data.error || "Unknown error"}`);
       }
     } catch (err) {
       console.error("Submit Error:", err);
-      alert("An error occurred while sending the message.");
     } finally {
       setIsLoading(false);
     }
@@ -174,7 +168,7 @@ const BookNow = () => {
 
               <CustomDropdown
                 label="Preferred Platform"
-                options={["Coded", "Shopify", "Wix", "WordPress", "Squarespace"]}
+                options={["Coded", "Shopify", "Wix", "WordPress", "Squarespace", "Unsure"]}
                 selected={preferredPlatform}
                 setSelected={setPreferredPlatform}
               />
@@ -189,7 +183,7 @@ const BookNow = () => {
 
               <CustomDropdown
                 label="Select a Budget"
-                options={["£500 - £1,500", "£1,500 - £3,000", "£3,000 - £5,000", "£5,000+"]}
+                options={["£500 - £1,500", "£1,500 - £3,000", "£3,000 - £5,000", "£5,000+", "TBD"]}
                 selected={budget}
                 setSelected={setBudget}
               />
