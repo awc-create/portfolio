@@ -21,6 +21,7 @@ const BookNow = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isWalking, setIsWalking] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,25 +46,26 @@ const BookNow = () => {
 
   useEffect(() => {
     if (walkRef.current) {
-      walkRef.current.setSpeed(5); // Full-screen mail animation speed
+      walkRef.current.setSpeed(5);
     }
   }, [isWalking]);
 
   useEffect(() => {
     if (miniWalkRef.current) {
-      miniWalkRef.current.setSpeed(1.2); // Button animation speed
+      miniWalkRef.current.setSpeed(1.2);
     }
   }, [isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (isDesktop) {
       setIsWalking(true);
       setTimeout(() => setIsWalking(false), 2000);
     }
-  
+
     setIsLoading(true);
-  
+
     const payload = {
       name,
       email,
@@ -74,27 +76,30 @@ const BookNow = () => {
       budget,
       message,
     };
-  
+
     try {
-      const response = await fetch("https://wxa8o33hac.execute-api.eu-west-2.amazonaws.com/contact", {
+      await fetch("https://wxa8o33hac.execute-api.eu-west-2.amazonaws.com/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-  
-      if (response.ok) {
-        setIsModalOpen(false);
-      }
+
+      setIsModalOpen(false);
     } catch (err) {
       console.error("Submit Error:", err);
     } finally {
       setIsLoading(false);
+      setShowSuccessPopup(true);
+      setTimeout(() => setShowSuccessPopup(false), 4000);
     }
   };
-  
+
   return (
     <>
-      {/* ✅ Full-screen walking animation */}
+      {showSuccessPopup && (
+        <div className={styles.successPopup}>Your inquiry has been sent!</div>
+      )}
+
       {isWalking && isDesktop && (
         <div className={styles.walkingAcrossScreen}>
           <div className={styles.dust}></div>
@@ -168,7 +173,7 @@ const BookNow = () => {
 
               <CustomDropdown
                 label="Preferred Platform"
-                options={["Coded", "Shopify", "Wix", "WordPress", "Squarespace", "Unsure"]}
+                options={["Coded", "Shopify", "Wix", "WordPress", "Squarespace"]}
                 selected={preferredPlatform}
                 setSelected={setPreferredPlatform}
               />
@@ -183,7 +188,7 @@ const BookNow = () => {
 
               <CustomDropdown
                 label="Select a Budget"
-                options={["£500 - £1,500", "£1,500 - £3,000", "£3,000 - £5,000", "£5,000+", "TBD"]}
+                options={["£500 - £1,500", "£1,500 - £3,000", "£3,000 - £5,000", "£5,000+"]}
                 selected={budget}
                 setSelected={setBudget}
               />

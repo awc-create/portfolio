@@ -215,3 +215,39 @@
     opacity: 0.05;
   }
 }
+
+/* ✅ Success Popup */
+.successPopup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--foreground);
+  color: var(--background);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  font-weight: 500;
+  z-index: 1200;
+  animation: fadeInOut 4s ease-in-out forwards;
+}
+
+/* ✅ Keyframes for fading and sliding */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
