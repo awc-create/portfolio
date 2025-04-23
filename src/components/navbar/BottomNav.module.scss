@@ -6,7 +6,7 @@
   width: 100vw;
   background: var(--background);
   border-top: 1px solid var(--border);
-  padding: 12px 0;
+  padding: 12px 0 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,7 @@
 .bottomNavContent {
   display: flex;
   align-items: center;
-  gap: 20px; /* Control space between icons */
+  gap: 20px;
   max-width: 320px;
   width: 100%;
   justify-content: center;
@@ -27,31 +27,57 @@
 
 /* ✅ Nav Item */
 .navItem {
-  flex: none;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+  position: relative;
   color: var(--foreground);
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+  padding-bottom: 8px; /* make room for underline */
+  border-bottom: 3px solid transparent; /* base state for border */
 }
 
-/* ✅ Active Page Indicator */
-.navItem.active {
-  transform: scale(1.1);
+/* ✅ Hover effect */
+.navItem:hover {
   color: var(--highlight-color);
+  transform: translateY(-1px);
 }
 
-.navItem.active img {
-  transform: scale(1.1);
+/* ✅ Active styling */
+.navItem.active {
+  font-weight: 600;
+  color: var(--highlight-color);
+  border-bottom-color: black; /* light mode underline */
 }
 
-/* ✅ Icon/Image Size */
+/* ✅ Dark mode underline override */
+:global(.dark-mode) .navItem.active {
+  border-bottom-color: #454411;
+}
+
+/* ✅ Icon/Image size */
 .navItem img {
   width: 70px;
   height: 70px;
   object-fit: contain;
   transition: transform 0.2s ease-in-out;
+}
+
+.navItem svg {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* ✅ Icon scale on active */
+.navItem.active img {
+  transform: scale(1.1);
 }
 
 /* ✅ Hide BottomNav on larger screens */

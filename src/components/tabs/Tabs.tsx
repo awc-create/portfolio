@@ -34,14 +34,14 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
 
   const getLogoSrc = () => {
     if (isDarkMode) {
-      return activeTab === "AWC" ? "/images/logo-green.png" : "/images/logo-white.png";
+      return activeTab === "AWC" ? "/images/white-active-dark.png" : "/images/blue-inactive-dark.png";
     }
-    return activeTab === "AWC" ? "/images/logo-white.png" : "/images/logo-black.png";
+    return activeTab === "AWC" ? "/images/white-active-light.png" : "/images/black-inactive-light.png";
   };
 
   const iconMap: Record<string, React.ReactNode> = {
     "Me": <FaUser />,
-    "AWC": <Image src={getLogoSrc()} alt="AWC Logo" width={50} height={50} />,
+    "AWC": <Image src={getLogoSrc()} alt="AWC Logo" width={70} height={70} />,
     "Builder": <FaTools />,
     "Development": <FaLaptopCode />,
     "Work Experience": <FaCode />,
