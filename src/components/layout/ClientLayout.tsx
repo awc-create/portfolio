@@ -9,6 +9,7 @@ import Banner from "@/components/banner/Banner";
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
