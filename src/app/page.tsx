@@ -1,5 +1,5 @@
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import "./Home.scss"; // Assuming your styles are here
+import "./Home.scss";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       {/* Social icons only visible on mobile */}
       <div className="mobile-social-icons">
         <a
-          href="https://instagram.com/yourhandle"
+          href="https://www.instagram.com/awc_adaptiveworks/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -17,7 +17,7 @@ export default function Home() {
           <FaInstagram size={24} />
         </a>
         <a
-          href="https://linkedin.com/in/yourhandle"
+          href="https://www.linkedin.com/in/adnan-said-fullstack-eng"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"

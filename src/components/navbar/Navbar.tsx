@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
           <a href="https://www.instagram.com/awc_adaptiveworks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <FaInstagram size={20} />
           </a>
-          <a href="www.linkedin.com/in/adnan-said-fullstack-eng" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/adnan-said-fullstack-eng" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <FaLinkedin size={20} />
           </a>
         </div>
