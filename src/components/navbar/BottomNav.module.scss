@@ -4,16 +4,54 @@
   bottom: 0;
   left: 0;
   width: 100vw;
-  max-width: 100%;
   background: var(--background);
   border-top: 1px solid var(--border);
   padding: 12px 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   z-index: 100;
   transition: opacity 0.3s ease-in-out;
   overflow: hidden;
+}
+
+/* ✅ Content wrapper to control spacing */
+.bottomNavContent {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Control space between icons */
+  max-width: 320px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ✅ Nav Item */
+.navItem {
+  flex: none;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+  color: var(--foreground);
+}
+
+/* ✅ Active Page Indicator */
+.navItem.active {
+  transform: scale(1.1);
+  color: var(--highlight-color);
+}
+
+.navItem.active img {
+  transform: scale(1.1);
+}
+
+/* ✅ Icon/Image Size */
+.navItem img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  transition: transform 0.2s ease-in-out;
 }
 
 /* ✅ Hide BottomNav on larger screens */
@@ -21,20 +59,4 @@
   .bottomNav {
     display: none;
   }
-}
-
-/* ✅ Fix icon spacing */
-.navItem {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
-  color: var(--foreground); /* Default color */
-}
-
-/* ✅ Active Page Indicator */
-.navItem.active {
-  transform: scale(1.2); /* ✅ Slightly enlarges the active icon */
-  color: var(--highlight-color); /* ✅ Change color when active */
 }
