@@ -34,7 +34,8 @@ body {
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 /* ✅ 🟥 Banner Section (Top) */
@@ -129,4 +130,12 @@ body {
   left: 50%;
   top: 0;
   transform: translateX(-50%);
+}
+
+.githubIcon {
+  color: #171515;
+
+  .dark-mode & {
+    color: white;
+  }
 }

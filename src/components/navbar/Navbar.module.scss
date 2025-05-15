@@ -88,3 +88,16 @@
     }
   }
 }
+.githubIcon {
+  color: #171515; // default black (light mode)
+  transition: color 0.3s ease;
+
+  .dark-mode & {
+    color: white;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}

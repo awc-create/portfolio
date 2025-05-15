@@ -1,81 +1,84 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import React, { useState } from "react";
 import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
 import styles from "./Slider.module.scss";
+import ProjectModal from "@/app/projects/ProjectModal";
+import { FaArrowRight } from "react-icons/fa";
 
 interface Slide {
-  logo: string;
-  logoLink?: string;
+  image: string;
+  siteLink: string;
+  techStack: string;
   description: string;
+  review: string;
 }
 
 const Slider = ({ slides }: { slides: Slide[] }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: false, align: "start" },
-    [Autoplay({ delay: 5000 })]
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
 
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
+  const handleNext = () => {
+    if (emblaApi) emblaApi.scrollNext();
+  };
 
-  useEffect(() => {
-    if (emblaApi) {
-      const checkButtons = () => {
-        setCanScrollPrev(emblaApi.canScrollPrev());
-        setCanScrollNext(emblaApi.canScrollNext());
-      };
-
-      checkButtons();
-      emblaApi.on("select", checkButtons);
-      emblaApi.on("reInit", checkButtons);
+  const handleModalNext = () => {
+    if (modalIndex !== null) {
+      setModalIndex((prev) => (prev! + 1) % slides.length);
     }
-  }, [emblaApi]);
+  };
+
+  const handleModalPrev = () => {
+    if (modalIndex !== null) {
+      setModalIndex((prev) => (prev! - 1 + slides.length) % slides.length);
+    }
+  };
 
   return (
-    <div className={styles.sliderWrapper}>
-      <div className={styles.sliderContainer} ref={emblaRef}>
-        <div className={styles.emblaContainer}>
-          {slides.map((slide, index) => (
-            <div key={index} className={styles.emblaSlide}>
-              <div className={styles.logoContainer}>
-                {slide.logoLink ? (
-                  <a href={slide.logoLink} target="_blank" rel="noopener noreferrer">
-                    <Image src={slide.logo} alt="Logo" width={200} height={80} className={styles.logo} />
-                  </a>
-                ) : (
-                  <Image src={slide.logo} alt="Logo" width={200} height={80} className={styles.logo} />
-                )}
+    <>
+      <div className={styles.sliderWrapper}>
+        <div className={styles.sliderContainer} ref={emblaRef}>
+          <div className={styles.emblaContainer}>
+            {slides.map((slide, index) => (
+              <div key={index} className={styles.emblaSlide}>
+                <div
+                  className={styles.imageCard}
+                  onClick={() => setModalIndex(index)}
+                >
+                  <Image
+                    src={slide.image}
+                    alt="Project"
+                    width={500}
+                    height={300}
+                    className={styles.image}
+                  />
+                  <div className={styles.hoverOverlay}>
+                    <span>Find out more →</span>
+                  </div>
+                </div>
               </div>
-              <div className={styles.descriptionContainer}>
-                <p>{slide.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.arrowWrapper}>
+          <button className={styles.arrowHint} onClick={handleNext}>
+            <FaArrowRight className={styles.arrowIcon} />
+          </button>
         </div>
       </div>
 
-      {/* ✅ Circular Navigation Buttons Below the Slider */}
-      <div className={styles.navButtons}>
-        <button
-          className={`${styles.navButton} ${!canScrollPrev ? styles.disabled : ""}`}
-          onClick={() => emblaApi && emblaApi.scrollPrev()}
-          disabled={!canScrollPrev}
-        >
-          ←
-        </button>
-
-        <button
-          className={`${styles.navButton} ${!canScrollNext ? styles.disabled : ""}`}
-          onClick={() => emblaApi && emblaApi.scrollNext()}
-          disabled={!canScrollNext}
-        >
-          →
-        </button>
-      </div>
-    </div>
+      {modalIndex !== null && (
+        <ProjectModal
+          slides={slides}
+          currentIndex={modalIndex}
+          onClose={() => setModalIndex(null)}
+          onNext={handleModalNext}
+          onPrev={handleModalPrev}
+        />
+      )}
+    </>
   );
 };
 

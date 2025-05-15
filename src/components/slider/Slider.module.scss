@@ -1,155 +1,134 @@
-/* ✅ Full containment: Title → Slides → Arrows */
 .sliderWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* ✅ Center the slider vertically */
+  justify-content: center;
   width: 100%;
-  max-width: 800px; /* Matches other sections */
-  text-align: center;
+  max-width: 800px;
   margin: auto;
-  position: absolute; /* ✅ Centers it properly */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* ✅ Ensures true centering */
+  position: relative;
 }
 
-/* ✅ Slider Section (Only Slides) */
 .sliderContainer {
   overflow: hidden;
   width: 100%;
-  margin-top: 0; /* ✅ No extra space above */
 }
 
-/* ✅ Slide Wrapper */
 .emblaContainer {
   display: flex;
   gap: 20px;
 }
 
-/* ✅ Individual Slide */
 .emblaSlide {
   flex: 0 0 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.logoContainer {
-  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;              /* Ensures container spans full width */
-  text-align: center;
-  margin: 0 auto 10px auto; /* Adds spacing and centers the block */
 }
 
-/* ✅ Logo */
-.logo {
-  max-width: 175px;
-  height: auto;
-  display: block;
-  margin: 0 auto; /* This guarantees image is centered */
-}
-
-/* ✅ Description */
-.descriptionContainer {
-  text-align: center;
-  padding: 10px 20px;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--foreground);
-  font-family: "Futura", sans-serif;
-  max-width: 400px;
-  margin: auto;
-}
-
-.navButtons {
-  display: flex;
-  flex-direction: row; /* ✅ Ensures side-by-side layout */
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-
-/* ✅ Modern Circular Arrows */
-.navButton {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--foreground);
-  background-color: transparent;
-  color: var(--foreground);
-  font-size: 1.5rem;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.navButton:hover {
-  background-color: var(--foreground);
-  color: var(--background);
-  transform: scale(1.05);
+.imageCard {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &:hover .hoverOverlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.navButton:active {
-  transform: scale(0.95);
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
 }
 
-.navButton.disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  box-shadow: none;
+/* ✅ Hover overlay text */
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
 }
 
-/* ✅ Mobile Optimization */
+/* ✅ Arrow (bottom right corner) */
+.arrowHint {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--highlight-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  animation: bounceArrow 1.4s infinite;
+
+  &:hover {
+    transform: translateX(4px) scale(1.05);
+  }
+}
+
+
+.arrowIcon {
+  font-size: 1.2rem;
+}
+
+/* ✅ Arrow animation */
+@keyframes bounceArrow {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+/* ✅ Mobile Responsiveness */
 @media (max-width: 768px) {
-  .sliderWrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* ✅ Centers properly */
-  }
-
-  .descriptionContainer {
-    font-size: 1rem;
-    max-width: 320px;
-  }
-
-  .navButton {
-    width: 42px;
-    height: 42px;
-    font-size: 1.2rem;
+  .imageCard {
+    width: 300px;
+    height: 230px;
   }
 }
 
 @media (max-width: 480px) {
-  .sliderWrapper {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .imageCard {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
   }
 
-  .logo {
-    max-width: 150px;
+  .hoverOverlay {
+    font-size: 1rem;
   }
 
-  .descriptionContainer {
-    font-size: 0.9rem;
-    max-width: 280px;
+  .arrowHint {
+    bottom: -30px;
+    right: 12px;
+    padding: 8px;
   }
-  
-  .navButton {
-    width: 38px;
-    height: 38px;
-    font-size: 1.1rem;
+
+  .arrowIcon {
+    font-size: 1rem;
   }
 }
