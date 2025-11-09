@@ -1,103 +1,115 @@
-/* Navbar Styles */
 .navbar {
   position: fixed;
-  left: 0; /* Keeps navbar in the same X-axis position */
-  top: 47.4%; /* Moves navbar to the vertical center */
-  transform: translateY(-50%); /* Centers it properly */
-  height: auto; /* Allows it to adjust based on content */
+  left: 0;
+  top: 47.4%;
+  transform: translateY(-50%);
   width: 240px;
-  background-color: var(--background);
+  background: var(--background);
   color: var(--foreground);
   display: flex;
   flex-direction: column;
   padding: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Ensure Navbar Matches Global Theme */
-.light-mode .navbar {
-  background-color: var(--background-light);
-  color: var(--foreground-light);
-}
-
-.dark-mode .navbar {
-  background-color: var(--background-dark);
-  color: var(--foreground-dark);
-}
-
-/* Navbar List */
-.navbar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-/* Navbar Items */
-.navbar li {
-  margin: 15px 0;
-}
-
-/* Navbar Links */
-.navbar a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 10px;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.navbar a:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+.navbarContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-/* ✅ FIXED: Theme Toggle Button (Now Absolutely Positioned) */
-.toggle-button {
-  position: absolute; /* Forces it outside navbar positioning */
-  top: 10px; /* Positions button at the top */
-  right: 20px; /* Moves button to the right */
-  background-color: #444;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  z-index: 1000;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* ---------- Links ---------- */
+.navLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.toggle-button:hover {
-  background-color: #666;
+.navItem {
+  margin: 10px 0;
 }
 
-.social-icons {
+.navLink {
+  display: block;
+  color: color-mix(in srgb, var(--foreground) 85%, transparent);
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: color 0.25s ease, background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover = text glow, tiny lift */
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  transform: translateX(2px);
+}
+
+/* Active = clean bright text + faint background */
+.active {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--foreground) 8%, transparent);
+  font-weight: 500;
+}
+
+/* ---------- Social Icons ---------- */
+.socialIcons {
   display: flex;
   gap: 16px;
   margin-top: auto;
   padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
 
   a {
     color: #ccc;
     transition: transform 0.2s ease, opacity 0.2s ease;
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.9;
       transform: scale(1.1);
     }
   }
 }
+
+/* GitHub color adapts to theme */
 .githubIcon {
-  color: #171515; // default black (light mode)
+  color: #171515;
   transition: color 0.3s ease;
 
   .dark-mode & {
-    color: white;
+    color: var(--foreground);
   }
+}
+
+/* ✅ TikTok Icon Styling */
+.tiktokIcon {
+  color: #69C9D0; /* TikTok teal tone */
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.3s ease;
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.95;
     transform: scale(1.1);
+    /* Subtle dual glow (TikTok teal + pink outer) */
+    box-shadow:
+      0 0 8px rgba(105, 201, 208, 0.4),
+      0 0 14px rgba(238, 29, 82, 0.3);
+  }
+
+  .dark-mode & {
+    color: #E7E9EA; /* light gray in dark mode */
+    &:hover {
+      box-shadow:
+        0 0 8px rgba(105, 201, 208, 0.4),
+        0 0 14px rgba(238, 29, 82, 0.4);
+    }
+  }
+}
+/* Hide navbar on mobile */
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
   }
 }

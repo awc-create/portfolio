@@ -1,118 +1,157 @@
 .banner {
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   min-height: 12vh;
-  background-color: var(--background);
+  background: var(--background);
   color: var(--foreground);
   display: flex;
   align-items: center;
   padding-left: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background .3s ease, color .3s ease;
+}
+
+/* clocks */
+.iconBox { position: absolute; top: 12px; right: 18px; z-index: 1002; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.iconRow { display: flex; flex-direction: column; gap: 6px; }
+.iconGroup { display: flex; align-items: center; gap: 6px; }
+.timeText { font-size: .9rem; color: var(--foreground); opacity: .9; }
+
+/* content */
+.bannerContainer { display: flex; flex-direction: column; align-items: flex-start; padding-left: 15px; }
+.bannerContent   { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.awcText { font-size: clamp(2rem, 5.6vw, 3rem); font-weight: 800; letter-spacing: .05em; color: var(--foreground); }
+.streamliningText { font-size: clamp(1.2rem, 3.2vw, 2rem); font-weight: 600; letter-spacing: .02em; color: var(--foreground); opacity: .95; }
+
+.bannerSubtitle { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 400; text-transform: capitalize; letter-spacing: .05em; color: var(--foreground); margin-top: .4rem; text-align: center; }
+
+/* roles line + underline */
+.roleLineSmooth {
   position: relative;
-}
-
-/* ✅ Top Right Icon Box (clocks) */
-.iconBox {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 1002;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-.iconGroup {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.icon {
+  display: inline-block;
+  padding-bottom: 3px; /* space for underline */
   color: var(--foreground);
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
+  line-height: 1.3;
 }
 
-.timeText {
-  font-size: 0.9rem;
-  color: var(--foreground);
-}
-
-/* ✅ AWC Animation & Layout */
-.bannerContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 15px;
-}
-
-.bannerContent {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.staticText {
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: bold;
-  line-height: 1.2;
+.roleBase {
+  color: color-mix(in srgb, var(--foreground) 40%, transparent);
   white-space: nowrap;
-  text-align: center;
-  margin-bottom: 5px;
+  pointer-events: none;
 }
 
-.bannerSubtitle {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 400;
-  text-transform: capitalize;
-  letter-spacing: 0.05em;
-  font-family: "Red Hat Text", sans-serif;
+.roleReveal {
+  position: absolute;
+  left: 0; top: 0;
+  white-space: nowrap;
   color: var(--foreground);
-  text-align: center;
+  overflow: hidden;
+  width: 0;
 }
 
-/* ✅ Hide Icon Box on Mobile */
+.roleRevealPlay {
+  animation-name: revealSweep;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation-fill-mode: forwards;
+}
+
+.underline {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--foreground) 25%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.underlineRun {
+  animation-name: underlineGrow;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation-fill-mode: forwards;
+}
+
+/* keyframes */
+@keyframes revealSweep   { from { width: 0; } to { width: 100%; } }
+@keyframes underlineGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* micro shake (optional) */
+@keyframes micro-shake {
+  0% { transform: translate3d(0,0,0) }
+  20% { transform: translate3d(-1px,0,0) }
+  40% { transform: translate3d(1px,0,0) }
+  60% { transform: translate3d(-1px,0,0) }
+  80% { transform: translate3d(1px,0,0) }
+  100% { transform: translate3d(0,0,0) }
+}
+.shake { animation: micro-shake .45s ease-in-out 1; }
+
+/* ---------- MOBILE-ONLY simple block (no animations) ---------- */
+.mobileOnly { display: none; } /* hidden on desktop */
+
 @media (max-width: 768px) {
+  /* Use the simple block on mobile */
+  .mobileOnly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 16px;
+  }
+
+  .mobileBrand {
+    font-size: clamp(24px, 7.5vw, 32px);
+    font-weight: 800;
+    letter-spacing: .05em;
+    color: var(--foreground);
+    text-align: center;
+  }
+
+  .mobileSubtitle {
+    font-size: clamp(13px, 3.6vw, 15px);
+    color: var(--foreground);
+    opacity: .92;
+    text-align: center;
+    inline-size: min(92vw, 720px);
+    max-width: 100%;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Hide animated parts on mobile, keep layout tight */
+  .bannerContent,
+  .roleLineSmooth { display: none !important; }
+
+  .iconBox { display: none; }        /* hide clocks on mobile */
+
   .banner {
     align-items: center;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .bannerContainer {
     align-items: center;
     justify-content: center;
-  }
-
-  .staticText {
-    font-size: 8vw;
-    text-align: center;
-  }
-
-  .bannerSubtitle {
-    font-size: 3vw;
-    text-align: center;
-  }
-
-  .iconBox {
-    display: none;
+    padding-inline: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
-@media (max-width: 480px) {
-  .staticText {
-    font-size: 10vw;
-  }
-
-  .bannerSubtitle {
-    font-size: 4vw;
-  }
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .roleRevealPlay { animation: none; width: 100%; }
+  .underlineRun   { animation: none; transform: scaleX(1); }
+  .shake { animation: none !important; }
 }

@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import styles from "./Tabs.module.scss";
-import { FaUser, FaCode, FaLaptopCode, FaBook, FaTools, FaGraduationCap } from "react-icons/fa";
 
 interface TabsProps {
   activeTab: string;
@@ -12,57 +11,42 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, tabs }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 600);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    const detectDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark-mode"));
-    };
-    detectDarkMode();
-    window.addEventListener("storage", detectDarkMode);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      window.removeEventListener("storage", detectDarkMode);
-    };
-  }, []);
-
-  const getLogoSrc = () => {
-    if (isDarkMode) {
-      return activeTab === "AWC" ? "/images/white-active-dark.png" : "/images/blue-inactive-dark.png";
-    }
-    return activeTab === "AWC" ? "/images/white-active-light.png" : "/images/black-inactive-light.png";
-  };
-
-  const iconMap: Record<string, React.ReactNode> = {
-    "Me": <FaUser />,
-    "AWC": <Image src={getLogoSrc()} alt="AWC Logo" width={70} height={70} />,
-    "Builder": <FaTools />,
-    "Development": <FaLaptopCode />,
-    "Work Experience": <FaCode />,
-    "Skills": <FaBook />,
-    "Education": <FaGraduationCap />,
-  };
+  const [mounted, setMounted] = useState(false);
+  const reduce = useReducedMotion();
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   return (
-    <div className={styles.tabsContainer}>
-      <div className={styles.tabs}>
-        {tabs.map((tab) => (
-          <div
-            key={tab}
-            className={`${styles.tab} ${activeTab === tab ? styles.active : ""}`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {isMobile ? iconMap[tab] : tab}
-          </div>
-        ))}
+    <nav className={styles.wrap} role="tablist" aria-label="Sections">
+      <div className={styles.scroller}>
+        {tabs.map((tab) => {
+          const isActive = tab === activeTab;
+          return (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={`${styles.tab} ${isActive ? styles.active : ""}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              <span className={styles.label}>{tab}</span>
+
+              {/* Animated underline lives INSIDE the active tab */}
+              {isActive && (
+                <motion.span
+                  layoutId="tab-underline"
+                  className={styles.underline}
+                  transition={
+                    reduce ? { duration: 0.12 } : { type: "spring", stiffness: 420, damping: 30 }
+                  }
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
-    </div>
+    </nav>
   );
 };
 

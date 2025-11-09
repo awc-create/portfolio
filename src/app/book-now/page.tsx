@@ -5,6 +5,14 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import walkingMail from "@/components/lottie/walking-mail.json";
 import CustomDropdown from "@/components/dropdown/CustomDropdown";
 import styles from "./BookNow.module.scss";
+import {
+  FaEnvelope,
+  FaPhoneAlt,
+  FaLinkedin,
+  FaGithub,
+  FaInstagram,
+} from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6"; // TikTok icon (fa6 set)
 
 const featuresList = [
   "Online Store",
@@ -36,24 +44,18 @@ const BookNow = () => {
   const miniWalkRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth > 768);
-    };
+    const handleResize = () => setIsDesktop(window.innerWidth > 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
-    if (walkRef.current) {
-      walkRef.current.setSpeed(5);
-    }
+    if (walkRef.current) walkRef.current.setSpeed(5);
   }, [isWalking]);
 
   useEffect(() => {
-    if (miniWalkRef.current) {
-      miniWalkRef.current.setSpeed(1.2);
-    }
+    if (miniWalkRef.current) miniWalkRef.current.setSpeed(1.2);
   }, [isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,12 +80,14 @@ const BookNow = () => {
     };
 
     try {
-      await fetch("https://wxa8o33hac.execute-api.eu-west-2.amazonaws.com/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
+      await fetch(
+        "https://wxa8o33hac.execute-api.eu-west-2.amazonaws.com/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
       setIsModalOpen(false);
     } catch (err) {
       console.error("Submit Error:", err);
@@ -102,7 +106,7 @@ const BookNow = () => {
 
       {isWalking && isDesktop && (
         <div className={styles.walkingAcrossScreen}>
-          <div className={styles.dust}></div>
+          <div className={styles.dust} />
           <Lottie
             animationData={walkingMail}
             loop
@@ -115,16 +119,103 @@ const BookNow = () => {
 
       {!isModalOpen && (
         <div className={styles.startProjectWrapper}>
-          <button className={styles.startProjectButton} onClick={() => setIsModalOpen(true)}>
+          <button
+            className={styles.startProjectButton}
+            onClick={() => setIsModalOpen(true)}
+          >
             Start Your Project
           </button>
+
+          {/* Icons-only direct contact */}
+          <div className={styles.directContact}>
+            <p>Or reach out directly:</p>
+
+            <div className={styles.contactIconRow}>
+              <a
+                href="mailto:adaptiveworkflowconsultancy@gmail.com"
+                aria-label="Email"
+                className={`${styles.iconBtn} ${styles.email}`}
+                title="Email"
+              >
+                <FaEnvelope size={20} />
+              </a>
+              <a
+                href="tel:+447982623565"
+                aria-label="Call"
+                className={`${styles.iconBtn} ${styles.phone}`}
+                title="Call"
+              >
+                <FaPhoneAlt size={20} />
+              </a>
+            </div>
+
+            <div className={styles.socialRow}>
+              <a
+                href="https://www.linkedin.com/in/adnan-said-fullstack-eng"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className={`${styles.iconBtn} ${styles.linkedin}`}
+                title="LinkedIn"
+              >
+                <FaLinkedin size={20} />
+              </a>
+
+              <a
+                href="https://github.com/awc-create"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className={`${styles.iconBtn} ${styles.github}`}
+                title="GitHub"
+              >
+                <FaGithub size={20} />
+              </a>
+
+              <a
+                href="https://www.instagram.com/awc_adaptiveworks/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className={`${styles.iconBtn} ${styles.instagram}`}
+                title="Instagram"
+              >
+                <FaInstagram size={20} />
+              </a>
+
+              {/* TikTok */}
+              <a
+                href="https://www.tiktok.com/@adaptiveworkflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className={`${styles.iconBtn} ${styles.tiktok}`}
+                title="TikTok"
+              >
+                <FaTiktok size={18} />
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
       {isModalOpen && (
-        <div className={styles.modalBackdrop} onClick={() => setIsModalOpen(false)}>
-          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={() => setIsModalOpen(false)}>✖</button>
+        <div
+          className={styles.modalBackdrop}
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className={styles.modalCard}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsModalOpen(false)}
+              aria-label="Close"
+              title="Close"
+            >
+              ✖
+            </button>
 
             <h2>Let&apos;s Build Your Website</h2>
             <p>Fill out this form to discuss your project.</p>
@@ -188,7 +279,12 @@ const BookNow = () => {
 
               <CustomDropdown
                 label="Select a Budget"
-                options={["£500 - £1,500", "£1,500 - £3,000", "£3,000 - £5,000", "£5,000+"]}
+                options={[
+                  "£500 - £1,500",
+                  "£1,500 - £3,000",
+                  "£3,000 - £5,000",
+                  "£5,000+",
+                ]}
                 selected={budget}
                 setSelected={setBudget}
               />
@@ -200,9 +296,13 @@ const BookNow = () => {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
+              />
 
-              <button type="submit" className={styles.submitButton} disabled={isLoading}>
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <div className={styles.walkingWrapper}>
                     <Lottie

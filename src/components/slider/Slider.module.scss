@@ -2,15 +2,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 800px;
   margin: auto;
   position: relative;
 }
 
+/* 🔹 Counter has its own row (no overlap) */
+.counterRow {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* center it over the carousel */
+  margin-bottom: 8px;      /* space below the counter */
+}
+
+.counterBadge {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+}
+
+/* Embla */
 .sliderContainer {
-  overflow: hidden;
+  overflow: hidden; /* viewport */
   width: 100%;
 }
 
@@ -26,6 +44,7 @@
   align-items: center;
 }
 
+/* Card */
 .imageCard {
   position: relative;
   width: 400px;
@@ -49,7 +68,7 @@
   border-radius: 12px;
 }
 
-/* ✅ Hover overlay text */
+/* Hover overlay */
 .hoverOverlay {
   position: absolute;
   inset: 0;
@@ -66,12 +85,17 @@
   transform: translateY(10px);
 }
 
-/* ✅ Arrow (bottom right corner) */
-.arrowHint {
-  margin-top: 20px;
+/* Controls */
+.controlsRow {
   display: flex;
   justify-content: center;
-  align-items: center;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.arrowHint {
+  display: grid;
+  place-items: center;
   background: var(--highlight-color);
   color: white;
   border: none;
@@ -80,55 +104,54 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 5;
   animation: bounceArrow 1.4s infinite;
-
-  &:hover {
-    transform: translateX(4px) scale(1.05);
-  }
 }
-
 
 .arrowIcon {
   font-size: 1.2rem;
 }
 
-/* ✅ Arrow animation */
 @keyframes bounceArrow {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(6px);
-  }
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
 }
 
-/* ✅ Mobile Responsiveness */
+/* Thumbnails */
+.thumbStrip {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumbOnly {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 84px;
+  height: 56px;
+  cursor: pointer;
+}
+
+.thumbActive {
+  outline: 2px solid var(--highlight-color);
+}
+
+.thumbImgOnly {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .imageCard {
-    width: 300px;
-    height: 230px;
-  }
+  .imageCard { width: 300px; height: 230px; }
 }
 
 @media (max-width: 480px) {
-  .imageCard {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  .hoverOverlay {
-    font-size: 1rem;
-  }
-
-  .arrowHint {
-    bottom: -30px;
-    right: 12px;
-    padding: 8px;
-  }
-
-  .arrowIcon {
-    font-size: 1rem;
-  }
+  .imageCard { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+  .counterRow { margin-bottom: 6px; }
 }
