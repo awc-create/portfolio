@@ -4,7 +4,6 @@
   left: 0;
   width: 100vw;
   max-width: 100%;
-  overflow-x: hidden; /* ✅ Prevents horizontal scroll */
   background: var(--background);
   border-top: 1px solid var(--border, color-mix(in srgb, var(--foreground) 12%, transparent));
   z-index: 100;
@@ -71,12 +70,6 @@
   letter-spacing: 0.02em;
   text-align: center;
   line-height: 1;
-}
-
-/* ✅ Ensure no accidental scroll or overshoot */
-html,
-body {
-  overflow-x: hidden !important;
 }
 
 /* Hide on desktop */
