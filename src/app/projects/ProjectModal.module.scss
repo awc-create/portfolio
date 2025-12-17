@@ -1,3 +1,5 @@
+/* src/app/projects/ProjectModal.module.scss */
+
 /* Overlay */
 .overlay {
   position: fixed;
@@ -39,7 +41,10 @@
   padding: 6px 10px;
   border-radius: 8px;
 
-  &:hover { color: #fff; background: rgba(255,255,255,.06); }
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
 }
 
 /* Top image card */
@@ -72,7 +77,7 @@
   opacity: 0;
   transform: translateY(8px);
   transition: all 0.25s ease;
-  text-shadow: 0 1px 6px rgba(0,0,0,.35);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 
 /* Content area (scrolls if long) */
@@ -85,9 +90,163 @@
 .title {
   font-size: clamp(18px, 2.8vw, 24px);
   font-weight: 700;
-  letter-spacing: .2px;
-  margin: 0 0 10px 0;
+  letter-spacing: 0.2px;
+  margin: 0 0 6px 0;
   color: #eef3f3;
+}
+
+/* ✅ Complexity meter (coloured + animated) */
+.complexityRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 10px;
+}
+
+.complexityLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+}
+
+.meter {
+  --on: #ffffff;
+  --glow: rgba(255, 255, 255, 0.3);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  transform-origin: center;
+}
+
+/* Level colours */
+.meterLow {
+  --on: #22c55e; /* green */
+  --glow: rgba(34, 197, 94, 0.45);
+}
+
+.meterMedium {
+  --on: #f59e0b; /* orange */
+  --glow: rgba(245, 158, 11, 0.45);
+}
+
+.meterHigh {
+  --on: #ef4444; /* red */
+  --glow: rgba(239, 68, 68, 0.5);
+}
+
+.bar {
+  width: 20px;
+  height: 7px;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+/* ON/OFF states */
+.barOn {
+  background: var(--on);
+  opacity: 1;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.barOff {
+  background: rgba(255, 255, 255, 0.22);
+  opacity: 0.85;
+}
+
+/* Entrance animation (grow in) */
+.meterAnimate .bar {
+  transform: scaleX(0);
+  opacity: 0.2;
+  animation: meterGrow 520ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+/* Stagger the bars */
+.meterAnimate .bar:nth-child(1) {
+  animation-delay: 60ms;
+}
+.meterAnimate .bar:nth-child(2) {
+  animation-delay: 140ms;
+}
+.meterAnimate .bar:nth-child(3) {
+  animation-delay: 220ms;
+}
+
+@keyframes meterGrow {
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* High complexity pop/explode effect */
+.meterHigh.meterAnimate {
+  animation: meterPop 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes meterPop {
+  0% {
+    transform: scale(0.92);
+    filter: drop-shadow(0 0 0 var(--glow));
+  }
+  55% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 14px var(--glow));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px var(--glow));
+  }
+}
+
+/* glow pulse to ON bars (High only) */
+.meterHigh.meterAnimate .barOn {
+  animation: meterGrow 520ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards,
+    glowPulse 700ms ease-out 260ms both;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    box-shadow: 0 0 18px var(--glow);
+  }
+  100% {
+    box-shadow: 0 0 8px var(--glow);
+  }
+}
+
+.complexityValue {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* ✅ Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+
+  li {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.07);
+    color: #e6eeee;
+    padding: 0.34rem 0.6rem;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.1px;
+  }
 }
 
 /* Chips */
@@ -100,13 +259,13 @@
   margin: 0 0 12px;
 
   li {
-    border: 1px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
     color: #cfd6d6;
-    padding: .36rem .6rem;
+    padding: 0.36rem 0.6rem;
     border-radius: 999px;
     font-size: 12px;
-    letter-spacing: .1px;
+    letter-spacing: 0.1px;
   }
 }
 
@@ -136,37 +295,56 @@
 .secondaryBtn {
   appearance: none;
   border-radius: 12px;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   font-size: 14px;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: transform .15s ease, opacity .15s ease, background .15s ease, border-color .15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .primaryBtn {
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   background: #e5e7eb14;
   color: #e6eeee;
   text-align: center;
 
-  &:hover { transform: translateY(-1px); opacity: .96; }
+  &:hover {
+    transform: translateY(-1px);
+    opacity: 0.96;
+  }
 }
 
 .secondaryBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cfd6d6;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 
-  &:hover { transform: translateY(-1px); opacity: .92; }
+  &:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+  }
 }
 
 /* Mobile tweaks */
 @media (max-width: 600px) {
-  .modal { max-height: 86vh; }
-  .details { padding: 14px; }
-  .ctaRow { grid-template-columns: 1fr; }
+  .modal {
+    max-height: 86vh;
+  }
+
+  .details {
+    padding: 14px;
+  }
+
+  .ctaRow {
+    grid-template-columns: 1fr;
+  }
+
+  .complexityValue {
+    margin-left: 0;
+  }
 }

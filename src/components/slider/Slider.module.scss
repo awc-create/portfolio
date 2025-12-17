@@ -6,29 +6,88 @@
   max-width: 800px;
   margin: auto;
   position: relative;
+  padding-top: 70px; /* space for pill + hint */
 }
 
-/* 🔹 Counter has its own row (no overlap) */
-.counterRow {
+/* ✅ HUD area (pill + keyboard hint) */
+.hudRow {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
   width: 100%;
-  display: flex;
-  justify-content: center; /* center it over the carousel */
-  margin-bottom: 8px;      /* space below the counter */
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  pointer-events: none;
 }
 
-.counterBadge {
-  font-size: 0.9rem;
-  color: var(--foreground);
-  background: rgba(255, 255, 255, 0.06);
+/* ✅ Pill */
+.hudPill {
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
+
+.hudTitle {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  max-width: 520px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.hudDot {
+  opacity: 0.55;
+}
+
+.hudIndex {
+  opacity: 0.8;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ✅ Keyboard hint */
+.keyHint {
+  pointer-events: none;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   padding: 6px 10px;
   border-radius: 999px;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(10px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Embla */
 .sliderContainer {
-  overflow: hidden; /* viewport */
+  overflow: hidden;
   width: 100%;
 }
 
@@ -49,10 +108,10 @@
   position: relative;
   width: 400px;
   height: 300px;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   background: #000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
   cursor: pointer;
 
   &:hover .hoverOverlay {
@@ -61,11 +120,41 @@
   }
 }
 
+/* Next Image fill */
 .image {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
+  object-position: center;
+}
+
+/* ✅ Tags overlay (bottom-right inside image) */
+.tagsOverlay {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.tagsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 78%;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 9px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
 }
 
 /* Hover overlay */
@@ -81,7 +170,7 @@
   font-weight: bold;
   font-size: 1.2rem;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   transform: translateY(10px);
 }
 
@@ -96,15 +185,20 @@
 .arrowHint {
   display: grid;
   place-items: center;
-  background: var(--highlight-color);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 14px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
   animation: bounceArrow 1.4s infinite;
+}
+
+.arrowHint:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .arrowIcon {
@@ -112,8 +206,13 @@
 }
 
 @keyframes bounceArrow {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(6px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
 }
 
 /* Thumbnails */
@@ -137,7 +236,7 @@
 }
 
 .thumbActive {
-  outline: 2px solid var(--highlight-color);
+  outline: 2px solid rgba(255, 255, 255, 0.55);
 }
 
 .thumbImgOnly {
@@ -148,10 +247,53 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .imageCard { width: 300px; height: 230px; }
+  .imageCard {
+    width: 320px;
+    height: 240px;
+  }
+
+  .hudTitle {
+    max-width: 72vw;
+  }
 }
 
+/* Mobile: stacked pill (title over counter) */
 @media (max-width: 480px) {
-  .imageCard { width: 100%; height: auto; aspect-ratio: 4 / 3; }
-  .counterRow { margin-bottom: 6px; }
+  .sliderWrapper {
+    padding-top: 88px;
+  }
+
+  .hudPill {
+    flex-direction: column;
+    gap: 3px;
+    border-radius: 16px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  .hudDot {
+    display: none;
+  }
+
+  .hudTitle {
+    max-width: 78vw;
+  }
+
+  .imageCard {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .tagsList {
+    max-width: 92%;
+  }
+
+  .thumbStrip {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0 10px;
+  }
 }

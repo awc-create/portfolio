@@ -1,5 +1,6 @@
-// src/app/projects/Projects.module.scss
-/* ✅ Modal Overlay */
+/* =========================================================
+   MODAL OVERLAY
+   ========================================================= */
 .overlay {
   position: fixed;
   top: 0;
@@ -12,10 +13,12 @@
   align-items: center;
   z-index: 1000;
   padding: 20px;
-  overflow-y: auto; /* ✅ Allow scroll when modal is taller than viewport */
+  overflow-y: auto;
 }
 
-/* ✅ Modal Container */
+/* =========================================================
+   MODAL CONTAINER
+   ========================================================= */
 .modal {
   background: linear-gradient(to bottom right, #1f1f1f, #2b2b2b);
   padding: 2rem 1.5rem 1.5rem;
@@ -28,12 +31,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 60px; /* 👈 Space for close button */
-  max-height: 90vh; /* ✅ Restrict height */
-  overflow-y: auto;  /* ✅ Enable vertical scroll inside modal */
+  padding-top: 60px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* ✅ Close Button */
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
 .closeBtn {
   position: absolute;
   top: 20px;
@@ -50,7 +55,9 @@
   }
 }
 
-/* ✅ Image Card */
+/* =========================================================
+   IMAGE CARD
+   ========================================================= */
 .imageCard {
   position: relative;
   width: 100%;
@@ -75,7 +82,9 @@
   border-radius: 16px;
 }
 
-/* ✅ Hover Overlay for "Go to Site" */
+/* =========================================================
+   HOVER OVERLAY
+   ========================================================= */
 .hoverOverlay {
   position: absolute;
   inset: 0;
@@ -92,12 +101,92 @@
   transform: translateY(10px);
 }
 
-/* ✅ Project Details */
+/* =========================================================
+   PROJECT DETAILS
+   ========================================================= */
 .details {
   text-align: center;
   padding: 0 1rem;
 }
 
+/* =========================================================
+   COMPLEXITY METER
+   ========================================================= */
+.complexityRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0 12px;
+}
+
+.complexityLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bar {
+  width: 20px;
+  height: 7px;
+  border-radius: 999px;
+  transition: opacity 0.18s ease;
+}
+
+.barOn {
+  background: rgba(255, 255, 255, 0.95);
+  opacity: 1;
+}
+
+.barOff {
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 0.85;
+}
+
+.complexityValue {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+
+  li {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #e9f0f0;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================
+   TECH / DESCRIPTION / REVIEW
+   ========================================================= */
 .tech {
   font-weight: 600;
   font-size: 1rem;
@@ -118,12 +207,14 @@
   font-size: 0.95rem;
 }
 
-/* ✅ Mobile Responsiveness */
+/* =========================================================
+   MOBILE RESPONSIVENESS
+   ========================================================= */
 @media (max-width: 600px) {
   .modal {
     padding: 1rem;
     padding-top: 60px;
-    max-height: 95vh; /* Slightly taller modal for mobile */
+    max-height: 95vh;
   }
 
   .imageCard {
@@ -140,5 +231,9 @@
 
   .review {
     font-size: 0.9rem;
+  }
+
+  .complexityRow {
+    flex-wrap: wrap;
   }
 }
