@@ -6,10 +6,10 @@
   max-width: 800px;
   margin: auto;
   position: relative;
-  padding-top: 70px; /* space for pill + hint */
+  padding-top: 70px;
 }
 
-/* ✅ HUD area (pill + keyboard hint) */
+/* HUD */
 .hudRow {
   position: absolute;
   top: 12px;
@@ -23,20 +23,16 @@
   pointer-events: none;
 }
 
-/* ✅ Pill */
 .hudPill {
   pointer-events: none;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-
   padding: 8px 12px;
   border-radius: 999px;
-
   background: rgba(0, 0, 0, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
-
   color: rgba(255, 255, 255, 0.92);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
 }
@@ -61,13 +57,12 @@
   white-space: nowrap;
 }
 
-/* ✅ Keyboard hint */
 .keyHint {
   pointer-events: none;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.78);
   background: rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 6px 10px;
   border-radius: 999px;
   backdrop-filter: blur(10px);
@@ -101,13 +96,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  min-width: 450px;
+  min-height: 350px;
 }
 
 /* Card */
 .imageCard {
   position: relative;
-  width: 400px;
-  height: 300px;
+  width: 450px;
+  height: 350px;
   border-radius: 14px;
   overflow: hidden;
   background: #000;
@@ -120,13 +118,28 @@
   }
 }
 
-/* Next Image fill */
-.image {
+/* ✅ Default behaviour for most slides */
+.imageCover {
   object-fit: cover;
   object-position: center;
 }
 
-/* ✅ Tags overlay (bottom-right inside image) */
+/* ✅ No-crop behaviour (SHEGO) */
+.imageContain {
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Optional: blurred backdrop behind contain image (only rendered for SHEGO) */
+.imageBackdrop {
+  object-fit: cover;
+  object-position: center;
+  filter: blur(10px);
+  transform: scale(1.08);
+  opacity: 0.35;
+}
+
+/* Tags overlay */
 .tagsOverlay {
   position: absolute;
   right: 12px;
@@ -191,14 +204,8 @@
   border-radius: 999px;
   padding: 14px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
   animation: bounceArrow 1.4s infinite;
-}
-
-.arrowHint:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .arrowIcon {
@@ -215,24 +222,33 @@
   }
 }
 
-/* Thumbnails */
+/* Thumbnails: one line of 4 */
 .thumbStrip {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 450px;
+  padding: 0 6px 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.thumbStrip::-webkit-scrollbar {
+  height: 0;
 }
 
 .thumbOnly {
+  scroll-snap-align: center;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
   padding: 0;
   border-radius: 10px;
   overflow: hidden;
-  width: 84px;
-  height: 56px;
   cursor: pointer;
+  flex: 0 0 calc((100% - 36px) / 4);
+  height: 78px;
 }
 
 .thumbActive {
@@ -247,17 +263,20 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .imageCard {
-    width: 320px;
-    height: 240px;
-  }
-
   .hudTitle {
     max-width: 72vw;
   }
+
+  .sliderWrapper {
+    max-width: 92vw;
+  }
+
+  .thumbStrip {
+    width: min(450px, 92vw);
+  }
 }
 
-/* Mobile: stacked pill (title over counter) */
+/* Mobile: scale down */
 @media (max-width: 480px) {
   .sliderWrapper {
     padding-top: 88px;
@@ -280,20 +299,25 @@
   }
 
   .imageCard {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
+    width: 92vw;
+    height: calc(92vw * (350 / 450));
+  }
+
+  .emblaSlide {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .thumbStrip {
+    width: 92vw;
+    padding: 0 10px 10px;
+  }
+
+  .thumbOnly {
+    height: 62px;
   }
 
   .tagsList {
     max-width: 92%;
-  }
-
-  .thumbStrip {
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    width: 100%;
-    padding: 0 10px;
   }
 }

@@ -1,17 +1,20 @@
-/* ---------- Container guards ---------- */
+/* HOME — Banner-aware mobile layout (does NOT touch Banner component) */
+
+:root {
+  /* fallback values if vars are missing */
+  --banner-h: var(--banner-height, 110px);
+  --bottomnav-h: 72px;
+}
+
+/* Prevent accidental horizontal scroll caused by vw + padding combos */
 .homeContent {
-  min-height: 100dvh;
-  padding:
-    clamp(12px, 2.5vh, 28px)
-    16px
-    calc(88px + env(safe-area-inset-bottom, 0px))
-    16px;
-  overflow-x: hidden;
-  display: grid;
-  place-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   box-sizing: border-box;
 }
 
+/* ===== Desktop/Tablet base ===== */
 .heroDesktop,
 .heroMobile {
   width: 100%;
@@ -20,220 +23,357 @@
   text-align: center;
 }
 
-/* ---------- Desktop styles (unchanged) ---------- */
+/* Keep your existing desktop styles (unchanged) */
 .heroTitle {
   font-size: clamp(28px, 4.2vw, 44px);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--text-dark, #e5ecec);
+  font-weight: 880;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
   margin: 4px 0 12px;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .heroSub {
   font-size: clamp(16px, 2.2vw, 20px);
-  color: #b8c2c2;
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
   margin: 0 0 8px;
   line-height: 1.45;
 }
 
 .heroLead {
   font-size: 15px;
-  line-height: 1.65;
-  color: #9aa3a3;
-  margin: 0 auto 16px;
-  max-width: 42ch;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+  margin: 0 auto 18px;
+  max-width: 46ch;
 }
 
 .infoChips {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   padding: 0;
   list-style: none;
 
   li {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
-    color: #c7d0d0;
-    padding: 0.44rem 0.62rem;
+    background: color-mix(in srgb, var(--foreground) 4%, transparent);
+    border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    padding: 0.42rem 0.72rem;
     border-radius: 999px;
-    font-size: 12.5px;
-    letter-spacing: 0.1px;
-    backdrop-filter: blur(2px);
+    font-size: 12px;
+    letter-spacing: 0.12px;
+    font-weight: 550;
+    cursor: default;
+    user-select: none;
   }
 }
 
 .heroActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  max-width: 520px;
-  margin: 0 auto 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
 
   .btnPrimary,
   .btnGhost {
-    display: inline-block;
-    text-align: center;
-    font-size: 15px;
-    padding: 0.9rem 1rem;
-    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 56px;
+    padding: 0 18px;
+    border-radius: 16px;
     text-decoration: none;
-    transition: transform 0.15s ease, opacity 0.15s ease,
-      background 0.15s ease, border-color 0.15s ease;
+    font-size: 15px;
+    font-weight: 750;
+    letter-spacing: 0.12px;
+    transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.22s ease,
+      border-color 0.22s ease, opacity 0.18s ease;
   }
 
   .btnPrimary {
-    background: #e5e7eb14;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    color: #e6eeee;
+    background: color-mix(in srgb, var(--foreground) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+    color: var(--foreground);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
 
-    &:hover { transform: translateY(-1px); opacity: 0.96; }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
   }
 
   .btnGhost {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #cfd7d7;
     background: transparent;
+    border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent);
+    color: color-mix(in srgb, var(--foreground) 88%, transparent);
 
-    &:hover { transform: translateY(-1px); opacity: 0.92; }
+    &:hover {
+      transform: translateY(-2px);
+      background: color-mix(in srgb, var(--foreground) 7%, transparent);
+      border-color: color-mix(in srgb, var(--foreground) 28%, transparent);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+    }
   }
 }
 
+/* Desktop "More" */
 .more {
-  margin-top: 6px;
-  max-width: 50ch;
+  margin-top: 8px;
+  max-width: 56ch;
   margin-inline: auto;
 
   summary {
     cursor: pointer;
-    color: #9bb2b2;
-    outline: none;
-    list-style: none;
-    font-size: 13px;
-    opacity: 0.92;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent);
+    color: color-mix(in srgb, var(--foreground) 86%, transparent);
+    font-size: 13.5px;
+    font-weight: 750;
+    letter-spacing: 0.14px;
   }
-  p {
-    color: #9aa3a3;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-top: 0.5rem;
+
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
-/* ---------- Mobile compact block ---------- */
+/* ===== Mobile ===== */
 .heroMobile {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .heroDesktop { display: none; }
-  .heroMobile {
+  .heroDesktop {
+    display: none;
+  }
+
+  /* We DO NOT subtract heights anymore.
+     We pad for Banner + BottomNav and center inside that area. */
+  .homeContent {
+    min-height: 100dvh;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+
+    /* Banner + BottomNav clearance (tweak numbers if needed) */
+    --banner-h: var(--banner-height, 110px);
+    --bottomnav-h: 76px;
+
+    padding-top: calc(var(--banner-h) + 14px);
+    padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px) + 14px);
+    padding-left: 14px;
+    padding-right: 14px;
+
     display: grid;
-    gap: 14px;
     place-items: center;
-    max-width: 620px;
+    box-sizing: border-box;
+  }
+
+  /* Centered stack */
+  .heroMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* Prevent the “too wide / scroll” issue */
+    width: min(420px, calc(100% - 8px));
+    max-width: 420px;
+
+    /* tighter spacing so everything fits */
+    gap: 10px;
+    text-align: center;
   }
 
   .mTagline {
-    font-size: clamp(17px, 5vw, 20px);
-    color: var(--foreground);
-    opacity: 0.95;
+    margin: 0;
+    font-size: 18px;
     line-height: 1.35;
+    color: color-mix(in srgb, var(--foreground) 88%, transparent);
   }
 
   .mChips {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 2px 0 4px;
 
     li {
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
-      color: #cfd7d7;
-      padding: 0.42rem 0.6rem;
+      padding: 0.34rem 0.62rem;
       border-radius: 999px;
-      font-size: 12.5px;
-      letter-spacing: 0.1px;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.08px;
+
+      background: color-mix(in srgb, var(--foreground) 4%, transparent);
+      border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+      color: color-mix(in srgb, var(--foreground) 72%, transparent);
+
+      white-space: nowrap;
+      cursor: default;
+      user-select: none;
     }
   }
 
   .mActions {
     display: grid;
     gap: 8px;
-    width: min(420px, 92vw);
-
-    .mBtnPrimary {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 0.9rem 1rem;
-      border-radius: 14px;
-      background: #e5e7eb14;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #e6eeee;
-      text-decoration: none;
-    }
-
-    .mTextLink {
-      justify-self: center;
-      font-size: 14px;
-      color: #b9c3c3;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    width: 100%;
+    margin-top: 2px;
   }
 
-  /* ✅ Colored social icons */
+  /* Make CTAs smaller so they fit without feeling “huge” */
+  .mBtnPrimary {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    height: 46px;
+    line-height: 46px;
+
+    border-radius: 14px;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 850;
+    letter-spacing: 0.1px;
+
+    background: color-mix(in srgb, var(--foreground) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+    color: var(--foreground);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+  }
+
+  .mTextLink {
+    justify-self: center;
+    font-size: 14px;
+    font-weight: 650;
+    color: color-mix(in srgb, var(--foreground) 75%, transparent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-top: 2px;
+  }
+
   .mSocials {
     display: flex;
-    gap: 22px;
     justify-content: center;
-    margin-top: 4px;
+    gap: 14px;
+    margin-top: 6px;
+  }
 
-    .mIcon {
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
+  .mIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    /* native brand colors */
-    .mIcon:nth-child(1) { color: #E1306C; } /* Instagram */
-    .mIcon:nth-child(2) { color: #0A66C2; } /* LinkedIn */
-    .mIcon:nth-child(3) { color: #e6eeee; } /* GitHub */
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
 
-    .mIcon:hover { opacity: 0.85; transform: scale(1.08); }
+    border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    background: color-mix(in srgb, var(--foreground) 3%, transparent);
+
+    transition: transform 0.18s ease, opacity 0.18s ease;
+  }
+
+  /* Base brand colors (always on) */
+  .mInstagram { color: var(--icon-instagram); }
+  .mLinkedin  { color: var(--icon-linkedin); }
+  .mGithub    { color: var(--icon-github); }
+  .mTiktok    { color: var(--icon-tiktok); }
+
+  .mIcon:active {
+    transform: scale(0.98);
+    opacity: 0.92;
   }
 
   .mMore {
-    margin-top: 2px;
-    max-width: 46ch;
-    margin-inline: auto;
-
-    summary {
-      cursor: pointer;
-      color: #9bb2b2;
-      outline: none;
-      list-style: none;
-      font-size: 13px;
-      opacity: 0.92;
-    }
-    p {
-      color: #9aa3a3;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: 0.45rem;
-    }
+    margin-top: 8px;
+    width: 100%;
   }
-}
 
-/* ---------- Motion prefs ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .heroActions .btnPrimary:hover,
-  .heroActions .btnGhost:hover {
-    transform: none;
+  .mMore summary {
+    cursor: pointer;
+    user-select: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 11px 14px;
+
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 850;
+    letter-spacing: 0.1px;
+
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent);
+    color: color-mix(in srgb, var(--foreground) 86%, transparent);
+  }
+
+  .mMore summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mMore summary::after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.22s ease;
+    opacity: 0.9;
+  }
+
+  .mMore[open] summary::after {
+    transform: rotate(-135deg);
+  }
+
+  /* Keep expanded text compact so it doesn't force scroll */
+  .mMore p {
+    margin: 10px auto 0;
+    padding: 0;
+
+    max-width: 46ch;
+    max-height: 96px;
+    overflow: hidden;
+
+    color: color-mix(in srgb, var(--foreground) 68%, transparent);
+    font-size: 14px;
+    line-height: 1.6;
+
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .mMore p::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    bottom: 0.35em;
+    width: 2px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--highlight-color) 70%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--highlight-color) 18%, transparent);
   }
 }

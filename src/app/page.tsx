@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
 import "./Home.scss";
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
 
   return (
     <section className="homeContent" aria-label="Hero">
-      {/* ===== Desktop / Tablet — your original hero kept intact ===== */}
+      {/* ===== Desktop / Tablet ===== */}
       <motion.div
         className="heroDesktop"
         variants={container}
@@ -56,8 +57,9 @@ export default function Home() {
               View Projects
             </Link>
           </motion.div>
+
           <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-            <Link href="/book" className="btnGhost">
+            <Link href="/book-now" className="btnGhost">
               Book a Call
             </Link>
           </motion.div>
@@ -72,7 +74,7 @@ export default function Home() {
         </motion.details>
       </motion.div>
 
-      {/* ===== Mobile — compact, centered, low-clutter ===== */}
+      {/* ===== Mobile — starts BELOW banner, centered in remaining space ===== */}
       <motion.div
         className="heroMobile"
         variants={container}
@@ -83,7 +85,7 @@ export default function Home() {
           Reliable web apps, end-to-end.
         </motion.p>
 
-        <motion.ul className="mChips" variants={item}>
+        <motion.ul className="mChips" variants={item} aria-label="Service notes">
           <li>Available</li>
           <li>Response &lt; 24h</li>
         </motion.ul>
@@ -92,46 +94,59 @@ export default function Home() {
           <Link href="/projects" className="mBtnPrimary">
             View Projects
           </Link>
-          <Link href="/book" className="mTextLink" aria-label="Book a call">
+
+          <Link href="/book-now" className="mTextLink" aria-label="Book a call">
             Book a call
           </Link>
         </motion.div>
 
-        <motion.div className="mSocials" variants={item}>
+        <motion.div className="mSocials" variants={item} aria-label="Social links">
           <a
             href="https://www.instagram.com/awc_adaptiveworks/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="mIcon"
+            className="mIcon mInstagram"
           >
-            <FaInstagram size={22} />
+            <FaInstagram size={20} />
           </a>
+
           <a
             href="https://www.linkedin.com/in/adnan-said-fullstack-eng"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="mIcon"
+            className="mIcon mLinkedin"
           >
-            <FaLinkedin size={22} />
+            <FaLinkedin size={20} />
           </a>
+
           <a
             href="https://github.com/awc-create"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="mIcon"
+            className="mIcon mGithub"
           >
-            <FaGithub size={22} />
+            <FaGithub size={20} />
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@adaptiveworkflow"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="mIcon mTiktok"
+          >
+            <FaTiktok size={20} />
           </a>
         </motion.div>
 
         <details className="mMore">
-          <summary>More</summary>
+          <summary>What I can help with</summary>
           <p>
-            Full-Stack + DevOps. Design → production with CI/CD and sensible
-            architecture.
+            Design systems, Next.js apps, APIs, AWS infra, CI/CD, performance
+            audits, and production support.
           </p>
         </details>
       </motion.div>

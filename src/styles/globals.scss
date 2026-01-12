@@ -2,16 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ✅ Default Light Mode */
+/* ✅ Theme tokens */
 :root {
-  --background-light: #BCC8C8;
+  /* Base surfaces */
+  --background-light: #bcc8c8;
   --foreground-light: #333333;
-  --background-dark: #1E1E1E;
-  --foreground-dark: #BCC8C8;
-  --hover-color: blue;
 
+  --background-dark: #1e1e1e;
+  --foreground-dark: #bcc8c8;
+
+  /* Active theme */
   --background: var(--background-light);
   --foreground: var(--foreground-light);
+
+  /* Optional */
+  --hover-color: #2563eb;
+
+  /* =========================
+     Icon colors (LIGHT mode)
+     Muted + premium on pale bg
+     ========================= */
+  --icon-instagram: #c13584; /* muted magenta */
+  --icon-linkedin: #2563eb;  /* softer blue */
+  --icon-github: #374151;    /* slate-700 */
+  --icon-tiktok: #0f172a;    /* slate-900 */
+
+  /* Useful extras (if you want them later) */
+  --icon-email: #3b82f6;
+  --icon-phone: #16a34a;
+}
+
+/* ✅ Dark mode overrides */
+.dark-mode {
+  --background: var(--background-dark);
+  --foreground: var(--foreground-dark);
+
+  /* =========================
+     Icon colors (DARK mode)
+     Brighter + higher contrast
+     ========================= */
+  --icon-instagram: #ff5fa2;
+  --icon-linkedin: #5aa2ff;
+  --icon-github: #e5e7eb;
+  --icon-tiktok: #e5e7eb;
+
+  --icon-email: #7dd3fc;
+  --icon-phone: #22c55e;
 }
 
 /* ✅ Dark Mode Variables */
@@ -21,6 +57,7 @@
     --foreground: var(--foreground-dark);
   }
 }
+
 
 /* ✅ Ensure Body Theme */
 body {

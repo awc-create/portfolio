@@ -1,3 +1,7 @@
+/* =========================================================
+   BOOK NOW (FULL) — polished borders + mobile scrollable modal
+   ========================================================= */
+
 /* --- Center button --- */
 .startProjectWrapper {
   position: absolute;
@@ -53,10 +57,12 @@
   gap: 12px;
 }
 
-/* Base icon button */
+/* ================================
+   ICON BUTTONS (LIGHT/DARK SAFE)
+   ================================ */
 .iconBtn {
   --icol: var(--foreground);
-  --halo: color-mix(in srgb, var(--icol) 20%, transparent);
+  --halo: color-mix(in srgb, var(--icol) 18%, transparent);
 
   display: inline-flex;
   align-items: center;
@@ -64,69 +70,95 @@
   width: 42px;
   height: 42px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
   color: var(--icol);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.02)
-  );
-  transition: transform 0.15s ease, box-shadow 0.25s ease, color 0.25s ease,
-    border-color 0.25s ease;
+
+  /* ✅ outlines always visible on light + dark */
+  border: 1.5px solid color-mix(in srgb, var(--foreground) 70%, transparent);
+
+  /* subtle “chip” fill that works in both modes */
+  background: color-mix(in srgb, var(--background) 92%, var(--foreground) 8%);
+
+  transition: transform 0.15s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease, background 0.25s ease;
 }
 
 .iconBtn:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 0 6px var(--halo);
-  border-color: color-mix(in srgb, var(--icol) 35%, transparent);
+  border-color: color-mix(in srgb, var(--icol) 78%, transparent);
 }
 
 /* Brand colours */
 .email {
-  --icol: #7dd3fc;
-} /* light sky for email */
+  --icol: #0ea5e9;
+}
 .phone {
   --icol: #22c55e;
-} /* green for call   */
+}
 .linkedin {
   --icol: #0a66c2;
 }
 .github {
-  --icol: #c9d1d9;
+  --icol: #1f2937;
 }
 .instagram {
   --icol: #e1306c;
 }
 .tiktok {
-  --icol: #69c9d0;
-} /* TikTok teal */
-.tiktok:hover {
-  box-shadow: 0 0 0 6px var(--halo),
-    0 0 0 10px color-mix(in srgb, #ee1d52 16%, transparent); /* subtle pink outer ring */
+  --icol: #111827;
 }
 
-/* --- Modal Backdrop --- */
+/* TikTok special halo */
+.tiktok:hover {
+  box-shadow: 0 0 0 6px var(--halo),
+    0 0 0 10px color-mix(in srgb, #ee1d52 14%, transparent);
+}
+
+/* =========================================================
+   MODAL BACKDROP (scroll container)
+   - ✅ allows scrolling on mobile
+   - ✅ prevents “too tall” modal clipping
+   ========================================================= */
 .modalBackdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
+
+  /* ✅ mobile scrolling works */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: 24px 16px;
   z-index: 1102;
 }
 
-/* --- Modal Card --- */
+/* =========================================================
+   MODAL CARD
+   ========================================================= */
 .modalCard {
   background: var(--background);
   color: var(--foreground);
+
   padding: 24px;
-  border-radius: 12px;
+  border-radius: 16px;
+
   width: 500px;
   max-width: 92%;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* ✅ force visible border in light mode */
+  border: 2px solid color-mix(in srgb, var(--foreground) 75%, transparent);
+
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
   position: relative;
+
+  /* ✅ never exceed viewport height; scroll happens on backdrop */
+  max-height: calc(100dvh - 48px);
 }
 
 .closeButton {
@@ -148,31 +180,57 @@
   margin-top: 10px;
 }
 
+/* ================================
+   INPUTS (dark outlines + good placeholder)
+   ================================ */
 .inputField {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 8px;
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  /* ✅ stronger border = no “washed out” look */
+  border: 2px solid color-mix(in srgb, var(--foreground) 55%, transparent);
+
   font-size: 1rem;
-  background: var(--background);
+  background: color-mix(in srgb, var(--background) 96%, var(--foreground) 4%);
   color: var(--foreground);
 }
 
+.inputField::placeholder {
+  color: color-mix(in srgb, var(--foreground) 40%, transparent);
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--foreground) 85%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--foreground) 12%, transparent);
+}
+
+/* Make textarea feel tighter */
+textarea.inputField {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* --- Submit button --- */
 .submitButton {
   background: var(--foreground);
   color: var(--background);
   padding: 12px;
   font-size: 1rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.25s ease, color 0.25s ease;
 }
+
 .submitButton:hover {
-  background: var(--highlight-color);
-  color: #fff;
+  background: color-mix(in srgb, var(--foreground) 85%, #000 15%);
+  color: var(--background);
   transform: translateY(-1px);
 }
+
 .submitButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -185,6 +243,7 @@
   justify-content: center;
   gap: 8px;
 }
+
 .walkingAnimation {
   width: 32px;
   height: 32px;
@@ -202,6 +261,7 @@
   pointer-events: none;
   gap: 8px;
 }
+
 .walkingAnimationLarge {
   width: 300px;
   height: 300px;
@@ -225,6 +285,7 @@
     left: 100vw;
   }
 }
+
 @keyframes dustTrail {
   from {
     transform: translateY(10px) scale(1);
@@ -251,6 +312,7 @@
   z-index: 1200;
   animation: fadeInOut 4s ease-in-out forwards;
 }
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -267,5 +329,44 @@
   100% {
     opacity: 0;
     transform: translateY(-10px);
+  }
+}
+
+/* =========================================================
+   MOBILE: shorter modal + easier scrolling
+   ========================================================= */
+@media (max-width: 600px) {
+  .modalBackdrop {
+    padding: 18px 12px;
+    align-items: flex-start; /* ✅ starts near top, feels “shorter” */
+  }
+
+  .modalCard {
+    width: 100%;
+    max-width: 560px;
+    padding: 16px;
+    border-radius: 14px;
+
+    /* ✅ shorter */
+    max-height: calc(100dvh - 36px);
+  }
+
+  .bookNowForm {
+    gap: 10px;
+  }
+
+  .inputField {
+    padding: 9px 10px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  textarea.inputField {
+    min-height: 96px; /* ✅ shorter textarea */
+  }
+
+  .submitButton {
+    padding: 12px;
+    border-radius: 12px;
   }
 }

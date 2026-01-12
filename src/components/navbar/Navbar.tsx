@@ -1,12 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  FaInstagram,
-  FaLinkedin,
-  FaGithub,
-} from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa6"; // ✅ TikTok icon
+import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
 import styles from "./Navbar.module.scss";
 
 const LINKS = [
@@ -24,9 +22,7 @@ const Navbar: React.FC = () => {
       <div className={styles.navbarContainer}>
         <ul className={styles.navLinks}>
           {LINKS.map(({ href, label }) => {
-            const active =
-              pathname === href ||
-              (href !== "/" && pathname.startsWith(href));
+            const active = pathname === href || (href !== "/" && pathname.startsWith(href));
 
             return (
               <li key={href} className={styles.navItem}>
@@ -42,13 +38,14 @@ const Navbar: React.FC = () => {
           })}
         </ul>
 
-        <div className={styles.socialIcons}>
+        <div className={styles.socialIcons} aria-label="Social links">
           <a
             href="https://www.instagram.com/awc_adaptiveworks/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            style={{ color: "#E1306C" }}
+            title="Instagram"
+            className={`${styles.socialIcon} ${styles.instagramIcon}`}
           >
             <FaInstagram size={20} />
           </a>
@@ -58,7 +55,8 @@ const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            style={{ color: "#0A66C2" }}
+            title="LinkedIn"
+            className={`${styles.socialIcon} ${styles.linkedinIcon}`}
           >
             <FaLinkedin size={20} />
           </a>
@@ -68,18 +66,19 @@ const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className={styles.githubIcon}
+            title="GitHub"
+            className={`${styles.socialIcon} ${styles.githubIcon}`}
           >
             <FaGithub size={20} />
           </a>
 
-          {/* ✅ TikTok */}
           <a
             href="https://www.tiktok.com/@adaptiveworkflow"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TikTok"
-            className={styles.tiktokIcon}
+            title="TikTok"
+            className={`${styles.socialIcon} ${styles.tiktokIcon}`}
           >
             <FaTiktok size={20} />
           </a>

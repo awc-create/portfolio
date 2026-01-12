@@ -71,7 +71,7 @@ const slides: ProjectSlide[] = [
   {
     title: "Nocturna",
     image: "/images/websites/nocturna.png",
-    siteLink: "https://nocturna-dusky.vercel.app/",
+    siteLink: "https://nocturnaagency.com/",
     techStack: ["Next.js", "Framer Motion", "Google Email", "UploadThing"],
     tags: ["Next.js", "Music", "Brand"],
     description:
