@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
 import BottomNav from "@/components/navbar/BottomNav";
 import Preloader from "@/components/preloader/Preloader";
 import Banner from "@/components/banner/Banner";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const isDashboardRoute = pathname?.startsWith("/dashboard") || pathname?.startsWith("/login");
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,6 +40,10 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setHydrated(true);
   }, []);
+
+  if (isDashboardRoute) {
+    return <>{children}</>
+  }
 
   return (
     <>
