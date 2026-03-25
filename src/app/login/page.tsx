@@ -2,9 +2,13 @@
 
 import { signIn } from "next-auth/react";
 import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
 function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,18 +18,26 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
     try {
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
-        callbackUrl: "/admin",
+        callbackUrl,
       });
+
       if (res?.error) {
         setError("Invalid email or password.");
-      } else if (res?.url) {
-        window.location.href = res.url;
+        return;
       }
+
+      if (res?.url) {
+        window.location.href = res.url;
+        return;
+      }
+
+      window.location.href = callbackUrl;
     } catch {
       setError("Something went wrong.");
     } finally {
@@ -45,7 +57,6 @@ function LoginForm() {
         overflow: "hidden",
       }}
     >
-      {/* Background grid */}
       <div
         style={{
           position: "absolute",
@@ -110,7 +121,6 @@ function LoginForm() {
           </p>
 
           <form onSubmit={handleSubmit}>
-            {/* Email */}
             <label style={labelStyle}>Email Address</label>
             <input
               type="email"
@@ -118,12 +128,12 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@adaptiveworks.net"
               required
+              autoComplete="email"
               style={inputStyle}
               onFocus={(e) => (e.target.style.borderColor = "var(--green)")}
               onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
             />
 
-            {/* Password */}
             <label style={labelStyle}>Password</label>
             <input
               type="password"
@@ -131,6 +141,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
+              autoComplete="current-password"
               style={{ ...inputStyle, marginBottom: error ? 16 : 24 }}
               onFocus={(e) => (e.target.style.borderColor = "var(--green)")}
               onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
@@ -238,7 +249,7 @@ const inputStyle: React.CSSProperties = {
 
 export default function LoginPage() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <LoginForm />
     </Suspense>
   );
