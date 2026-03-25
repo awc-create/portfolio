@@ -11,7 +11,6 @@ export interface ContainerStat {
   netIn: number
   netOut: number
   status: "running" | "stopped" | "error"
-  image: string
 }
 
 export interface SiteInfo {
@@ -32,7 +31,7 @@ function parseBytes(str: string): number {
 
 export async function getContainerStats(): Promise<ContainerStat[]> {
   const raw = await runSSH(
-    `docker stats --no-stream --format '{"id":"{{.ID}}","name":"{{.Name}}","cpu":"{{.CPUPerc}}","mem":"{{.MemUsage}}","memPerc":"{{.MemPerc}}","net":"{{.NetIO}}","image":"{{.Image}}"}'`
+    `docker stats --no-stream --format '{"id":"{{.ID}}","name":"{{.Name}}","cpu":"{{.CPUPerc}}","mem":"{{.MemUsage}}","memPerc":"{{.MemPerc}}","net":"{{.NetIO}}"}'`
   )
 
   return raw
@@ -56,7 +55,6 @@ export async function getContainerStats(): Promise<ContainerStat[]> {
           netIn: parseBytes(netIn),
           netOut: parseBytes(netOut),
           status: "running" as const,
-          image: d.image,
         }
       } catch {
         return null
@@ -68,7 +66,6 @@ export async function getContainerStats(): Promise<ContainerStat[]> {
 export async function getSites(): Promise<SiteInfo[]> {
   const stats = await getContainerStats()
 
-  // Group by slug — only app containers
   const appContainers = stats.filter(
     (c) => c.name.match(/-app-\d+$/) || c.name.match(/-web-\d+$/)
   )
