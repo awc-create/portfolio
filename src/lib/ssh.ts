@@ -7,11 +7,11 @@ export async function getSSH(): Promise<NodeSSH> {
 
   const ssh = new NodeSSH()
   await ssh.connect({
-    host: process.env.HZ_SSH_HOST ?? "49.13.206.154",
-    username: process.env.HZ_SSH_USER ?? "root",
-    privateKey: process.env.HZ_SSH_KEY?.replace(/\\n/g, "\n"),
-    readyTimeout: 10000,
-  })
+  host: process.env.HZ_SSH_HOST ?? "49.13.206.154",
+  username: process.env.HZ_SSH_USER ?? "root",
+  privateKey: Buffer.from(process.env.HZ_SSH_KEY!, 'base64').toString('utf-8'),
+  readyTimeout: 10000,
+})
 
   sshClient = ssh
   return ssh
