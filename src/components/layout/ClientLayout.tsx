@@ -9,7 +9,7 @@ import Banner from "@/components/banner/Banner";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const isDashboardRoute = pathname?.startsWith("/dashboard") || pathname?.startsWith("/login");
+  const isadminRoute = pathname?.startsWith("/admin") || pathname?.startsWith("/login");
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -41,7 +41,7 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
     setHydrated(true);
   }, []);
 
-  if (isDashboardRoute) {
+  if (isadminRoute) {
     return <>{children}</>
   }
 

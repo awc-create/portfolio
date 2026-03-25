@@ -23,12 +23,12 @@ export default function InfrastructurePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/dashboard/infrastructure")
+    fetch("/api/admin/infrastructure")
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false) })
       .catch(() => setLoading(false))
     const interval = setInterval(() => {
-      fetch("/api/dashboard/infrastructure")
+      fetch("/api/admin/infrastructure")
         .then((r) => r.json())
         .then(setData)
     }, 30000)

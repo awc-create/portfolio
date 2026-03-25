@@ -19,7 +19,7 @@ function LoginForm() {
         email,
         password,
         redirect: false,
-        callbackUrl: "/dashboard",
+        callbackUrl: "/admin",
       });
       if (res?.error) {
         setError("Invalid email or password.");
@@ -106,7 +106,7 @@ function LoginForm() {
             Sign in
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: 13, marginBottom: 28 }}>
-            AWC Internal Dashboard
+            AWC Internal admin
           </p>
 
           <form onSubmit={handleSubmit}>

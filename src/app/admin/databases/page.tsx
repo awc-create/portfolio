@@ -16,7 +16,7 @@ export default function DatabasesPage() {
   const [activeDb, setActiveDb] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch("/api/dashboard/databases")
+    fetch("/api/admin/databases")
       .then((r) => r.json())
       .then((d) => {
         setData(d)

@@ -214,7 +214,7 @@ function SiteDetailView({ site }: { site: Site }) {
   )
 }
 
-export default function DashboardPage() {
+export default function AdminPage() {
   const [sites, setSites] = useState<Site[]>([])
   const [activeTab, setActiveTab] = useState("all")
   const [loading, setLoading] = useState(true)
@@ -222,7 +222,7 @@ export default function DashboardPage() {
 
   async function fetchSites() {
     try {
-      const res = await fetch("/api/dashboard/sites")
+      const res = await fetch("/api/admin/sites")
       if (res.ok) {
         const data = await res.json()
         setSites(data)

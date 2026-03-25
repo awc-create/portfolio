@@ -6,13 +6,13 @@ import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
 
 const NAV = [
-  { href: "/dashboard", label: "Overview", icon: "▦" },
-  { href: "/dashboard/infrastructure", label: "Infrastructure", icon: "⬡" },
-  { href: "/dashboard/security", label: "Security", icon: "◈" },
-  { href: "/dashboard/databases", label: "Databases", icon: "⬟" },
+  { href: "/admin", label: "Overview", icon: "▦" },
+  { href: "/admin/infrastructure", label: "Infrastructure", icon: "⬡" },
+  { href: "/admin/security", label: "Security", icon: "◈" },
+  { href: "/admin/databases", label: "Databases", icon: "⬟" },
 ]
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   return (
