@@ -1,24 +1,40 @@
+// src/app/admin/databases/page.tsx
 "use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
-function formatBytes(bytes: number): string {
-  if (bytes > 1e9) return `${(bytes / 1e9).toFixed(1)} GB`
-  if (bytes > 1e6) return `${(bytes / 1e6).toFixed(0)} MB`
-  if (bytes > 1e3) return `${(bytes / 1e3).toFixed(0)} KB`
-  return `${bytes} B`
+interface DbTable {
+  schema: string
+  name: string
+  rowCount: number
+  size: string
+  indexSize: string
+  seqScans: number
+}
+
+interface DbData {
+  slug: string
+  dbName: string
+  size: string | null
+  activeConnections: number
+  tables: DbTable[]
+  error: string | null
+}
+
+interface DbResponse {
+  databases: DbData[]
 }
 
 export default function DatabasesPage() {
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<DbResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeDb, setActiveDb] = useState<string | null>(null)
 
   useEffect(() => {
     fetch("/api/admin/databases")
       .then((r) => r.json())
-      .then((d) => {
+      .then((d: DbResponse) => {
         setData(d)
         setLoading(false)
         if (d?.databases?.length > 0) setActiveDb(d.databases[0].slug)
@@ -27,7 +43,7 @@ export default function DatabasesPage() {
   }, [])
 
   const databases = data?.databases ?? []
-  const activeData = databases.find((d: any) => d.slug === activeDb)
+  const activeData = databases.find((d) => d.slug === activeDb)
 
   return (
     <>
@@ -47,9 +63,8 @@ export default function DatabasesPage() {
           </div>
         ) : (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-            {/* DB tabs */}
             <div className="tabs">
-              {databases.map((db: any) => (
+              {databases.map((db) => (
                 <button
                   key={db.slug}
                   className={`tab ${activeDb === db.slug ? "active" : ""}`}
@@ -62,7 +77,6 @@ export default function DatabasesPage() {
 
             {activeData && (
               <>
-                {/* Stats row */}
                 <div className="grid-4" style={{ marginBottom: 24 }}>
                   <div className="card">
                     <div className="card-label">DB Size</div>
@@ -89,7 +103,6 @@ export default function DatabasesPage() {
                   </div>
                 </div>
 
-                {/* Tables */}
                 {activeData.tables?.length > 0 && (
                   <div className="card" style={{ padding: 0, overflow: "hidden" }}>
                     <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)" }}>
@@ -108,7 +121,7 @@ export default function DatabasesPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {activeData.tables.map((t: any) => (
+                        {activeData.tables.map((t) => (
                           <tr key={t.name}>
                             <td style={{ color: "var(--text)" }}>{t.name}</td>
                             <td>{t.rowCount?.toLocaleString() ?? "—"}</td>
@@ -125,15 +138,7 @@ export default function DatabasesPage() {
                 )}
 
                 {activeData.error && (
-                  <div style={{
-                    background: "rgba(239,68,68,0.08)",
-                    border: "1px solid rgba(239,68,68,0.2)",
-                    borderRadius: 8,
-                    padding: "16px 20px",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 12,
-                    color: "var(--red)",
-                  }}>
+                  <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "16px 20px", fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--red)" }}>
                     {activeData.error}
                   </div>
                 )}

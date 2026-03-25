@@ -1,9 +1,28 @@
+// src/app/api/admin/databases/route.ts
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth-options"
 import { runSSH } from "@/lib/ssh"
 import { NextResponse } from "next/server"
 
-async function getDbStats(slug: string) {
+interface DbTable {
+  schema: string
+  name: string
+  rowCount: number
+  size: string
+  indexSize: string
+  seqScans: number
+}
+
+interface DbStats {
+  slug: string
+  dbName: string
+  size: string | null
+  activeConnections: number
+  tables: DbTable[]
+  error: string | null
+}
+
+async function getDbStats(slug: string): Promise<DbStats> {
   try {
     const envRaw = await runSSH(
       `cat /opt/services/postgres-${slug}/.env 2>/dev/null || echo ""`
@@ -22,33 +41,25 @@ async function getDbStats(slug: string) {
     const sizeRaw = await runSSH(
       `docker exec -e PGPASSWORD="${dbPass}" ${containerName} psql -U ${dbUser} -d ${dbName} -tAc "SELECT pg_size_pretty(pg_database_size('${dbName}'));" 2>/dev/null`
     )
-
     const connRaw = await runSSH(
       `docker exec -e PGPASSWORD="${dbPass}" ${containerName} psql -U ${dbUser} -d ${dbName} -tAc "SELECT count(*) FROM pg_stat_activity WHERE datname='${dbName}';" 2>/dev/null`
     )
-
     const tablesRaw = await runSSH(
       `docker exec -e PGPASSWORD="${dbPass}" ${containerName} psql -U ${dbUser} -d ${dbName} -tAc "SELECT schemaname,tablename,n_live_tup,pg_size_pretty(pg_total_relation_size(quote_ident(tablename)::regclass)),pg_size_pretty(pg_indexes_size(quote_ident(tablename)::regclass)),seq_scan FROM pg_stat_user_tables ORDER BY pg_total_relation_size(quote_ident(tablename)::regclass) DESC LIMIT 20;" 2>/dev/null`
     )
 
-    const tables = tablesRaw
+    const tables: DbTable[] = tablesRaw
       .split("\n")
       .filter(Boolean)
       .map((line) => {
         const [schema, name, rows, size, indexSize, seqScans] = line.split("|").map((s) => s.trim())
-        return { schema, name, rowCount: parseInt(rows) || 0, size, indexSize, seqScans: parseInt(seqScans) || 0 }
+        return { schema: schema ?? "", name: name ?? "", rowCount: parseInt(rows ?? "0") || 0, size: size ?? "", indexSize: indexSize ?? "", seqScans: parseInt(seqScans ?? "0") || 0 }
       })
 
-    return {
-      slug,
-      dbName,
-      size: sizeRaw.trim(),
-      activeConnections: parseInt(connRaw.trim()) || 0,
-      tables,
-      error: null,
-    }
-  } catch (err: any) {
-    return { slug, dbName: slug, size: null, activeConnections: 0, tables: [], error: err.message }
+    return { slug, dbName, size: sizeRaw.trim(), activeConnections: parseInt(connRaw.trim()) || 0, tables, error: null }
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error"
+    return { slug, dbName: slug, size: null, activeConnections: 0, tables: [], error: message }
   }
 }
 

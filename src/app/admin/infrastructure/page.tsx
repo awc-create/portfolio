@@ -1,7 +1,37 @@
+// src/app/admin/infrastructure/page.tsx
 "use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+
+interface SystemStats {
+  memory: { total: number; used: number; free: number }
+  disk: { total: number; used: number; free: number }
+  uptime: number
+  load: { load1: number; load5: number; load15: number }
+}
+
+interface ServerInfo {
+  id: number
+  name: string
+  status: string
+  server_type: { name: string; prices: Array<{ price_monthly: { gross: string }; price_hourly: { gross: string } }> }
+  datacenter: { location: { name: string } }
+}
+
+interface SpendInfo {
+  name: string
+  type: string
+  location: string
+  hourlyPrice: string
+  monthlyPrice: string
+}
+
+interface InfraData {
+  system: SystemStats | null
+  servers: ServerInfo[]
+  spend: SpendInfo[]
+}
 
 function formatBytes(bytes: number): string {
   if (bytes > 1e9) return `${(bytes / 1e9).toFixed(1)} GB`
@@ -19,18 +49,19 @@ function formatUptime(seconds: number): string {
 }
 
 export default function InfrastructurePage() {
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<InfraData | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch("/api/admin/infrastructure")
       .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false) })
+      .then((d: InfraData) => { setData(d); setLoading(false) })
       .catch(() => setLoading(false))
     const interval = setInterval(() => {
       fetch("/api/admin/infrastructure")
         .then((r) => r.json())
-        .then(setData)
+        .then((d: InfraData) => setData(d))
+        .catch(() => null)
     }, 30000)
     return () => clearInterval(interval)
   }, [])
@@ -56,81 +87,54 @@ export default function InfrastructurePage() {
           </div>
         ) : (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-            {/* System stats */}
             <div className="grid-4" style={{ marginBottom: 24 }}>
               <div className="card">
                 <div className="card-label">Memory</div>
                 <div className="card-value">{sys ? formatBytes(sys.memory.used) : "—"}</div>
                 <div className="card-sub">{sys ? `${memPct.toFixed(0)}% of ${formatBytes(sys.memory.total)}` : "—"}</div>
                 <div className="progress-bar">
-                  <div
-                    className={`progress-fill ${memPct > 80 ? "progress-red" : memPct > 60 ? "progress-amber" : "progress-green"}`}
-                    style={{ width: `${memPct}%` }}
-                  />
+                  <div className={`progress-fill ${memPct > 80 ? "progress-red" : memPct > 60 ? "progress-amber" : "progress-green"}`} style={{ width: `${memPct}%` }} />
                 </div>
               </div>
-
               <div className="card">
                 <div className="card-label">Disk</div>
                 <div className="card-value">{sys ? formatBytes(sys.disk.used) : "—"}</div>
                 <div className="card-sub">{sys ? `${diskPct.toFixed(0)}% of ${formatBytes(sys.disk.total)}` : "—"}</div>
                 <div className="progress-bar">
-                  <div
-                    className={`progress-fill ${diskPct > 80 ? "progress-red" : diskPct > 60 ? "progress-amber" : "progress-green"}`}
-                    style={{ width: `${diskPct}%` }}
-                  />
+                  <div className={`progress-fill ${diskPct > 80 ? "progress-red" : diskPct > 60 ? "progress-amber" : "progress-green"}`} style={{ width: `${diskPct}%` }} />
                 </div>
               </div>
-
               <div className="card">
                 <div className="card-label">Load Average</div>
                 <div className="card-value">{sys ? sys.load.load1.toFixed(2) : "—"}</div>
-                <div className="card-sub">
-                  {sys ? `5m: ${sys.load.load5.toFixed(2)} · 15m: ${sys.load.load15.toFixed(2)}` : "—"}
-                </div>
+                <div className="card-sub">{sys ? `5m: ${sys.load.load5.toFixed(2)} · 15m: ${sys.load.load15.toFixed(2)}` : "—"}</div>
               </div>
-
               <div className="card">
                 <div className="card-label">Uptime</div>
-                <div className="card-value" style={{ fontSize: 20 }}>
-                  {sys ? formatUptime(sys.uptime) : "—"}
-                </div>
+                <div className="card-value" style={{ fontSize: 20 }}>{sys ? formatUptime(sys.uptime) : "—"}</div>
                 <div className="card-sub">server uptime</div>
               </div>
             </div>
 
-            {/* Hetzner servers */}
             {servers.length > 0 && (
               <div className="card" style={{ marginBottom: 24, padding: 0, overflow: "hidden" }}>
                 <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)" }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.3em", color: "var(--text-muted)", textTransform: "uppercase" }}>
-                    Hetzner Servers
-                  </span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.3em", color: "var(--text-muted)", textTransform: "uppercase" }}>Hetzner Servers</span>
                 </div>
                 <table className="data-table">
                   <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Type</th>
-                      <th>Status</th>
-                      <th>Location</th>
-                      <th>Monthly</th>
-                    </tr>
+                    <tr><th>Name</th><th>Type</th><th>Status</th><th>Location</th><th>Monthly</th></tr>
                   </thead>
                   <tbody>
-                    {servers.map((s: any) => (
+                    {servers.map((s) => (
                       <tr key={s.id}>
                         <td style={{ color: "var(--text)" }}>{s.name}</td>
                         <td style={{ color: "var(--text-muted)" }}>{s.server_type?.name}</td>
                         <td>
-                          <span className={`badge ${s.status === "running" ? "badge-green" : "badge-red"}`}>
-                            ● {s.status}
-                          </span>
+                          <span className={`badge ${s.status === "running" ? "badge-green" : "badge-red"}`}>● {s.status}</span>
                         </td>
                         <td style={{ color: "var(--text-muted)" }}>{s.datacenter?.location?.name}</td>
-                        <td style={{ color: "var(--green)" }}>
-                          €{s.server_type?.prices?.[0]?.price_monthly?.gross ?? "—"}
-                        </td>
+                        <td style={{ color: "var(--green)" }}>€{s.server_type?.prices?.[0]?.price_monthly?.gross ?? "—"}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -138,46 +142,25 @@ export default function InfrastructurePage() {
               </div>
             )}
 
-            {/* Cost breakdown */}
             {spend.length > 0 && (
               <div className="card">
                 <div className="card-label" style={{ marginBottom: 16 }}>Monthly Cost Estimate</div>
-                {spend.map((s: any, i: number) => (
-                  <div key={i} style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "8px 0",
-                    borderBottom: i < spend.length - 1 ? "1px solid var(--border)" : "none"
-                  }}>
+                {spend.map((s, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < spend.length - 1 ? "1px solid var(--border)" : "none" }}>
                     <div>
                       <div style={{ fontSize: 13, color: "var(--text)" }}>{s.name}</div>
-                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>
-                        {s.type} · {s.location}
-                      </div>
+                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>{s.type} · {s.location}</div>
                     </div>
                     <div style={{ textAlign: "right" }}>
-                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--green)" }}>
-                        €{s.monthlyPrice}
-                      </div>
-                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)" }}>
-                        €{s.hourlyPrice}/hr
-                      </div>
+                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--green)" }}>€{s.monthlyPrice}</div>
+                      <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)" }}>€{s.hourlyPrice}/hr</div>
                     </div>
                   </div>
                 ))}
-                <div style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  paddingTop: 12,
-                  marginTop: 4,
-                  borderTop: "1px solid var(--border-bright)"
-                }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                    Total
-                  </span>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 12, marginTop: 4, borderTop: "1px solid var(--border-bright)" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase" }}>Total</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 16, color: "var(--green)", fontWeight: 500 }}>
-                    €{spend.reduce((a: number, s: any) => a + parseFloat(s.monthlyPrice ?? 0), 0).toFixed(2)}
+                    €{spend.reduce((a, s) => a + parseFloat(s.monthlyPrice ?? "0"), 0).toFixed(2)}
                   </span>
                 </div>
               </div>

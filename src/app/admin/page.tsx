@@ -1,3 +1,4 @@
+// src/app/admin/page.tsx
 "use client"
 
 import { useState, useEffect } from "react"
@@ -48,7 +49,6 @@ function AllSitesView({ sites }: { sites: Site[] }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-      {/* Summary row */}
       <div className="grid-4" style={{ marginBottom: 24 }}>
         <div className="card">
           <div className="card-label">Total Sites</div>
@@ -74,7 +74,6 @@ function AllSitesView({ sites }: { sites: Site[] }) {
         </div>
       </div>
 
-      {/* Sites table */}
       <div className="card" style={{ padding: 0, overflow: "hidden" }}>
         <table className="data-table">
           <thead>
@@ -93,13 +92,9 @@ function AllSitesView({ sites }: { sites: Site[] }) {
               const avgCpu = site.containers.reduce((a, c) => a + c.cpuPercent, 0) / (site.containers.length || 1)
               return (
                 <tr key={site.slug}>
-                  <td style={{ color: "var(--text)", fontWeight: 500 }}>
-                    {site.slug}
-                  </td>
+                  <td style={{ color: "var(--text)", fontWeight: 500 }}>{site.slug}</td>
                   <td><StatusBadge status={site.status} /></td>
-                  <td style={{ color: "var(--text-muted)" }}>
-                    {site.uptime?.domain ?? "—"}
-                  </td>
+                  <td style={{ color: "var(--text-muted)" }}>{site.uptime?.domain ?? "—"}</td>
                   <td style={{ color: site.uptime?.status === "slow" ? "var(--amber)" : "var(--text-muted)" }}>
                     {site.uptime?.responseMs ? `${site.uptime.responseMs}ms` : "—"}
                   </td>
@@ -120,17 +115,12 @@ function AllSitesView({ sites }: { sites: Site[] }) {
 function SiteDetailView({ site }: { site: Site }) {
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-      {/* Site header */}
       <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
         <div>
           <h2 style={{ fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{site.slug}</h2>
           {site.uptime?.domain && (
-            <a
-              href={`https://${site.uptime.domain}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", textDecoration: "none" }}
-            >
+            <a href={`https://${site.uptime.domain}`} target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", textDecoration: "none" }}>
               {site.uptime.domain} ↗
             </a>
           )}
@@ -139,7 +129,6 @@ function SiteDetailView({ site }: { site: Site }) {
         {site.uptime && <StatusBadge status={site.uptime.status} />}
       </div>
 
-      {/* Stats cards */}
       <div className="grid-3" style={{ marginBottom: 24 }}>
         <div className="card">
           <div className="card-label">HTTP Status</div>
@@ -150,12 +139,8 @@ function SiteDetailView({ site }: { site: Site }) {
         </div>
         <div className="card">
           <div className="card-label">Memory</div>
-          <div className="card-value">
-            {formatBytes(site.containers.reduce((a, c) => a + c.memUsage, 0))}
-          </div>
-          <div className="card-sub">
-            {site.containers.length} container{site.containers.length !== 1 ? "s" : ""}
-          </div>
+          <div className="card-value">{formatBytes(site.containers.reduce((a, c) => a + c.memUsage, 0))}</div>
+          <div className="card-sub">{site.containers.length} container{site.containers.length !== 1 ? "s" : ""}</div>
         </div>
         <div className="card">
           <div className="card-label">Avg CPU</div>
@@ -166,7 +151,6 @@ function SiteDetailView({ site }: { site: Site }) {
         </div>
       </div>
 
-      {/* Containers */}
       <div className="card" style={{ padding: 0, overflow: "hidden" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)" }}>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.3em", color: "var(--text-muted)", textTransform: "uppercase" }}>
@@ -175,22 +159,14 @@ function SiteDetailView({ site }: { site: Site }) {
         </div>
         <table className="data-table">
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-              <th>CPU</th>
-              <th>Memory</th>
-              <th>Mem %</th>
-            </tr>
+            <tr><th>Name</th><th>Status</th><th>CPU</th><th>Memory</th><th>Mem %</th></tr>
           </thead>
           <tbody>
             {site.containers.map((c) => (
               <tr key={c.name}>
                 <td style={{ color: "var(--text)" }}>{c.name}</td>
                 <td><StatusBadge status={c.status} /></td>
-                <td style={{ color: c.cpuPercent > 50 ? "var(--amber)" : "var(--text-muted)" }}>
-                  {c.cpuPercent.toFixed(2)}%
-                </td>
+                <td style={{ color: c.cpuPercent > 50 ? "var(--amber)" : "var(--text-muted)" }}>{c.cpuPercent.toFixed(2)}%</td>
                 <td>{formatBytes(c.memUsage)}</td>
                 <td>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 100 }}>
@@ -250,26 +226,10 @@ export default function AdminPage() {
           <div>
             <h1 className="page-title">Overview</h1>
             <p className="page-sub">
-              {lastUpdated
-                ? `Last updated ${lastUpdated.toLocaleTimeString()} · auto-refresh 30s`
-                : "Loading..."}
+              {lastUpdated ? `Last updated ${lastUpdated.toLocaleTimeString()} · auto-refresh 30s` : "Loading..."}
             </p>
           </div>
-          <button
-            onClick={fetchSites}
-            style={{
-              background: "none",
-              border: "1px solid var(--border)",
-              color: "var(--text-muted)",
-              padding: "6px 14px",
-              borderRadius: 4,
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              cursor: "pointer",
-              letterSpacing: "0.1em",
-              transition: "all 0.15s",
-            }}
-          >
+          <button onClick={fetchSites} style={{ background: "none", border: "1px solid var(--border)", color: "var(--text-muted)", padding: "6px 14px", borderRadius: 4, fontFamily: "var(--font-mono)", fontSize: 11, cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.15s" }}>
             ↻ REFRESH
           </button>
         </div>
@@ -283,35 +243,18 @@ export default function AdminPage() {
           </div>
         ) : (
           <>
-            {/* Tabs */}
             <div className="tabs">
-              <button
-                className={`tab ${activeTab === "all" ? "active" : ""}`}
-                onClick={() => setActiveTab("all")}
-              >
+              <button className={`tab ${activeTab === "all" ? "active" : ""}`} onClick={() => setActiveTab("all")}>
                 All Sites ({sites.length})
               </button>
               {sites.map((site) => (
-                <button
-                  key={site.slug}
-                  className={`tab ${activeTab === site.slug ? "active" : ""}`}
-                  onClick={() => setActiveTab(site.slug)}
-                >
-                  <span style={{
-                    display: "inline-block",
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: site.status === "healthy" ? "var(--green)" : site.status === "degraded" ? "var(--amber)" : "var(--red)",
-                    marginRight: 6,
-                    verticalAlign: "middle",
-                  }} />
+                <button key={site.slug} className={`tab ${activeTab === site.slug ? "active" : ""}`} onClick={() => setActiveTab(site.slug)}>
+                  <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: site.status === "healthy" ? "var(--green)" : site.status === "degraded" ? "var(--amber)" : "var(--red)", marginRight: 6, verticalAlign: "middle" }} />
                   {site.slug}
                 </button>
               ))}
             </div>
 
-            {/* Tab content */}
             <AnimatePresence mode="wait">
               {activeTab === "all" ? (
                 <AllSitesView key="all" sites={sites} />
