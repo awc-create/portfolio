@@ -1,14 +1,7 @@
 project_type: node
 slug: portfolio
 port: 3000
-
+db: postgres
 domains:
   prod: adaptiveworks.net
-  
-deploy_targets:
-  main-hetz: hetzner
-  dev: vercel
-  preview: vercel
-
 pgadmin_subdomain: dbui
-pgadmin_subdomain: db
