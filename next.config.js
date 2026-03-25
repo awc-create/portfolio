@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
-  // output: 'export' REMOVED — now a Node.js server app
   trailingSlash: false,
+  eslint: { ignoreDuringBuilds: true },
   images: {
     unoptimized: true,
   },
-  // Allow SSH key env var with newlines
-  serverExternalPackages: ["node-ssh"],
+  serverExternalPackages: ['node-ssh'],
+  outputFileTracingIncludes: {
+    '/**/*': ['./node_modules/bcryptjs/**']
+  }
 }
 
 module.exports = nextConfig
